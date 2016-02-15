@@ -1,0 +1,109 @@
+=== version 2.2
+
+Cron15 au lieu du cron pour vérifier si le service est actif
+
+Relance du service directement sur postSave
+
+Script des dépendances éxécutable à tout moment de la page config
+
+Refonte de la page configuration
+
+Refonte de la page équipement pour suivre les nouvelles précos
+
+=== version 2.1
+
+Ajout des types mySensors 1.5
+
+Nouvelle version nodejs Jeedom prise en compte
+
+Debug sur le node quand gateway en erreur
+
+=== version 2.1
+
+Intégration du niveau de log dans le nodejs + passage en debug d'un grand nombre de logs
+
+=== Version 2.0
+
+Mise à jour et complément de documentation
+
+=== Version 1.9.9
+
+Refonte de la page de configuration du plugin
+
+Prise en compte d'un port non standard sur le jeedom principal (retour d'installation sur Synology)
+
+Passage à nodejs en binaire au lieu d'un appel de node
+
+Ajout de l'acquittement par le controleur
+
+Ajout de la fonction reboot du node
+
+Ajout de la possibilité de récupérer des valeurs depuis Jeedom (y compris un type "virtuel" qui permet de lier toute information de Jeedom à un capteur)
+
+Mise à dispo de la traduction des types de données et capteurs
+
+=== Version 1.9.8
+
+Correction d'un bug sur la batterie
+
+Modification de l'affichage de la version de librairie de la gateway
+
+=== Version 1.9.7
+
+Refonte de la page équipement
+
+La supervision des équipements et des batteries passe dans le core de Jeedom
+
+=== Version 1.9.6
+
+Changement de l'interface équipement
+
+Modification du logo
+
+=== Version 1.9.5
+
+Ajout de doc
+
+Modification du setEventOnly pour conserver les bonnes heures d'envoi de données
+
+=== Version 1.9.3/1.9.4
+
+Ajout de doc
+
+Correction de bugs network gateway
+
+=== Version 1.9.2
+
+Ajout de la doc du plugin
+
+=== Version 1.9.1
+
+Ajout de la version de lib de la gateway
+
+Modification des images pour le market et la doc
+
+=== Version 1.9
+
+Ajout de commande pour le type Lock
+
+Ajout de l'ordre par défaut Capteur -> Commande 1 -> Commande 2 -> Capteur
+
+Ajout du mode d'inclusion
+
+Modification du format des dates de log du NodeJS
+
+=== Version 1.8
+
+Amélioration de l'affichage de la page d'équipement
+
+Correction d'un bug sur le statut de la connexion gateway
+
+Ajout de widgets par défaut
+
+=== Version 1.7
+
+Amélioration de l'affichage de la page d'équipement
+
+Ajout de widgets par défaut sur certains équipements et des commandes qui lui sont liés
+
+Finalisation du support de la lib 1.4 (pou V_ message et S_ types), en attente des retours de la version 2

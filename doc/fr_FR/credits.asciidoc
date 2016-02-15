@@ -1,0 +1,14 @@
+'''
+=== Les Contributeurs au plugin mySensors pour Jeedom
+
+*  johann : qui a lancé le plugin
+
+*  Filoucaennais : qui est depuis le début sur le plugin
+  
+*  lunarok : qui maintient le plugin
+  
+*  Aloïs : qui a fournit le logo pour le market
+  
+*  mx85 : pour son apport de log NodeJS au format Jeedom et sa correction du bug d'affichage de la gateway réseau
+  
+*  totovaauski : pour sa contribution aux corrections d'orthographe

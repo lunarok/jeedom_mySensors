@@ -1,0 +1,89 @@
+=== Pré-requis système
+
+En fonction du type de gateway, des pré-requis peuvent être nécessaire. Ceux ci sont normalement pris en charge par l'installation du plugin.
+
+'''
+==== Serial Gateway
+
+Jeedom pour pouvoir communiquer avec une Gateway sur port USB a besoin du module serialport pour nodejs.
+Normalement cette installation est faite par le plugin lors de son activation.
+
+'''
+==== Network Gateway
+
+Pour utiliser une gateway en réseau, aucun prérequis système.
+
+'''
+=== Configuration du plugin
+
+La première étape de configuration se fait sur la page du plugin sur votre Jeedom maître.
+
+Elle permettra de configurer la connexion avec la gateway.
+
+image::../images/mySensors4.png[Image du produit]
+
+'''
+==== Configuration du mode
+
+Plusieurs modes sont disponibles pour mySensors :
+
+  *  Gateway sur Jeedom maître : pour utiliser le service controlleur en local (à choisir pour un gateway branchée localement)
+
+  *  Gateway sur un Jeedom Esclave (la liste des esclaves apparait) : pour utiliser le controleur sur un Jeedom déporté (à choisir pour un gateway branchée sur un esclave)
+
+  *  Gateway réseau : pour une gateway réseau
+
+'''
+==== Configuration du port
+
+Si on a choisi une connexion USB sur un Jeedom, la liste des ports est constituée de :
+
+  *  la liste des périphériques USB branchés au Jeedom sélectionné, celle-ci est automatique
+
+  *  la possibilité de choisir une connexion série (dans ce cas, il faudra remplir un champ libre avec le port)
+
+Si on a choisi une Gateway réseau, un champ remplace la liste avec l'adresse à remplir. Cette adresse doit contenir le port (exemple : 192.168.1.1:5003)
+
+'''
+==== Configuration de l'inclusion
+
+Ce choix permet de décider si le controleur va accepter les nouvelles demandes d'identifiant sur le réseau mySensors.
+
+En le passant en "désactivé", aucun nouvel équipement n'apparaitra dans Jeedom. Le plugin Jeedom n'utilise pas de bouton sur la gateway, l'inclusion se gère entièrement dans le plugin.
+
+'''
+=== Menu mySensors
+
+Vous retrouverez toute la configuration des équipements (informations et commandes) dans le menu Plugins->Protocole domotique->mySensors 
+
+image::../images/mySensors3.png[Image du produit]
+
+'''
+==== Configuration des nodes et leurs capteurs
+
+Les équipements Jeedom sont automatiquement créés au démarrage des nodes.
+De la même facon que les équipements sont automatiquement créés à l'arrivée de nouveaux nodes, les capteurs des nodes sont automatiquement créés comme des "Informations" dans Jeedom.
+
+Exemple : si on reprend le cas du capteur de température, le protocole mySensors inclut une présentation du noeud sur son réseau, il envoit les informations qu'il fournit : température, niveau de batterie, humidité ... automatiquement, le controleur créé les informations associées avec leur SENSOR_ID (que vous avec dans le sketch injecté sur l'Arduino) 
+
+image::../images/mySensors2.png[Image du produit]
+
+'''
+==== Configuration des commandes des nodes
+
+Des commandes sont créées automatiquement pour certains capteurs.
+
+* Relais : on/off
+
+* Dimmer : slider
+
+* Verrou : activé/désactivé
+
+image::../images/mySensors1.png[Image du produit]
+
+'''
+==== Création de commandes avancées
+
+Il est possible que certains capteurs nécessitent des commandes qui ne sont pas créées automatiquement 
+car elles ne peuvent être déduites de la présentation. Dans ce cas, on créera une commande avec le bouton ajout commande 
+et les options nécessaires.
