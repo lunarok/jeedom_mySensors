@@ -259,7 +259,7 @@ sendVarToJS('mySensorDico', $dico)
     <fieldset>
         <div class="form-actions">
         <a class="btn btn-success btn-sm cmdAction" id="bt_addmySensorsInfo"><i class="fa fa-plus-circle"></i> {{Ajouter une commande info}}</a>
-        <a class="btn btn-success btn-sm cmdAction" id="bt_addmySensorsAction"><i class="fa fa-plus-circle"></i> {{Ajouter une commande actio,}}</a>
+        <a class="btn btn-success btn-sm cmdAction" id="bt_addmySensorsAction"><i class="fa fa-plus-circle"></i> {{Ajouter une commande action}}</a>
       </div>
   </fieldset>
 </form>
