@@ -25,11 +25,10 @@ $("#bt_addmySensorsAction").on('click', function(event) {
     addCmdToTable(_cmd);
 });
 
-
-/*
-$('#table_cmd tbody').delegate('tr .remove', 'click', function(event) {
-    $(this).closest('tr').remove();
-});*/
+$('#bt_healthmySensors').on('click', function () {
+    $('#md_modal').dialog({title: "{{Santé mySensors}}"});
+    $('#md_modal').load('index.php?v=d&plugin=mySensors&modal=health').dialog('open');
+});
 
 $("#table_cmd").delegate(".listEquipementInfo", 'click', function () {
     var el = $(this);
