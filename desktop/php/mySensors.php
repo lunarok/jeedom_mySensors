@@ -164,7 +164,7 @@ sendVarToJS('mySensorDico', $dico)
                         <div class="form-group">
                     		<label class="col-md-2 control-label">{{ID du Node}}</label>
                     		<div class="col-md-3">
-                    		 <span class="eqLogicAttr" data-l1key="configuration" data-l2key="nodeid"></span>
+                    		 <span if="nodeId" class="eqLogicAttr" data-l1key="configuration" data-l2key="nodeid"></span>
                     		</div>
 
                     		<label class="col-md-2 control-label">{{Version mySensors}}</label>
