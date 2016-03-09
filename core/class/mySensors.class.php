@@ -184,27 +184,12 @@ class mySensors extends eqLogic {
     if ($deamon_info['launchable'] != 'ok') {
       throw new Exception(__('Veuillez vérifier la configuration', __FILE__));
     }
-    log::add('mySensors', 'info', 'Lancement du démon mySensors');
-    $gateMode = "Serial";
-    $gatePort = "0";
 
-    if (config::byKey('nodeGateway', 'mySensors') == 'acm') {
-      $usbGateway = "/dev/ttyACM0";
-    } else if (config::byKey('nodeGateway', 'mySensors') == 'network') {
-      $gateMode = "Network";
-      $netAd = explode(":",config::byKey('nodeAdress', 'mySensors'));
-      $usbGateway = $netAd[0];
-      $gatePort = $netAd[1];
-    } else {
-      $usbGateway = jeedom::getUsbMapping(config::byKey('nodeGateway', 'mySensors'));
-    }
-    $inclusion = config::byKey('include_mode', 'mySensors');
-
-    log::add('mySensors','info','Configuration utilisée : Gateway ' . $usbGateway . ' Inclusion ' . $inclusion);
-
+    $usbGateway = jeedom::getUsbMapping(config::byKey('nodeGateway', 'mySensors'));
     if ($usbGateway == '' ) {
       throw new Exception(__('Le port : ', __FILE__) . $port . __(' n\'existe pas', __FILE__));
     }
+    log::add('mySensors','info','Lancement du démon mySensors : Gateway ' . $usbGateway);
 
     if (config::byKey('jeeNetwork::mode') != 'master') { //Je suis l'esclave
       $url  = config::byKey('jeeNetwork::master::ip') . '/core/api/jeeApi.php?api=' . config::byKey('jeeNetwork::master::apikey');
@@ -222,7 +207,10 @@ class mySensors extends eqLogic {
       $log = "0";
     }
     $sensor_path = realpath(dirname(__FILE__) . '/../../node');
-    $cmd = 'nice -n 19 nodejs ' . $sensor_path . '/mysensors.js ' . $url . ' ' . $usbGateway . ' ' . $gateMode . ' ' . $gatePort . ' ' . $inclusion . ' 1 ' . $log;
+    if ($usbGateway != "none") {
+      exec('sudo chmod -R 777 ' . $usbGateway);
+    }
+    $cmd = 'nice -n 19 nodejs ' . $sensor_path . '/mysensors.js ' . $url . ' ' . $usbGateway . ' ' . $log;
 
     log::add('mySensors', 'debug', 'Lancement démon mySensors : ' . $cmd);
 
@@ -286,20 +274,6 @@ class mySensors extends eqLogic {
     passthru('/bin/bash ' . $resource_path . '/nodejs.sh ' . $resource_path . ' > ' . log::getPathToLog('mySensors_dep') . ' 2>&1 &');
   }
 
-  /**
-  * retourne le numéro du prochain mysensorid dispo
-  */
-  protected static function getNextSensorId() {
-    $max = 0;
-    //recherche dans tous les eqlogic
-    foreach( self::byType( 'mySensors' ) as $elogic) {
-      if ($max <  $elogic->getConfiguration('nodeid') ) {
-        $max = $elogic->getConfiguration('nodeid');
-      }
-    }
-    return $max + 1;
-  }
-
   public static function sendCommand( $destination, $sensor, $command, $acknowledge, $type, $payload ) {
     foreach (jeeNetwork::byPlugin('mySensors') as $jeeNetwork) {
       $jsonrpc = $jeeNetwork->getJsonRpc();
@@ -348,7 +322,7 @@ class mySensors extends eqLogic {
 
           if (is_object($cmdvirt)) {
             echo $cmdvirt->execCmd();
-            log::add('mySensors', 'info', 'Valeur virtuelle transmise');
+            log::add('mySensors', 'debug', 'Valeur virtuelle transmise');
           } else {
             echo "Virtuel KO";
             //echo $cmdlogic->getCmdValue();
@@ -356,7 +330,7 @@ class mySensors extends eqLogic {
           }
         } else {
           echo $cmdlogic->execCmd();
-          log::add('mySensors', 'info', 'Valeur de capteur transmise');
+          log::add('mySensors', 'debug', 'Valeur de capteur transmise');
         }
       }else{
         echo "Valeur KO";
@@ -364,6 +338,15 @@ class mySensors extends eqLogic {
       }
       $cmdlogic->event($value);
 
+    }
+  }
+
+  public static function getNextSensorId() {
+    $nodeid = init('id');
+    $sensor = init('sensor');
+    if (config::byKey('include_mode','mySensors') == 1) {
+      $id = '1';
+      mySensors::sendToController( '255', '255', '3', '0', '4', $id );
     }
   }
 
@@ -422,6 +405,11 @@ class mySensors extends eqLogic {
       $mys->setName($value.' - '.$nodeid);
       $mys->setIsEnable(true);
       $mys->save();
+      event::add('mySensors::includeDevice',
+      array(
+        'state' => $state
+      )
+      );
     }
   }
 
@@ -825,16 +813,12 @@ class mySensors extends eqLogic {
           $mysCmd->save();
         }
       }
-
     }
-
   }
 
   public static function event() {
-
     $messageType = init('messagetype');
     switch ($messageType) {
-
       case 'saveValue' : self::saveValue(); break;
       case 'saveSketchName' : self::saveSketchNameEvent(); break;
       case 'saveSketchVersion' : self::saveSketchVersion(); break;
@@ -843,9 +827,8 @@ class mySensors extends eqLogic {
       case 'saveBatteryLevel' : self::saveBatteryLevel(); break;
       case 'saveGateway' : self::saveGateway(); break;
       case 'getValue' : self::getValue(); break;
-
+      case 'getNextSensorId' : self::getNextSensorId(); break;
     }
-
   }
 
 }
@@ -906,7 +889,4 @@ class mySensorsCmd extends cmd {
     return true;
   }
 
-
-
-  /*     * **********************Getteur Setteur*************************** */
 }

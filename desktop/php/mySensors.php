@@ -15,7 +15,12 @@ $value = __($value,__FILE__);
 foreach($dico['C'] as &$value){
 $value = __($value,__FILE__);
 }
-sendVarToJS('mySensorDico', $dico)
+sendVarToJS('mySensorDico', $dico);
+$state = config::byKey('include_mode', 'mySensors');
+echo '<div id="div_inclusionAlert"></div>';
+if ($state == 1) {
+			echo '<div class="alert jqAlert alert-warning" id="div_inclusionAlert" style="margin : 0px 5px 15px 15px; padding : 7px 35px 7px 15px;">{{Vous êtes en mode inclusion. Cliquez à nouveau sur le bouton d\'inclusion pour sortir de ce mode}}</div>';
+		}
 
 ?>
 
@@ -23,6 +28,13 @@ sendVarToJS('mySensorDico', $dico)
     <div class="col-lg-2 col-md-3 col-sm-4">
         <div class="bs-sidebar">
             <ul id="ul_eqLogic" class="nav nav-list bs-sidenav">
+              <?php
+              if ($state == 1) {
+                echo ' <a class="btn btn-success tooltips changeIncludeState" title="{{Inclure périphérique RF}}" data-state="0" style="width : 100%;margin-bottom : 5px;"><i class="fa fa-sign-in fa-rotate-90"></i> {{Arrêter inclusion}}</a>';
+              } else {
+                echo ' <a class="btn btn-default tooltips changeIncludeState" title="{{Inclure périphérique RF}}" data-state="1" style="width : 100%;margin-bottom : 5px;"><i class="fa fa-sign-in fa-rotate-90"></i> {{Mode inclusion}}</a>';
+              }
+              ?>
                 <li class="filter" style="margin-bottom: 5px;"><input class="filter form-control input-sm" placeholder="{{Rechercher}}" style="width: 100%"/></li>
                 <?php
                 foreach ($eqLogics as $eqLogic) {
@@ -36,6 +48,23 @@ sendVarToJS('mySensorDico', $dico)
     <div class="col-lg-10 col-md-9 col-sm-8 eqLogicThumbnailDisplay" style="border-left: solid 1px #EEE; padding-left: 25px;">
    <legend><i class="fa fa-cog"></i>  {{Gestion}}</legend>
    <div class="eqLogicThumbnailContainer">
+     <?php
+     if ($state == 1) {
+       echo '<div class="cursor changeIncludeState card" data-state="0" style="background-color : #8000FF; height : 140px;margin-bottom : 10px;padding : 5px;border-radius: 2px;width : 160px;margin-left : 10px;" >';
+       echo '<center>';
+       echo '<i class="fa fa-sign-in fa-rotate-90" style="font-size : 5em;color:#94ca02;"></i>';
+       echo '</center>';
+       echo '<span style="font-size : 1.1em;position:relative; top : 23px;word-break: break-all;white-space: pre-wrap;word-wrap: break-word;color:#94ca02"><center>{{Arrêter inclusion}}</center></span>';
+       echo '</div>';
+     } else {
+       echo '<div class="cursor changeIncludeState card" data-state="1" style="background-color : #ffffff; height : 140px;margin-bottom : 10px;padding : 5px;border-radius: 2px;width : 160px;margin-left : 10px;" >';
+       echo '<center>';
+       echo '<i class="fa fa-sign-in fa-rotate-90" style="font-size : 5em;color:#94ca02;"></i>';
+       echo '</center>';
+       echo '<span style="font-size : 1.1em;position:relative; top : 23px;word-break: break-all;white-space: pre-wrap;word-wrap: break-word;color:#94ca02"><center>{{Mode inclusion}}</center></span>';
+       echo '</div>';
+     }
+     ?>
      <div class="cursor eqLogicAction" data-action="gotoPluginConf" style="background-color : #ffffff; height : 140px;margin-bottom : 10px;padding : 5px;border-radius: 2px;width : 160px;margin-left : 10px;">
      <center>
        <i class="fa fa-wrench" style="font-size : 5em;color:#767676;"></i>
