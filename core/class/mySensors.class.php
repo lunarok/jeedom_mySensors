@@ -305,6 +305,10 @@ class mySensors extends eqLogic {
 
   }
 
+  public static function saveNetGate($value) {
+    config::save('netgate', $value,  'mySensors');
+  }
+
   public static function getValue() {
     $nodeid = init('id');
     $sensor = init('sensor');
@@ -346,7 +350,8 @@ class mySensors extends eqLogic {
     $sensor = init('sensor');
     if (config::byKey('include_mode','mySensors') == 1) {
       $id = '1';
-      mySensors::sendToController( '255', '255', '3', '0', '4', $id );
+      //doit cibler seulement la bonne gateway avec sendToController
+      mySensors::sendCommand( '255', '255', '3', '0', '4', $id );
     }
   }
 

@@ -25,7 +25,11 @@ try {
     }
 
     if (init('action') == 'restartEq') {
-        ajax::success(mySensors::sendToController( init('node'), '0', '3', '0', '13', '0' ));
+        ajax::success(mySensors::sendCommand( init('node'), '0', '3', '0', '13', '0' ));
+    }
+
+    if (init('action') == 'netgate') {
+        ajax::success(mySensors::saveNetGate(init('value')));
     }
 
     throw new Exception(__('{{Aucune methode correspondante à}} : ', __FILE__) . init('action'));

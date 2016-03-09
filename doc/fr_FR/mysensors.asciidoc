@@ -7,7 +7,7 @@ On a donc un réseau de noeuds qui communique sur la fréquence du 2.4GHz entre 
 
 C'est elle qui est connectée à Jeedom par ce plugin et qui transmet les informations entre les noeuds et Jeedom dans le protocole mySensors.
 
-Chaque nœud permet de répéter le signal d'un capteur qui serait hors de portée de la gateway avec si besoin des nœuds répéteurs. 
+Chaque nœud permet de répéter le signal d'un capteur qui serait hors de portée de la gateway avec si besoin des nœuds répéteurs.
 
 image::../images/mySensors-Network.png[Réseau mySensors]
 
@@ -16,30 +16,33 @@ Le plugin Jeedom permet d'utiliser une gateway USB (sur un Jeedom central ou dé
 '''
 === mySensors, lexique
 
-  Gateway:: 
+  Gateway::
     la passerelle entre le réseau mySensors et votre réseau informatique
-  
+
   Controler::
     le service côté informatique qui communique avec la gateway
-  
+
   Node::
     un nœud de capteur/actionneur
-  
+
   Sensor::
     un capteur sur un noeud
-  
+
   Sensor Type::
     le type de capteur (relais, lumière, température ...)
-  
+
   Data Type::
     le type de donnée pour un capteur
-  
+
   Repeater::
     un noeud répéteur de signal (mais accessoirement, peut aussi être un capteur)
-  
+
   NRF24L01::
-    le composant qui assure la communication sans fil entre les Arduino du réseau mySensors, le protocole
-  
+    le composant qui assure la communication sans fil entre les Arduino du réseau mySensors
+
+  RFM69::
+    un autre composant qui peut assurer la communication sans fil entre les Arduino du réseau mySensors
+
 '''
 === mySensors, le protocole
 
@@ -65,11 +68,11 @@ Exemple d'un message : 16;0;1;0;0;20,1
 Noeud::
   Le noeud cible ou source du message. C'est son identifiant numérique. Va de 1 à 254 pour les noeuds. 0 et 255 sont réservés.
   Cet identifiant est obtenu auprès du controleur au premier démarrage, puis utiliser par toute communication avec le noeud, il est visible sur la page de l'équipement.
-  
+
 Capteur::
   Le capteur du noeud auquel le message se rapporte. Les valeurs utilisables sont de 0 à 254 par noeud.
   C'est l'identifiant unique sur le noeud d'un capteur. C'est le noeud lors de sa présentation qui déclare ses capteurs et leurs identifiants.
-  
+
 Type de Message::
   Le protocole mySensors permet 5 types de messages suivant ce qu'on veut faire : présentation (0), paramétrage (1), récupération (2), interne (3), flux (4)
   Voir la section plus bas sur les types de message pour une information complète.
@@ -77,7 +80,7 @@ Type de Message::
 Acquittement::
   Est-ce que le message doit être acquitté par la destination.
   C'est une valeur binaire (0 pour non acquitté, 1 pour acquittement) La trame d'acquittement est automatiquement émise par la lib mySensors
-  
+
 Type de Donnée::
   C'est un type qui est laissé libre par message. Généralement concordant avec le type de capteur défini. Actuellement ils vont de 0 à 36.
   Voir la section plus bas sur les types de donnée pour une information complète.
@@ -95,7 +98,7 @@ Voici la liste des types de capteurs avec les actions jeedom qui sont créées p
 ID,Type mySensors,Nom de Capteur,Widget par défaut, Commandes créées sous Jeedom
 include::sensors.csv[]
 |===================================================
- 
+
 ==== Liste des types de messages
 
 [options="header"]
@@ -112,7 +115,7 @@ Pour le type paramétrage, il est utilisé par les noeuds pour fournir un change
 
 Pour le type récupération, il peut être utilisé pour "poller" un noeud et lui demander sa valeur (si le noeud accepte ce type de demande) mais également depuis un noeud pour interroger son controleur afin d'obtenir une valeur
 
-  A noter que pour ce type de message, dans le cas d'un capteur de type "Custom" et sur un type de donnée "Virtuel" (28), Jeedom fournira la valeur de l'information virtuelle que l'on a sélectionné sur l'équipement au noeud. Cela permet de mettre à disposition d'un noeud n'importe quelle information dans Jeedom. 
+  A noter que pour ce type de message, dans le cas d'un capteur de type "Custom" et sur un type de donnée "Virtuel" (28), Jeedom fournira la valeur de l'information virtuelle que l'on a sélectionné sur l'équipement au noeud. Cela permet de mettre à disposition d'un noeud n'importe quelle information dans Jeedom.
   Exemple : une consigne liée à un virtuel ou une température venant d'un capteur Zwave.
 
 '''
@@ -145,14 +148,14 @@ cspin - La pin connectée au 'RF24 Chip Select' (par défaut 10)
 
   void begin(void (*_msgCallback)(const MyMessage &), uint8_t nodeId, boolean repeaterMode,
 		uint8_t parentNodeId, rf24_pa_dbm_e paLevel, uint8_t channel, rf24_datarate_e dataRate);
-		
+
 incomingMessageCallback - Callback function for incoming messages from other nodes or controller and request responses. Default is NULL.
 
 nodeId - L'id unique (1-254) pour ce noeud. Par défaut en AUTO(255) ce qui veut dire que le noeud l'obtiendra du controleur.
 
 repeaterMode - Active le mode répéteur. Ce noeud fera suivre les messages aux autres dans le réseau. S'assurer d'appeler process() régulièrement. Par défaut false
 
-parentNodeId - A utiliser pour forcer l'utilisation d'un noeud précis en tant que relais. 
+parentNodeId - A utiliser pour forcer l'utilisation d'un noeud précis en tant que relais.
 Par défaut en AUTO ce qui laisse au noeud le choix de trouver son parent automatiquement.
 
 paLevel - Radio PA Level du capteur. Par défaut RF24_PA_MAX
@@ -233,10 +236,10 @@ destination - Le nodeId du noeud depuis lequel on veut récupérer l'info. Par d
 ===== process
 
   boolean process();
-  
+
 Le traitement des messages arrivant se fait dans une fonction nommée process().
 
-Il est possible de vérifier le message par rapport à son type de donnée, le capteur destination ... 
+Il est possible de vérifier le message par rapport à son type de donnée, le capteur destination ...
 et de prendre les actions nécessaires.
 
 
@@ -253,11 +256,11 @@ Cela permet d'attendre 0,5s avant de passer en sleep. A mettre juste avant le sl
 A noter que la librairie mySensors propose plusieurs fonctions sleep. Une basique sans interrupt, mais une aussi avec deux interrupt pour deux IO pouvant sortir l'Arduino du sleep (exemple : détecteur de mouvement + ouverture de porte)
 
   void sleep(unsigned long ms);
-  
+
   bool sleep(uint8_t interrupt, uint8_t mode, unsigned long ms=0);
-  
+
   int8_t sleep(uint8_t interrupt1, uint8_t mode1, uint8_t interrupt2, uint8_t mode2, unsigned long ms=0);
-  
+
 Le dernier paramètre est toujours la durée du sleep.
 
 Les paramètres interrupt correspondent à un IO qui servira d'interrupt (0 = D2 et 1 = D3 sur un Mini)

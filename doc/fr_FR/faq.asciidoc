@@ -4,6 +4,8 @@
 On peut utiliser une gateway sur port USB ou réseau (voir les liens de documentation plus bas pour plus d'informations)
 
 La gateway USB peut être utilisée sur le Jeedom principal ou un satellite
+
+Les gateway NRF ou RFM sont supportées (attention à bien utiliser un seul des deux sur un réseau unique)
 --
 
 [panel,primary]
@@ -14,16 +16,6 @@ mySensors est un protocole de transmission sans fil de capteurs à base d'Arduin
 Des exemples de capteurs sont proposés sur le site mySensors, mais les limites sont celles du catalogue de capteurs Arduino existant
 
 Dans la section autres documentations, un lien vers le site mySensors est disponible (en anglais) et également des liens vers des noeuds en francais
---
-
-[panel,primary]
-.Mon service est toujours indiqué comme ne fonctionnant pas, que faire ?
---
-Il se peut que le module serialport pour NodeJS ne soit pas installé.
-
-Cela se produit sur des installations autres que le Pi et normalement est réglé à partir de la version 1.9.4 qui fait l'installation automatique.
-
-Pour installer le module serialport, depuis le répertoire plugins/mySensors/node, il faut lancer la commande npm install (en tant que www-data)
 --
 
 [panel,primary]
@@ -57,7 +49,7 @@ Oui, le plugin répond au GET en plus des SET des noeuds. Ce qui veut dire que t
 
 Il faut bien penser à décocher la case "Evènement seulement" côté Jeedom.
 
-Il existe également une possibilité de lier un capteur d'un noeud à une information quelconque de Jeedom. 
+Il existe également une possibilité de lier un capteur d'un noeud à une information quelconque de Jeedom.
 
 Pour cela le sensor doit être déclaré en type "Custom", un bouton de sélection d'une information Jeedom est alors disponible à côté du champ valeur.
 

@@ -45,6 +45,30 @@ if (!isConnect()) {
         </div>
       </div>
 
+      <div id="div_local" class="form-group">
+        <label class="col-lg-4 control-label">{{Gateway réseau}} :</label>
+        <div class="col-lg-4 div_network">
+          <a class="btn btn-default bt_network"><i class="fa fa-plus-circle"></i>
+            Ajouter un mySensors réseau
+          </a>
+          <table id="table_net" class="table table-bordered table-condensed">
+              <tbody>
+                <?php
+
+                if (config::byKey('netgate','mySensors') != '') {
+                  $net = explode(";", config::byKey('netgate','mySensors'));
+                  foreach ($net as $value) {
+                    echo "<tr><td><input name='network' type='text' class='input_network' placeholder='ip:port' value='" . $value . "'></td><td><i class='fa fa-minus-circle cursor'></i></td></tr>";
+                  }
+                }
+
+                 ?>
+              </tbody>
+          </table>
+
+          </div>
+        </div>
+
     </fieldset>
   </form>
   <?php
@@ -77,19 +101,43 @@ if (!isConnect()) {
 
   <script>
 
-
-  $( "#select_port" ).change(function() {
-    $( "#select_port option:selected" ).each(function() {
-      if ($("#select_port option:selected").val() == "network"){
-        $("#manual_port").show();
-      }
-      else {
-        $("#manual_port").hide();
-      }
-    });
+  $('.bt_network').on('click',function(){
+    var newInput = $("<tr><td><input name='network' type='text' class='input_network' placeholder='ip:port'></td><td><i class='fa fa-minus-circle cursor'></i></td></tr>");
+    $('#table_net tbody').append(newInput);
   });
 
+  $('.cursor').on('click',function(){
+    $(this).closest('tr').remove();
+  });
 
+  function mySensors_postSaveConfiguration(){
+  var network = '';
+  $('.input_network').each(function(index, value) {
+    if (network != '' ) {
+      network = network + ';' + $(this).value();
+    } else {
+      network = $(this).value();
+    }
+  });
+  $.ajax({// fonction permettant de faire de l'ajax
+      type: "POST", // methode de transmission des données au fichier php
+      url: "plugins/mySensors/core/ajax/mySensors.ajax.php", // url du fichier php
+      data: {
+          action: "netgate",
+          value: network,
+      },
+      dataType: 'json',
+      error: function (request, status, error) {
+          handleAjaxError(request, status, error);
+      },
+      success: function (data) { // si l'appel a bien fonctionné
+  if (data.state != 'ok') {
+    $('#div_alert').showAlert({message: data.result, level: 'danger'});
+    return;
+  }
+  }
+  });
+  }
   </script>
 </div>
 </fieldset>

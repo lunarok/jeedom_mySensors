@@ -24,11 +24,3 @@ include::mysensors.asciidoc[]
 '''
 == Autres Documentations
 include::documentation.asciidoc[]
-
-'''
-== Changelog
-include::changelog.asciidoc[]
-
-'''
-== Crédits
-include::credits.asciidoc[]
