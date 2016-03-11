@@ -193,7 +193,7 @@ if ($state == 1) {
                         <div class="form-group">
                     		<label class="col-md-2 control-label">{{ID du Node}}</label>
                     		<div class="col-md-3">
-                    		 <span if="nodeId" class="eqLogicAttr" data-l1key="configuration" data-l2key="nodeid"></span>
+                    		 <span id="nodeId" class="eqLogicAttr" data-l1key="configuration" data-l2key="nodeid"></span>
                     		</div>
 
                     		<label class="col-md-2 control-label">{{Version mySensors}}</label>
@@ -222,16 +222,16 @@ if ($state == 1) {
                         	<span class="eqLogicAttr" data-l1key="configuration" data-l2key="updatetime"></span>
                     		</div>
 
-                    		<label class="col-md-2 control-label">{{Batterie}}</label>
+                    		<label class="col-md-2 control-label">{{Gateway}}</label>
                     		<div class="col-md-3">
-                    		 <span class="eqLogicAttr" data-l1key="configuration" data-l2key="battery"></span>
+                    		 <span id="gateway" class="eqLogicAttr" data-l1key="configuration" data-l2key="gateway"></span>
                     		</div>
                 	</div>
 
                 	<div class="form-group">
-                    		<label class="col-md-2 control-label">{{Documentation}}</label>
+                    		<label class="col-md-2 control-label">{{Batterie}}</label>
                     		<div class="col-md-3">
-                        	<a href="http://doc.jeedom.fr/fr_FR/doc_mySensors_modules.html" class="btn btn-default"><i class="fa fa-book"></i> Documentation</a>
+                        	<span class="eqLogicAttr" data-l1key="configuration" data-l2key="battery"></span>
                     		</div>
 
                     		<label class="col-md-2 control-label">{{Redémarrer le Node}}</label>
@@ -314,12 +314,14 @@ if ($state == 1) {
         		<script>
 				$('#bt_restartEq').on('click', function () {
 					var nodeId = $('#nodeId').text();
+          var gateway = $('#gateway').text();
 					$.ajax({// fonction permettant de faire de l'ajax
 						type: "POST", // methode de transmission des données au fichier php
 						url: "plugins/mySensors/core/ajax/mySensors.ajax.php", // url du fichier php
 						data: {
 							action: "restartEq",
 							node: nodeId,
+              gateway: gateway,
 						},
 						dataType: 'json',
 						error: function (request, status, error) {

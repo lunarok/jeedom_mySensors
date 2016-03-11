@@ -4,6 +4,7 @@ var request = require('request');
 
 var urlJeedom = '';
 var gwAddress = '';
+var type = '';
 var fs = require('fs');
 var appendedString="";
 
@@ -13,7 +14,8 @@ process.argv.forEach(function(val, index, array) {
 	switch ( index ) {
 		case 2 : urlJeedom = val; break;
 		case 3 : gwAddress = val; break;
-		case 4 : debug = val; break;
+		case 4 : type = val; break;
+		case 5 : debug = val; break;
 	}
 });
 
@@ -256,67 +258,68 @@ function rfReceived(data, db, gw) {
 
 console.log((new Date()) + " - Jeedom url : " + urlJeedom + ", gwAddress : " + gwAddress);
 
-//pour la connexion avec Jeedom => Node
-var pathsocket = '/tmp/mysensor.sock';
-fs.unlink(pathsocket, function () {
-	var server = net.createServer(function(c) {
-		console.log((new Date()) + " - Server connected");
-		c.on('error', function(e) {
-			console.log((new Date()) + " - Error server disconnected");
+if (type == 'serial') {
+	//pour la connexion avec Jeedom => Node
+	var pathsocket = '/tmp/mysensor.sock';
+	fs.unlink(pathsocket, function () {
+		var server = net.createServer(function(c) {
+			console.log((new Date()) + " - Server connected");
+			c.on('error', function(e) {
+				console.log((new Date()) + " - Error server disconnected");
+			});
+			c.on('close', function() {
+				console.log((new Date()) + " - Connexion closed");
+			});
+			c.on('data', function(data) {
+				console.log((new Date()) + " - Response: " + data);
+				gw.write(data.toString() + '\n');
+			});
 		});
-		c.on('close', function() {
-			console.log((new Date()) + " - Connexion closed");
-		});
-		c.on('data', function(data) {
-			console.log((new Date()) + " - Response: " + data);
-			gw.write(data.toString() + '\n');
+		server.listen(8019, function(e) {
+			console.log((new Date()) + " - server bound on 8019");
 		});
 	});
-	server.listen(8019, function(e) {
-		console.log((new Date()) + " - server bound on 8019");
+	
+	var com = require("serialport");
+	gw = new com.SerialPort(gwAddress, {
+		baudrate: 115200,
+		parser: com.parsers.readline('\r\n')
 	});
-});
-
-/*
-	gw = require('net').Socket();
-	gw.connect(gwPort, gwAddress);
-	gw.setEncoding('ascii');
-	gw.on('connect', function() {
-		LogDate("info", "connected to network gateway at " + gwAddress + ":" + gwPort);
+	//gw = new SerialPort(gwAddress, { baudrate: "115200" });
+	gw.open();
+	gw.on('open', function() {
+		console.log((new Date()) + " - connected to serial gateway at " + gwAddress);
 		saveGateway('1');
 	}).on('data', function(rd) {
 		appendData(rd.toString(), db, gw);
 	}).on('end', function() {
-		LogDate("error", "disconnected from network gateway");
+		console.log((new Date()) + " - disconnected from serial gateway");
+		saveGateway('0');
+	}).on('error', function(error) {
+		console.log((new Date()) + " - connection error - trying to reconnect: " + error);
+		saveGateway('0');
+		setTimeout(function() {gw.open();}, 5000);
+	});
+} else {
+	gw = require('net').Socket();
+	gw.connect(gwPort, type);
+	gw.setEncoding('ascii');
+	gw.on('connect', function() {
+		console.log((new Date()) + " - connected to network gateway at " + gwAddress + ":" + gwPort);
+		saveGateway('1');
+	}).on('data', function(rd) {
+		appendData(rd.toString(), db, gw);
+	}).on('end', function() {
+		console.log((new Date()) + " - disconnected from network gateway");
 		saveGateway('0');
 	}).on('error', function() {
-		LogDate("error", "connection error - trying to reconnect");
+		console.log((new Date()) + " - connection error - trying to reconnect");
 		saveGateway('0');
-		gw.connect(gwPort, gwAddress);
+		gw.connect(gwPort, type);
 		gw.setEncoding('ascii');
 	});
-*/
+}
 
-var com = require("serialport");
-gw = new com.SerialPort(gwAddress, {
-	baudrate: 115200,
-	parser: com.parsers.readline('\r\n')
-});
-//gw = new SerialPort(gwAddress, { baudrate: "115200" });
-gw.open();
-gw.on('open', function() {
-	console.log((new Date()) + " - connected to serial gateway at " + gwAddress);
-	saveGateway('1');
-}).on('data', function(rd) {
-	appendData(rd.toString(), db, gw);
-}).on('end', function() {
-	console.log((new Date()) + " - disconnected from serial gateway");
-	saveGateway('0');
-}).on('error', function(error) {
-	console.log((new Date()) + " - connection error - trying to reconnect: " + error);
-	saveGateway('0');
-	setTimeout(function() {gw.open();}, 5000);
-});
 
 process.on('uncaughtException', function ( err ) {
 	console.log((new Date()) + " - An uncaughtException was found, the program will end");
