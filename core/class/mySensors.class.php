@@ -199,12 +199,17 @@ class mySensors extends eqLogic {
       }
       log::add('mySensors','info','Lancement du démon mySensors : Gateway ' . $usbGateway);
 
-      if (config::byKey('jeeNetwork::mode') != 'master') { //Je suis l'esclave
-        $url  = config::byKey('jeeNetwork::master::ip') . '/core/api/jeeApi.php?api=' . config::byKey('jeeNetwork::master::apikey') . '&gateway=' . config::byKey('jeeNetwork::getName');
-      } else {
-        $url .= '&gateway=master';
+      if ($usbGateway != "none") {
+        exec('sudo chmod -R 777 ' . $usbGateway);
       }
-      mySensors::launch_svc($url, $usbGateway, 'serial');
+
+      if (config::byKey('jeeNetwork::mode') != 'master') { //Je suis l'esclave
+        $url  = config::byKey('jeeNetwork::master::ip') . '/core/api/jeeApi.php?api=' . config::byKey('jeeNetwork::master::apikey');
+        $gateway = config::byKey('jeeNetwork::getName') . ' ' . $usbGateway . ' serial';
+      } else {
+        $gateway = 'master ' . $usbGateway . ' serial';
+      }
+      mySensors::launch_svc($url, $gateway);
     }
 
     if (config::byKey('netgate','rflink') != '') {
@@ -212,23 +217,22 @@ class mySensors extends eqLogic {
       foreach ($net as $value) {
         $gate = explode(";", $value);
         $urlnet = $url . '&gateway=' . $gate[0];
-        mySensors::launch_svc($urlnet, $gate[0], $gate[1]);
+        $gateway = $gate[0] . ' ' . $gate[0] . ' ' . $gate[1];
+        mySensors::launch_svc($urlnet, $gateway);
       }
     }
 
   }
 
-  public static function launch_svc($url, $gateway, $type) {
+  public static function launch_svc($url, $gateway) {
     if ($_debug = true) {
       $log = "1";
     } else {
       $log = "0";
     }
     $sensor_path = realpath(dirname(__FILE__) . '/../../node');
-    if ($usbGateway != "none") {
-      exec('sudo chmod -R 777 ' . $usbGateway);
-    }
-    $cmd = 'nice -n 19 nodejs ' . $sensor_path . '/mysensors.js ' . $url . ' ' . $usbGateway . ' "' . $type . '" ' . $log;
+
+    $cmd = 'nice -n 19 nodejs ' . $sensor_path . '/mysensors.js ' . $url . ' ' . $gateway . ' ' . $log;
 
     log::add('mySensors', 'debug', 'Lancement démon mySensors : ' . $cmd);
 
@@ -334,6 +338,7 @@ class mySensors extends eqLogic {
     $nodeid = init('id');
     $sensor = init('sensor');
     $type = init('donnees');
+    $gateway = init('gateway');
     $cmdId = 'Sensor'.$sensor;
     $elogic = self::byLogicalId($nodeid, 'mySensors');
     if (is_object($elogic)) {
@@ -346,19 +351,21 @@ class mySensors extends eqLogic {
           $cmdvirt = cmd::byId($idvirt);
 
           if (is_object($cmdvirt)) {
-            echo $cmdvirt->execCmd();
+            //echo $cmdvirt->execCmd();
+            mySensors::sendCommand( $gateway, $nodeid, $sensor, '1', '0', $type, $cmdvirt->execCmd() );
             log::add('mySensors', 'debug', 'Valeur virtuelle transmise');
           } else {
-            echo "Virtuel KO";
+            //echo "Virtuel KO";
             //echo $cmdlogic->getCmdValue();
             log::add('mySensors', 'error', 'Valeur virtuelle non définie' . $cmdlogic->getConfiguration('value'));
           }
         } else {
-          echo $cmdlogic->execCmd();
+          //echo $cmdlogic->execCmd();
+          mySensors::sendCommand( $gateway, $nodeid, $sensor, '1', '0', $type, $cmdlogic->execCmd() );
           log::add('mySensors', 'debug', 'Valeur de capteur transmise');
         }
       }else{
-        echo "Valeur KO";
+        //echo "Valeur KO";
         log::add('mySensors', 'error', 'Valeur non définie');
       }
       $cmdlogic->event($value);
@@ -387,6 +394,7 @@ class mySensors extends eqLogic {
 
   public static function saveValue() {
     $nodeid = init('id');
+    $gateway = init('gateway');
     $sensor = init('sensor');
     $value = init('value');
     $type = init('donnees');
@@ -408,6 +416,7 @@ class mySensors extends eqLogic {
 
   public static function saveBatteryLevel() {
     $nodeid = init('id');
+    $gateway = init('gateway');
     $value = init('value');
     $elogic = self::byLogicalId($nodeid, 'mySensors');
     if (is_object($elogic)) {
@@ -421,6 +430,7 @@ class mySensors extends eqLogic {
 
   public static function saveSketchNameEvent() {
     $nodeid = init('id');
+    $gateway = init('gateway');
     $value = init('value');
     $elogic = self::byLogicalId($nodeid, 'mySensors');
     if (is_object($elogic)) {
@@ -436,6 +446,7 @@ class mySensors extends eqLogic {
       $mys->setEqType_name('mySensors');
       $mys->setLogicalId($nodeid);
       $mys->setConfiguration('nodeid', $nodeid);
+      $mys->setConfiguration('gateway', $gateway);
       $mys->setConfiguration('SketchName',$value);
       $mys->setName($value.' - '.$nodeid);
       $mys->setIsEnable(true);
@@ -455,6 +466,7 @@ public static function saveGateway() {
 
 public static function saveSketchVersion() {
   $nodeid = init('id');
+  $gateway = init('gateway');
   $value = init('value');
   $elogic = self::byLogicalId($nodeid, 'mySensors');
   sleep(1);
@@ -469,6 +481,7 @@ public static function saveSketchVersion() {
 public static function saveLibVersion() {
   sleep(1);
   $nodeid = init('id');
+  $gateway = init('gateway');
   $value = init('value');
   if ($nodeid == '0') {
     config::save('gateLib', $value,  'mySensors');
@@ -486,6 +499,7 @@ public static function saveLibVersion() {
 public static function saveSensor() {
   sleep(1);
   $nodeid = init('id');
+  $gateway = init('gateway');
   $value = init('value');
   $sensor = init('sensor');
   //exemple : 0 => array('S_DOOR','Ouverture','door','binary','','','1',),

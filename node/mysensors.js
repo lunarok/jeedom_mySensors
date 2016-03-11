@@ -13,11 +13,14 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 process.argv.forEach(function(val, index, array) {
 	switch ( index ) {
 		case 2 : urlJeedom = val; break;
-		case 3 : gwAddress = val; break;
-		case 4 : type = val; break;
-		case 5 : debug = val; break;
+		case 3 : gateway = val; break;
+		case 4 : gwAddress = val; break;
+		case 5 : type = val; break;
+		case 6 : debug = val; break;
 	}
 });
+
+urlJeedom = urlJeedom + '&gateway=' + gateway;
 
 const BROADCAST_ADDRESS				= 255;
 const NODE_SENSOR_ID				= 255;
@@ -93,17 +96,7 @@ function saveValue(sender, sensor, ack, type, payload) {
 
 function getValue(sender, sensor, type, gw) {
 	url = urlJeedom + "&messagetype=getValue&type=mySensors&id="+sender.toString()+"&sensor=" + sensor.toString() +"&donnees=" + type.toString();
-	request(url, function (error, response, body) {
-		if (!error && response.statusCode == 200) {
-			if (debug == 1) {console.log((new Date()) + " - Return OK from Jeedom");}
-			var command = C_SET;
-			var td = encode(sender, sensor, command, "0", type, body);
-			console.log('-> ' + td.toString());
-			gw.write(td);
-		}else{
-			console.log((new Date()).toLocaleString(), error);
-		}
-	});
+	connectJeedom(url);
 }
 
 function saveBatteryLevel(sender, payload ) {
@@ -112,17 +105,17 @@ function saveBatteryLevel(sender, payload ) {
 }
 
 function saveSketchName(sender, payload) {
-	url = "&messagetype=saveSketchName&type=mySensors&id="+sender.toString()+"&value="+payload;
+	url = urlJeedom + "&messagetype=saveSketchName&type=mySensors&id="+sender.toString()+"&value="+payload;
 	connectJeedom(url);
 }
 
 function saveSketchVersion(sender, payload ) {
-	url = "&messagetype=saveSketchVersion&type=mySensors&id="+sender.toString()+"&value="+payload;
+	url = urlJeedom + "&messagetype=saveSketchVersion&type=mySensors&id="+sender.toString()+"&value="+payload;
 	connectJeedom(url);
 }
 
 function saveLibVersion(sender, payload ) {
-	url = "&messagetype=saveLibVersion&type=mySensors&id="+sender.toString()+"&value="+payload;
+	url = urlJeedom + "&messagetype=saveLibVersion&type=mySensors&id="+sender.toString()+"&value="+payload;
 	connectJeedom(url);
 }
 
@@ -134,7 +127,7 @@ function sendTime(destination, sensor, gw) {
 }
 
 function sendNextAvailableSensorId( gw) {
-	url = "&messagetype=getNextSensorId";
+	url = urlJeedom + "&messagetype=getNextSensorId";
 	connectJeedom(url);
 }
 
@@ -161,6 +154,7 @@ function appendData(str, db, gw) {
 
 function rfReceived(data, db, gw) {
 	if ((data != null) && (data != "")) {
+		if (debug == 1) {console.log((new Date()) + " - "  + td.toString());}
 		//LogDate("debug", "-> "  + td.toString() );
 		// decoding message
 		var datas = data.toString().split(";");
@@ -279,7 +273,7 @@ if (type == 'serial') {
 			console.log((new Date()) + " - server bound on 8019");
 		});
 	});
-	
+
 	var com = require("serialport");
 	gw = new com.SerialPort(gwAddress, {
 		baudrate: 115200,
@@ -302,10 +296,10 @@ if (type == 'serial') {
 	});
 } else {
 	gw = require('net').Socket();
-	gw.connect(gwPort, type);
+	gw.connect(gwAddress, type);
 	gw.setEncoding('ascii');
 	gw.on('connect', function() {
-		console.log((new Date()) + " - connected to network gateway at " + gwAddress + ":" + gwPort);
+		console.log((new Date()) + " - connected to network gateway at " + gwAddress + ":" + type);
 		saveGateway('1');
 	}).on('data', function(rd) {
 		appendData(rd.toString(), db, gw);
@@ -315,7 +309,7 @@ if (type == 'serial') {
 	}).on('error', function() {
 		console.log((new Date()) + " - connection error - trying to reconnect");
 		saveGateway('0');
-		gw.connect(gwPort, type);
+		gw.connect(gwAddress, type);
 		gw.setEncoding('ascii');
 	});
 }
