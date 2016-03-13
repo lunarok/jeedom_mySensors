@@ -171,7 +171,7 @@ class mySensors extends eqLogic {
       $return['state'] = 'ok';
     }
     $return['launchable'] = 'ok';
-    if ((config::byKey('nodeGateway', 'mySensors') == 'none' || config::byKey('nodeGateway', 'mySensors') == '') && (config::byKey('netgate','rflink') != '')) {
+    if ((config::byKey('nodeGateway', 'mySensors') == 'none' || config::byKey('nodeGateway', 'mySensors') == '') && (config::byKey('netgate','mySensors') != '')) {
       $return['launchable'] = 'nok';
       $return['launchable_message'] = __('Aucune gateway configurée', __FILE__);
     }
@@ -205,15 +205,15 @@ class mySensors extends eqLogic {
 
       if (config::byKey('jeeNetwork::mode') != 'master') { //Je suis l'esclave
         $url  = config::byKey('jeeNetwork::master::ip') . '/core/api/jeeApi.php?api=' . config::byKey('jeeNetwork::master::apikey');
-        $gateway = config::byKey('jeeNetwork::getName') . ' ' . $usbGateway . ' serial';
+        $gateway = config::byKey('internalProtocol') . ' ' . $usbGateway . ' serial';
       } else {
         $gateway = 'master ' . $usbGateway . ' serial';
       }
       mySensors::launch_svc($url, $gateway);
     }
 
-    if (config::byKey('netgate','rflink') != '') {
-      $net = explode(";", config::byKey('netgate','rflink'));
+    if (config::byKey('netgate','mySensors') != '') {
+      $net = explode(";", config::byKey('netgate','mySensors'));
       foreach ($net as $value) {
         $gate = explode(";", $value);
         $urlnet = $url . '&gateway=' . $gate[0];
@@ -305,8 +305,8 @@ class mySensors extends eqLogic {
     if (is_object($jeeNetwork)) {
       $ip = $jeeNetwork->getIp();
     }
-    if (config::byKey('netgate','rflink') != '') {
-      $net = explode(";", config::byKey('netgate','rflink'));
+    if (config::byKey('netgate','mySensors') != '') {
+      $net = explode(";", config::byKey('netgate','mySensors'));
       foreach ($net as $value) {
         $gate = explode(";", $value);
         if ($gateway == $gate[0]) {
@@ -377,14 +377,18 @@ class mySensors extends eqLogic {
     $gateway = init('gateway');
     if (config::byKey('include_mode','mySensors') == 1) {
       $id = 1;
-      $exist = 1;
-      while ($exist == 0) {
+      $limit = 254;
+      while ($id < 255) {
+        $exist = 0;
         foreach( self::byType( 'mySensors' ) as $elogic) {
-          if ($elogic->getConfiguration('gateway') == $gateway) {
-            if ($elogic->getConfiguration('nodeid') == $id) {
-              $exist = 1;
-            }
+          if ($elogic->getConfiguration('nodeid') == $id) {
+            $exist = 1;
           }
+        }
+        if ($exist == 0) {
+          break;
+        } else {
+          $id++;
         }
       }
       //doit cibler seulement la bonne gateway avec sendToController

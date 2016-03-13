@@ -137,24 +137,23 @@ function sendConfig(destination, gw) {
 	gw.write(td);
 }
 
-function appendData(str, db, gw) {
+function appendData(str, gw) {
 	pos=0;
 	while (str.charAt(pos) != '\n' && pos < str.length) {
 		appendedString=appendedString+str.charAt(pos);
 		pos++;
 	}
 	if (str.charAt(pos) == '\n') {
-		rfReceived(appendedString.trim(), db, gw);
+		rfReceived(appendedString.trim(), gw);
 		appendedString="";
 	}
 	if (pos < str.length) {
-		appendData(str.substr(pos+1,str.length-pos-1), db, gw);
+		appendData(str.substr(pos+1,str.length-pos-1), gw);
 	}
 }
 
-function rfReceived(data, db, gw) {
+function rfReceived(data, gw) {
 	if ((data != null) && (data != "")) {
-		if (debug == 1) {console.log((new Date()) + " - "  + td.toString());}
 		//LogDate("debug", "-> "  + td.toString() );
 		// decoding message
 		var datas = data.toString().split(";");
@@ -179,7 +178,7 @@ function rfReceived(data, db, gw) {
 		switch (command) {
 			case C_PRESENTATION:
 			if (sensor == NODE_SENSOR_ID)
-			//	saveProtocol(sender, payload, db); //arduino ou arduino relay
+			//	saveProtocol(sender, payload); //arduino ou arduino relay
 			;
 			else
 			saveSensor(sender, sensor, type);
@@ -194,7 +193,7 @@ function rfReceived(data, db, gw) {
 			case C_INTERNAL:
 			switch (type) {
 				case I_BATTERY_LEVEL:
-				saveBatteryLevel(sender, payload, db);
+				saveBatteryLevel(sender, payload);
 				break;
 				case I_TIME:
 				sendTime(sender, sensor, gw);
@@ -285,7 +284,8 @@ if (type == 'serial') {
 		console.log((new Date()) + " - connected to serial gateway at " + gwAddress);
 		saveGateway('1');
 	}).on('data', function(rd) {
-		appendData(rd.toString(), db, gw);
+		if (debug == 1) {console.log((new Date()) + " - "  + rd.toString());}
+		appendData(rd.toString(), gw);
 	}).on('end', function() {
 		console.log((new Date()) + " - disconnected from serial gateway");
 		saveGateway('0');
@@ -302,7 +302,8 @@ if (type == 'serial') {
 		console.log((new Date()) + " - connected to network gateway at " + gwAddress + ":" + type);
 		saveGateway('1');
 	}).on('data', function(rd) {
-		appendData(rd.toString(), db, gw);
+		if (debug == 1) {console.log((new Date()) + " - "  + rd.toString());}
+		appendData(rd.toString(), gw);
 	}).on('end', function() {
 		console.log((new Date()) + " - disconnected from network gateway");
 		saveGateway('0');

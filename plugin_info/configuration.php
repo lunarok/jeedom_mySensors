@@ -30,7 +30,7 @@ if (!isConnect()) {
     <fieldset>
 
       <div id="div_local" class="form-group">
-        <label class="col-lg-4 control-label">{{Gateway série}} :</label>
+        <label class="col-lg-4 control-label">{{Gateway série maître}} :</label>
         <div class="col-lg-4">
           <select id="select_port" style="margin-top:5px" class="configKey form-control" data-l1key="nodeGateway">
             <option value="none">{{Aucune}}</option>
@@ -77,9 +77,8 @@ if (!isConnect()) {
       ?>
       <form class="form-horizontal slaveConfig" data-slave_id="<?php echo $jeeNetwork->getId(); ?>">
         <fieldset>
-          <legend>{{MySensors sur l'esclave}} <?php echo $jeeNetwork->getName() ?></legend>
           <div class="form-group">
-            <label class="col-lg-4 control-label">{{Gateway série}}</label>
+            <label class="col-lg-4 control-label">{{Gateway série esclave}} <?php echo $jeeNetwork->getName() ?></label>
             <div class="col-lg-4">
               <select class="slaveConfigKey form-control" data-l1key="nodeGateway">
                 <option value="none">{{Aucune}}</option>

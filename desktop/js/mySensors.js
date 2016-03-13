@@ -131,7 +131,7 @@ function addCmdToTable(_cmd) {
 			tr += '<input class="cmdAttr form-control type input-sm" data-l1key="type" value="info" disabled style="margin-bottom : 5px;" />';
 			tr += '<span class="subType" subType="' + init(_cmd.subType) + '"></span>';
         tr += '</td>';
-        tr += '<td>';	tr += '<span  style="width : 30%;display : inline-block;">{{NumÃ©ro}} :</span><span  style="width : 60%;display : inline-block;">{{Type}} :</span>';
+        tr += '<td>';	tr += '<span  style="width : 30%;display : inline-block;">{{Numéro}} :</span><span  style="width : 60%;display : inline-block;">{{Type}} :</span>';
 			tr += '<textarea class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="sensor" style="height : 33px; width : 30%;display : inline-block;" ' + disabled + ' placeholder="{{Capteur}}"></textarea>';
 			//tr += '<textarea class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="sensorCategory" style="height : 33px; width : 40%;display : inline-block;" ' + disabled + ' placeholder="{{Type de Capteur}}" readonly=true></textarea>';
 			tr += '<select class="cmdAttr" data-l1key="configuration" data-l2key="sensorCategory" style="height : 33px; width : 60%;display : inline-block;">';
@@ -146,7 +146,7 @@ function addCmdToTable(_cmd) {
 		tr += '<textarea class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="value" style="height : 33px;" ' + disabled + ' placeholder="{{Valeur}}" readonly=true></textarea>';
 	}
         tr += '</td>';
-        tr += '<td>{{UnitÃ©}} :<br/>';
+        tr += '<td>{{Unité}} :<br/>';
         tr += '<input class="cmdAttr form-control input-sm" data-l1key="unite" style="width : 90px;" placeholder="{{Unite}}">';
 		tr += '<span>{{Type}}:<select class="cmdAttr" data-l1key="configuration" data-l2key="sensorType" >';
 		tr += '<option value="90">Aucun</option>';
