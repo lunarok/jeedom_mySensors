@@ -30,7 +30,6 @@ class mySensors extends eqLogic {
     if ($libVer=='') {
       $libVer = '{{inconnue}}';
     }
-
     $return[] = array(
       'test' => __('Gateway', __FILE__),
       'result' => ($statusGateway) ? $libVer : __('NOK', __FILE__),
@@ -186,9 +185,9 @@ class mySensors extends eqLogic {
     }
 
     if (!config::byKey('internalPort')) {
-      $url = config::byKey('internalProtocol') . config::byKey('internalAddr') . config::byKey('internalComplement') . '/core/api/jeeApi.php?api=' . config::byKey('api');
+      $url = config::byKey('internalProtocol') . config::byKey('internalAddr') . config::byKey('internalComplement') . '/plugins/mySensors/core/api/jeeSensors.php?apikey=' . config::byKey('api');
     } else {
-      $url = config::byKey('internalProtocol') . config::byKey('internalAddr'). ':' . config::byKey('internalPort') . config::byKey('internalComplement') . '/core/api/jeeApi.php?api=' . config::byKey('api');
+      $url = config::byKey('internalProtocol') . config::byKey('internalAddr'). ':' . config::byKey('internalPort') . config::byKey('internalComplement') . '/plugins/mySensors/core/api/jeeSensors.php?apikey=' . config::byKey('api');
     }
 
     //launching serial service
@@ -204,8 +203,8 @@ class mySensors extends eqLogic {
       }
 
       if (config::byKey('jeeNetwork::mode') != 'master') { //Je suis l'esclave
-        $url  = config::byKey('jeeNetwork::master::ip') . '/core/api/jeeApi.php?api=' . config::byKey('jeeNetwork::master::apikey');
-        $gateway = config::byKey('internalProtocol') . ' ' . $usbGateway . ' serial';
+        $url  = config::byKey('jeeNetwork::master::ip') . '/plugins/mySensors/core/api/jeeSensors.php?apikey=' . config::byKey('jeeNetwork::master::apikey');
+        $gateway = config::byKey('internalAddr') . ' ' . $usbGateway . ' serial';
       } else {
         $gateway = 'master ' . $usbGateway . ' serial';
       }
@@ -334,11 +333,7 @@ class mySensors extends eqLogic {
     config::save('netgate', $value,  'mySensors');
   }
 
-  public static function getValue() {
-    $nodeid = init('id');
-    $sensor = init('sensor');
-    $type = init('donnees');
-    $gateway = init('gateway');
+  public static function getValue($gateway,$nodeid,$sensor,$type) {
     $cmdId = 'Sensor'.$sensor;
     $elogic = self::byLogicalId($nodeid, 'mySensors');
     if (is_object($elogic)) {
@@ -369,12 +364,10 @@ class mySensors extends eqLogic {
         log::add('mySensors', 'error', 'Valeur non définie');
       }
       $cmdlogic->event($value);
-
     }
   }
 
-  public static function getNextSensorId() {
-    $gateway = init('gateway');
+  public static function getNextSensorId($gateway) {
     if (config::byKey('include_mode','mySensors') == 1) {
       $id = 1;
       $limit = 254;
@@ -396,13 +389,7 @@ class mySensors extends eqLogic {
     }
   }
 
-  public static function saveValue() {
-    $nodeid = init('id');
-    $gateway = init('gateway');
-    $sensor = init('sensor');
-    $value = init('value');
-    $type = init('donnees');
-    $daType = $type;
+  public static function saveValue($gateway, $nodeid,$sensor,$type, $value) {
     $cmdId = 'Sensor'.$sensor;
     $elogic = self::byLogicalId($nodeid, 'mySensors');
     if (is_object($elogic)) {
@@ -411,17 +398,14 @@ class mySensors extends eqLogic {
       $cmdlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(),$cmdId);
       if (is_object($cmdlogic)) {
         $cmdlogic->setConfiguration('value', $value);
-        $cmdlogic->setConfiguration('sensorType', $daType);
+        $cmdlogic->setConfiguration('sensorType', $type);
         $cmdlogic->save();
         $cmdlogic->event($value);
       }
     }
   }
 
-  public static function saveBatteryLevel() {
-    $nodeid = init('id');
-    $gateway = init('gateway');
-    $value = init('value');
+  public static function saveBatteryLevel($gateway, $nodeid, $value) {
     $elogic = self::byLogicalId($nodeid, 'mySensors');
     if (is_object($elogic)) {
       $elogic->setConfiguration('battery',$value);
@@ -432,10 +416,7 @@ class mySensors extends eqLogic {
 
   }
 
-  public static function saveSketchNameEvent() {
-    $nodeid = init('id');
-    $gateway = init('gateway');
-    $value = init('value');
+  public static function saveSketchNameEvent($gateway, $nodeid, $value) {
     $elogic = self::byLogicalId($nodeid, 'mySensors');
     if (is_object($elogic)) {
       if ( $elogic->getConfiguration('SketchName', '') != $value ) {
@@ -463,15 +444,11 @@ class mySensors extends eqLogic {
   }
 }
 
-public static function saveGateway() {
-  $status = init('status');
+public static function saveGateway($gateway, $status) {
   config::save('gateway', $status,  'mySensors');
 }
 
-public static function saveSketchVersion() {
-  $nodeid = init('id');
-  $gateway = init('gateway');
-  $value = init('value');
+public static function saveSketchVersion($gateway, $nodeid, $value) {
   $elogic = self::byLogicalId($nodeid, 'mySensors');
   sleep(1);
   if (is_object($elogic)) {
@@ -482,11 +459,8 @@ public static function saveSketchVersion() {
   }
 }
 
-public static function saveLibVersion() {
+public static function saveLibVersion($gateway, $nodeid, $value) {
   sleep(1);
-  $nodeid = init('id');
-  $gateway = init('gateway');
-  $value = init('value');
   if ($nodeid == '0') {
     config::save('gateLib', $value,  'mySensors');
     log::add('mySensors', 'info', 'Gateway Lib ' . $value . config::byKey('gateLib','mySensors'));
@@ -500,12 +474,8 @@ public static function saveLibVersion() {
   }
 }
 
-public static function saveSensor() {
+public static function saveSensor($gateway, $nodeid, $sensor, $value) {
   sleep(1);
-  $nodeid = init('id');
-  $gateway = init('gateway');
-  $value = init('value');
-  $sensor = init('sensor');
   //exemple : 0 => array('S_DOOR','Ouverture','door','binary','','','1',),
   $name = self::$_dico['S'][$value][1];
   if ($name == false ) {
@@ -869,36 +839,16 @@ public static function saveSensor() {
   }
 }
 
-public static function event() {
-  $messageType = init('messagetype');
-  switch ($messageType) {
-    case 'saveValue' : self::saveValue(); break;
-    case 'saveSketchName' : self::saveSketchNameEvent(); break;
-    case 'saveSketchVersion' : self::saveSketchVersion(); break;
-    case 'saveLibVersion' : self::saveLibVersion(); break;
-    case 'saveSensor' : self::saveSensor(); break;
-    case 'saveBatteryLevel' : self::saveBatteryLevel(); break;
-    case 'saveGateway' : self::saveGateway(); break;
-    case 'getValue' : self::getValue(); break;
-    case 'getNextSensorId' : self::getNextSensorId(); break;
-  }
-}
-
 }
 
 class mySensorsCmd extends cmd {
-
   public function execute($_options = null) {
-
     switch ($this->getType()) {
-
       case 'info' :
       return $this->getConfiguration('value');
       break;
-
       case 'action' :
       $request = $this->getConfiguration('request');
-
       switch ($this->getSubType()) {
         case 'slider':
         $request = str_replace('#slider#', $_options['slider'], $request);
@@ -908,21 +858,17 @@ class mySensorsCmd extends cmd {
         break;
         case 'message':
         if ($_options != null)  {
-
           $replace = array('#title#', '#message#');
           $replaceBy = array($_options['title'], $_options['message']);
           if ( $_options['title'] == '') {
             throw new Exception(__('Le sujet ne peuvent être vide', __FILE__));
           }
           $request = str_replace($replace, $replaceBy, $request);
-
         }
         else
         $request = 1;
-
         break;
         default : $request == null ?  1 : $request;
-
       }
 
       $eqLogic = $this->getEqLogic();
@@ -936,10 +882,8 @@ class mySensorsCmd extends cmd {
       $request );
 
       $result = $request;
-
       return $result;
     }
     return true;
   }
-
 }

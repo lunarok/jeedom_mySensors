@@ -46,13 +46,6 @@ const I_SKETCH_NAME					= 11;
 const I_SKETCH_VERSION				= 12;
 const I_REBOOT						= 13;
 
-const ST_FIRMWARE_CONFIG_REQUEST	= 0;
-const ST_FIRMWARE_CONFIG_RESPONSE	= 1;
-const ST_FIRMWARE_REQUEST			= 2;
-const ST_FIRMWARE_RESPONSE			= 3;
-const ST_SOUND						= 4;
-const ST_IMAGE						= 5;
-
 function encode(destination, sensor, command, acknowledge, type, payload) {
 	var msg = destination.toString(10) + ";" + sensor.toString(10) + ";" + command.toString(10) + ";" + acknowledge.toString(10) + ";" + type.toString(10) + ";";
 	if (command == 4) {
@@ -68,55 +61,16 @@ function encode(destination, sensor, command, acknowledge, type, payload) {
 	return msg.toString();
 }
 
-function connectJeedom(url) {
-	jeeApi = urlJeedom + url;
+function connectJeedom(messagetype, sender, sensor, type, payload) {
+	jeeApi = urlJeedom + "&messagetype="+messagetype.toString()+"&sender="+sender.toString()+"&sensor=" + sensor.toString() +"&type=" + type.toString() + "&payload="+payload;
+	if (debug == 1) {console.log((new Date()) + " : " + jeeApi);}
 	request(jeeApi, function (error, response, body) {
 		if (!error && response.statusCode == 200) {
-			if (debug == 1) {console.log((new Date()) + " - Return OK from Jeedom");}
+			//if (debug == 1) {console.log((new Date()) + " - Return OK from Jeedom");}
 		}else{
 			console.log((new Date()).toLocaleString(), error);
 		}
 	});
-}
-
-function saveSensor(sender, sensor, type) {
-	url = "&messagetype=saveSensor&type=mySensors&id="+sender.toString()+"&sensor=" + sensor.toString() + "&value="+type;
-	connectJeedom(url);
-}
-
-function saveGateway(status) {
-	url = "&messagetype=saveGateway&type=mySensors&status="+status;
-	connectJeedom(url);
-}
-
-function saveValue(sender, sensor, type, payload) {
-	url = "&messagetype=saveValue&type=mySensors&id="+sender.toString()+"&sensor=" + sensor.toString() +"&donnees=" + type.toString() + "&value="+payload;
-	connectJeedom(url);
-}
-
-function getValue(sender, sensor, type) {
-	url = urlJeedom + "&messagetype=getValue&type=mySensors&id="+sender.toString()+"&sensor=" + sensor.toString() +"&donnees=" + type.toString();
-	connectJeedom(url);
-}
-
-function saveBatteryLevel(sender, payload ) {
-	url = urlJeedom + "&messagetype=saveBatteryLevel&type=mySensors&id="+sender.toString()+"&value="+payload;
-	connectJeedom(url);
-}
-
-function saveSketchName(sender, payload) {
-	url = urlJeedom + "&messagetype=saveSketchName&type=mySensors&id="+sender.toString()+"&value="+payload;
-	connectJeedom(url);
-}
-
-function saveSketchVersion(sender, payload ) {
-	url = urlJeedom + "&messagetype=saveSketchVersion&type=mySensors&id="+sender.toString()+"&value="+payload;
-	connectJeedom(url);
-}
-
-function saveLibVersion(sender, payload ) {
-	url = urlJeedom + "&messagetype=saveLibVersion&type=mySensors&id="+sender.toString()+"&value="+payload;
-	connectJeedom(url);
 }
 
 function sendTime(destination, sensor, gw) {
@@ -126,30 +80,10 @@ function sendTime(destination, sensor, gw) {
 	gw.write(td);
 }
 
-function sendNextAvailableSensorId() {
-	url = urlJeedom + "&messagetype=getNextSensorId";
-	connectJeedom(url);
-}
-
 function sendConfig(destination, gw) {
 	var td = encode(destination, NODE_SENSOR_ID, C_INTERNAL, "0", I_CONFIG, "M");
 	console.log('-> ' + td.toString());
 	gw.write(td);
-}
-
-function appendData(str, gw) {
-	pos=0;
-	while (str.charAt(pos) != '\n' && pos < str.length) {
-		appendedString=appendedString+str.charAt(pos);
-		pos++;
-	}
-	if (str.charAt(pos) == '\n') {
-		rfReceived(appendedString.trim(), gw);
-		appendedString="";
-	}
-	if (pos < str.length) {
-		appendData(str.substr(pos+1,str.length-pos-1), gw);
-	}
 }
 
 function rfReceived(data,gw) {
@@ -181,28 +115,28 @@ function rfReceived(data,gw) {
 			//	saveProtocol(sender, payload); //arduino ou arduino relay
 			;
 			else
-			saveSensor(sender, sensor, type);
-			saveLibVersion(sender, payload);
+			connectJeedom('saveSensor', sender, sensor, type, payload);
+			connectJeedom('saveLibVersion', sender, sensor, type, payload);
 			break;
 			case C_SET:
-			saveValue(sender, sensor, type, payload);
+			connectJeedom('saveValue', sender, sensor, type, payload);
 			break;
 			case C_REQ:
-			getValue(sender, sensor, type);
+			connectJeedom('getValue', sender, sensor, type, payload);
 			break;
 			case C_INTERNAL:
 			switch (type) {
 				case I_BATTERY_LEVEL:
-				saveBatteryLevel(sender, payload);
+				connectJeedom('saveBatteryLevel', sender, sensor, type, payload);
 				break;
 				case I_TIME:
 				sendTime(sender, sensor, gw);
 				break;
 				case I_VERSION:
-				saveLibVersion(sender, payload);
+				connectJeedom('saveLibVersion', sender, sensor, type, payload);
 				break;
 				case I_ID_REQUEST:
-				sendNextAvailableSensorId();
+				connectJeedom('getNextSensorId', sender, sensor, type, payload);
 				break;
 				case I_ID_RESPONSE:
 				break;
@@ -220,10 +154,10 @@ function rfReceived(data,gw) {
 				case I_CHILDREN:
 				break;
 				case I_SKETCH_NAME:
-				saveSketchName(sender, payload);
+				connectJeedom('saveSketchName', sender, sensor, type, payload);
 				break;
 				case I_SKETCH_VERSION:
-				saveSketchVersion(sender, payload);
+				connectJeedom('saveSketchVersion', sender, sensor, type, payload);
 				break;
 				case I_REBOOT:
 				break;
@@ -281,16 +215,16 @@ if (type == 'serial') {
 	gw.open();
 	gw.on('open', function() {
 		console.log((new Date()) + " - connected to serial gateway at " + gwAddress);
-		saveGateway('1');
+		connectJeedom('saveGateway', 0, 0, 0, 1);
 	}).on('data', function(rd) {
-		if (debug == 1) {console.log((new Date()) + " - "  + rd)};
+		if (debug == 1) {console.log((new Date()) + " : "  + rd)};
 		rfReceived(rd,gw);
 	}).on('end', function() {
 		console.log((new Date()) + " - disconnected from serial gateway");
-		saveGateway('0');
+		connectJeedom('saveGateway', 0, 0, 0, 0);
 	}).on('error', function(error) {
 		console.log((new Date()) + " - connection error - trying to reconnect");
-		saveGateway('0');
+		connectJeedom('saveGateway', 0, 0, 0, 0);
 		setTimeout(function() {gw['serial'].open();}, 5000);
 	});
 } else {
@@ -299,21 +233,20 @@ if (type == 'serial') {
 	gw.setEncoding('ascii');
 	gw.on('connect', function() {
 		console.log((new Date()) + " - connected to network gateway at " + gwAddress + ":" + type);
-		saveGateway('1');
+		connectJeedom('saveGateway', 0, 0, 0, 1);
 	}).on('data', function(rd) {
-		if (debug == 1) {console.log((new Date()) + " - "  + rd);}
+		if (debug == 1) {console.log((new Date()) + " : "  + rd);}
 		rfReceived(rd,gw);
 	}).on('end', function() {
 		console.log((new Date()) + " - disconnected from network gateway");
-		saveGateway('0');
+		connectJeedom('saveGateway', 0, 0, 0, 0);
 	}).on('error', function() {
 		console.log((new Date()) + " - connection error - trying to reconnect");
-		saveGateway('0');
+		connectJeedom('saveGateway', 0, 0, 0, 0);
 		gw.connect(gwAddress, type);
 		gw.setEncoding('ascii');
 	});
 }
-
 
 process.on('uncaughtException', function ( err ) {
 	console.log((new Date()) + " - An uncaughtException was found, the program will end");
