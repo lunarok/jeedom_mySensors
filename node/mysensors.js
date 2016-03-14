@@ -94,6 +94,7 @@ function appendData(str, gw) {
     }
     if (str.charAt(pos) == '\n') {
         rfReceived(appendedString.trim(), gw);
+				console.log((new Date()) + " : " + appendedString.trim());
         appendedString="";
     }
     if (pos < str.length) {
@@ -224,7 +225,7 @@ if (type == 'serial') {
 
 	var serialPort = require("serialport");
 	var SerialPort = require('serialport').SerialPort;
-	gw = new SerialPort(gwAddress, { baudrate: gwBaud });
+	gw = new SerialPort(gwAddress, { baudrate: 115200 });
 	gw.open();
 	gw.on('open', function() {
 		console.log((new Date()) + " - connected to serial gateway at " + gwAddress);
