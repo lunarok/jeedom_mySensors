@@ -170,7 +170,7 @@ class mySensors extends eqLogic {
       $return['state'] = 'ok';
     }
     $return['launchable'] = 'ok';
-    if ((config::byKey('nodeGateway', 'mySensors') == 'none' || config::byKey('nodeGateway', 'mySensors') == '') && (config::byKey('netgate','mySensors') != '')) {
+    if ((config::byKey('nodeGateway', 'mySensors') == 'none' || config::byKey('nodeGateway', 'mySensors') == '') && (config::byKey('netgate','mySensors') == '')) {
       $return['launchable'] = 'nok';
       $return['launchable_message'] = __('Aucune gateway configurée', __FILE__);
     }
