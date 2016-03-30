@@ -827,7 +827,7 @@ public static function saveSensor($gateway, $nodeid, $sensor, $value) {
         $mysCmd->setConfiguration('sensor', $sensor);
         $mysCmd->setEqLogic_id($elogic->getId());
         $mysCmd->setEqType('mySensors');
-        $mysCmd->setLogicalId($relonId);
+        $mysCmd->setLogicalId($relstopId);
         $mysCmd->setType('action');
         $mysCmd->setSubType('other');
         $mysCmd->setValue($cmId);

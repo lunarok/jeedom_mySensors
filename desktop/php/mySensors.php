@@ -187,7 +187,7 @@ if ($state == 1) {
                 <div id="infoNode" class="col-sm-6">
                 <form class="form-horizontal">
                     <fieldset>
-                        <legend>{{Configuration}}</legend>
+                        <legend><i class="fa fa-info-circle"></i>  {{Configuration}}</legend>
 
                         <div class="form-group">
                     		<label class="col-md-2 control-label">{{ID du Node}}</label>
@@ -288,7 +288,7 @@ if ($state == 1) {
             </div>
         </div>
 
-	<legend>{{Informations}}</legend>
+	<legend><i class="fa fa-table"></i>  {{Commandes}}</legend>
 
   <form class="form-horizontal">
       <fieldset>
