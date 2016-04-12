@@ -35,7 +35,7 @@ switch ($messagetype) {
   case 'saveSketchName' : mySensors::saveSketchNameEvent($gateway, $nodeid, $value); break;//saveSketchVersion($gateway, $nodeid, $value)
   case 'saveSketchVersion' : mySensors::saveSketchVersion($gateway, $nodeid, $value); break;//saveSketchVersion($gateway, $nodeid, $value)
   case 'saveLibVersion' : mySensors::saveLibVersion($gateway, $nodeid, $value); break;//saveLibVersion($gateway, $nodeid, $value)
-  case 'saveSensor' : mySensors::saveSensor($gateway, $nodeid, $sensor, $value); break;//saveSensor($gateway, $nodeid, $sensor, $value)
+  case 'saveSensor' : mySensors::saveSensor($gateway, $nodeid, $sensor, $type); break;//saveSensor($gateway, $nodeid, $sensor, $value)
   case 'saveBatteryLevel' : mySensors::saveBatteryLevel($gateway, $nodeid, $value); break; // saveBatteryLevel($gateway, $nodeid, $value)
   case 'saveGateway' : mySensors::saveGateway($gateway, $value); break;//saveGateway($gateway, $value)
   case 'getValue' : mySensors::getValue($gateway,$nodeid,$sensor,$type); break;//getValue($gateway,$nodeid,$sensor,$type)
