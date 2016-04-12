@@ -61,13 +61,21 @@ $('.changeIncludeState').on('click', function () {
 });
 
 $('body').on('mySensors::includeDevice', function (_event,_options) {
-    if (modifyWithoutSave) {
-        $('#div_inclusionAlert').showAlert({message: '{{Un périphérique vient d\'être inclu/exclu. Veuillez réactualiser la page}}', level: 'warning'});
-    } else {
-        if (_options == '') {
-            window.location.reload();
+    //console.log('on mySensors::includeDevice', _event, _options);
+    var counter = 11,
+        timeout = setTimeout(includeDevice, 1000);
+    function includeDevice() {
+        counter--;
+        $.hideAlert();
+        $('#div_inclusionAlert').showAlert({message: '{{Nouveau noeud en cours d\'inclusion, veuillez patientez ' + counter + ' s}}', level: 'warning'});
+        if (counter == 0) {
+            if (_options == '') {
+                window.location.reload();
+            } else {
+                window.location.href = 'index.php?v=d&p=mySensors&m=mySensors&id=' + _options;
+            }
         } else {
-            window.location.href = 'index.php?v=d&p=mySensors&m=mySensors&id=' + _options;
+            timeout = setTimeout(includeDevice, 1000);
         }
     }
 });
