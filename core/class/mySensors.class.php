@@ -300,7 +300,7 @@ class mySensors extends eqLogic {
     $ip = '127.0.0.1';
     $port = '8019';
 
-    $jeeNetwork = jeeNetwork::byName($gateway);
+    $jeeNetwork = jeeNetwork::byId($gateway);
     if (is_object($jeeNetwork)) {
       $ip = $jeeNetwork->getIp();
     }
