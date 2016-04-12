@@ -871,13 +871,15 @@ class mySensorsCmd extends cmd {
 
       $eqLogic = $this->getEqLogic();
 
-      mySensors::sendCommand(
-      $eqLogic->getConfiguration('nodeid') ,
-      $this->getConfiguration('sensor'),
-      $this->getConfiguration('cmdCommande'),
-      1,
-      $this->getConfiguration('cmdtype'),
-      $request );
+      $result = mySensors::sendCommand(
+        $eqLogic->getConfiguration('gateway'),
+        $eqLogic->getConfiguration('nodeid'),
+        $this->getConfiguration('sensor'),
+        $this->getConfiguration('cmdCommande'),
+        1,
+        $this->getConfiguration('cmdtype'),
+        $request
+      );
 
       $result = $request;
       return $result;
