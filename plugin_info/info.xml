@@ -3,7 +3,7 @@
     <id>mySensors</id>
     <name>mySensors</name>
     <licence>AGPL</licence>
-    <author>johann,Filoucaenais,lunarok,Aloïs,mx85,totovaauski</author>
+    <author>lunarok,AuFilElec,johann,Filoucaenais,Aloïs,mx85,totovaauski</author>
     <require>2.1</require>
     <category>automation protocol</category>
     <allowRemote>1</allowRemote>
