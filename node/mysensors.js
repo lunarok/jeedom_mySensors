@@ -201,67 +201,100 @@ function rfReceived(data,gw) {
 
 console.log((new Date()) + " - Jeedom url : " + urlJeedom + ", gwAddress : " + gwAddress);
 
-if (type == 'serial') {
-	//pour la connexion avec Jeedom => Node
-	var pathsocket = '/tmp/mysensor.sock';
-	fs.unlink(pathsocket, function () {
-		var server = net.createServer(function(c) {
-			console.log((new Date()) + " - Server connected");
-			c.on('error', function(e) {
-				console.log((new Date()) + " - Error server disconnected");
-			});
-			c.on('close', function() {
-				console.log((new Date()) + " - Connexion closed");
-			});
-			c.on('data', function(data) {
-				console.log((new Date()) + " - Response: " + data);
-				gw.write(data.toString() + '\n');
-			});
-		});
-		server.listen(8019, function(e) {
-			console.log((new Date()) + " - server bound on 8019");
-		});
-	});
+var relaunchGw = false,
+    attempsGw = 0;
+function launchGateway() {
+  if (type == 'serial') {
+  	//pour la connexion avec Jeedom => Node
+  	var pathsocket = '/tmp/mysensor.sock';
+  	fs.unlink(pathsocket, function () {
+  		var server = net.createServer(function(c) {
+  			console.log((new Date()) + " - Server connected");
+  			c.on('error', function(e) {
+  				console.log((new Date()) + " - Error server disconnected");
+  			});
+  			c.on('close', function() {
+  				console.log((new Date()) + " - Connexion closed");
+  			});
+  			c.on('data', function(data) {
+  				console.log((new Date()) + " - Response: " + data);
+  				gw.write(data.toString() + '\n');
+  			});
+  		});
+  		server.listen(8019, function(e) {
+  			console.log((new Date()) + " - server bound on 8019");
+  		});
+  	});
 
-	var serialPort = require("serialport");
-	var SerialPort = require('serialport').SerialPort;
-	gw = new SerialPort(gwAddress, { baudrate: 115200 });
-	gw.open();
-	gw.on('open', function() {
-		console.log((new Date()) + " - connected to serial gateway at " + gwAddress);
-		connectJeedom('saveGateway', 0, 0, 0, 1);
-	}).on('data', function(rd) {
-		appendData(rd.toString(), gw);
-	}).on('end', function() {
-		console.log((new Date()) + " - disconnected from serial gateway");
-		connectJeedom('saveGateway', 0, 0, 0, 0);
-	}).on('error', function(error) {
-		console.log((new Date()) + " - connection error - trying to reconnect");
-		connectJeedom('saveGateway', 0, 0, 0, 0);
-		setTimeout(function() {gw['serial'].open();}, 5000);
-	});
-} else {
-	gw = require('net').Socket();
-	gw.connect(gwAddress, type);
-	gw.setEncoding('ascii');
-	gw.on('connect', function() {
-		console.log((new Date()) + " - connected to network gateway at " + gwAddress + ":" + type);
-		connectJeedom('saveGateway', 0, 0, 0, 1);
-	}).on('data', function(rd) {
-		if (debug == 1) {console.log((new Date()) + " : "  + rd);}
-		rfReceived(rd,gw);
-	}).on('end', function() {
-		console.log((new Date()) + " - disconnected from network gateway");
-		connectJeedom('saveGateway', 0, 0, 0, 0);
-	}).on('error', function() {
-		console.log((new Date()) + " - connection error - trying to reconnect");
-		connectJeedom('saveGateway', 0, 0, 0, 0);
-		gw.connect(gwAddress, type);
-		gw.setEncoding('ascii');
-	});
+  	var SerialPort = require('serialport').SerialPort;
+  	gw = new SerialPort(gwAddress, { baudrate: 115200 });
+  	gw.open();
+  	gw.on('open', function() {
+  		console.log((new Date()) + " - connected to serial gateway at " + gwAddress);
+  		connectJeedom('saveGateway', 0, 0, 0, 1);
+      relaunchGw = true;
+      attemptsGw = 0;
+  	}).on('data', function(rd) {
+  		appendData(rd.toString(), gw);
+  	}).on('end', function() {
+  		console.log((new Date()) + " - disconnected from serial gateway");
+  		connectJeedom('saveGateway', 0, 0, 0, 0);
+  	}).on('error', function(err) {
+	    if (attempsGw < 5 && relaunchGw) {
+        console.log((new Date()) + ' Tentative de reconnexion de la gateway...');
+        setTimeout(function() {
+          gw.close();
+          attempsGw++;
+          launchGateway();
+	      }, 5000);
+	    } else if (attempsGw >= 5) {
+	      console.log((new Date()) + ' 5 tentatives de connexion à la gateway ('+gwAddress+') ont échouées...');
+	      gw.close();
+	    } else {
+	      console.log((new Date()) + ' Error gateway: ' + err.toString());
+	      console.log(err.stack);
+	    }
+	    connectJeedom('saveGateway', 0, 0, 0, 0);
+  	});
+  } else {
+    var tmp = gwAddress.split(':');
+  	gw = require('net').Socket();
+  	gw.connect({port: tmp[1], host: tmp[0]});
+  	gw.setEncoding('ascii');
+  	gw.on('connect', function() {
+  		console.log((new Date()) + " - connected to network gateway at " + gwAddress + ":" + type);
+  		connectJeedom('saveGateway', 0, 0, 0, 1);
+      relaunchGw = true;
+      attemptsGw = 0;
+  	}).on('data', function(rd) {
+  		if (debug == 1) {console.log((new Date()) + " : "  + rd);}
+  		rfReceived(rd,gw);
+  	}).on('end', function() {
+  		console.log((new Date()) + " - disconnected from network gateway");
+  		connectJeedom('saveGateway', 0, 0, 0, 0);
+  	}).on('error', function(err) {
+	    if (attempsGw < 5 && relaunchGw) {
+        console.log((new Date()) + ' Tentative de reconnexion de la gateway...');
+        setTimeout(function() {
+          gw.destroy();
+          attempsGw++;
+          launchGateway();
+	      }, 1000);
+	    } else if (attempsGw >= 5) {
+	      console.log((new Date()) + ' 5 tentatives de connexion à la gateway ('+gwAddress+') ont échouées...');
+	      gw.destroy();
+	    } else {
+	      console.log((new Date()) + ' Error gateway: ' + err.toString());
+	      console.log(err.stack);
+	    }
+	    connectJeedom('saveGateway', 0, 0, 0, 0);
+  	});
+  }
 }
+launchGateway();
 
 process.on('uncaughtException', function ( err ) {
-	console.log((new Date()) + " - An uncaughtException was found, the program will end");
+  console.log((new Date()) + ' - An uncaughtException was found, the program will end');
+  console.log((new Date()) + ' ' + err.stack);
 	//process.exit(1);
 });
