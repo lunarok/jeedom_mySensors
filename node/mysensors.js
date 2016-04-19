@@ -228,7 +228,6 @@ function launchGateway() {
 
   	var SerialPort = require('serialport').SerialPort;
   	gw = new SerialPort(gwAddress, { baudrate: 115200 });
-  	gw.open();
   	gw.on('open', function() {
   		console.log((new Date()) + " - connected to serial gateway at " + gwAddress);
   		connectJeedom('saveGateway', 0, 0, 0, 1);
@@ -252,7 +251,7 @@ function launchGateway() {
 	      gw.close();
 	    } else {
 	      console.log((new Date()) + ' Error gateway: ' + err.toString());
-	      console.log(err.stack);
+	      console.log((new Date()) + ' ' + err.stack);
 	    }
 	    connectJeedom('saveGateway', 0, 0, 0, 0);
   	});
