@@ -296,13 +296,13 @@ class mySensors extends eqLogic {
 
   public static function sendCommand( $gateway, $destination, $sensor, $command, $acknowledge, $type, $payload ) {
     //default master
-    $ip = '127.0.0.1';
+    if ($gateway == 'master') {
+      $ip = '127.0.0.1';
+    } else {
+      $ip = $gateway;
+    }
     $port = '8019';
 
-    $jeeNetwork = jeeNetwork::byId($gateway);
-    if (is_object($jeeNetwork)) {
-      $ip = $jeeNetwork->getIp();
-    }
     if (config::byKey('netgate','mySensors') != '') {
       $net = explode(";", config::byKey('netgate','mySensors'));
       foreach ($net as $value) {
