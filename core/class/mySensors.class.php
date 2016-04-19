@@ -203,7 +203,7 @@ class mySensors extends eqLogic {
       }
 
       if (config::byKey('jeeNetwork::mode') != 'master') { //Je suis l'esclave
-        $url  = config::byKey('jeeNetwork::master::ip') . '/plugins/mySensors/core/api/jeeSensors.php?apikey=' . config::byKey('jeeNetwork::master::apikey');
+        $url = config::byKey('jeeNetwork::master::ip') . '/plugins/mySensors/core/api/jeeSensors.php?apikey=' . config::byKey('jeeNetwork::master::apikey');
         $gateway = config::byKey('internalAddr') . ' ' . $usbGateway . ' serial';
       } else {
         $gateway = 'master ' . $usbGateway . ' serial';
@@ -294,7 +294,7 @@ class mySensors extends eqLogic {
     passthru('/bin/bash ' . $resource_path . '/nodejs.sh ' . $resource_path . ' > ' . log::getPathToLog('mySensors_dep') . ' 2>&1 &');
   }
 
-  public static function sendCommand( $gateway, $destination, $sensor, $command, $acknowledge, $type, $payload ) {
+  public static function sendCommand($gateway, $destination, $sensor, $command, $acknowledge, $type, $payload) {
     //default master
     if ($gateway == 'master') {
       $ip = '127.0.0.1';
@@ -306,7 +306,7 @@ class mySensors extends eqLogic {
     if (config::byKey('netgate','mySensors') != '') {
       $net = explode(";", config::byKey('netgate','mySensors'));
       foreach ($net as $value) {
-        $gate = explode(";", $value);
+        $gate = explode(":", $value);
         if ($gateway == $gate[0]) {
           $ip = $gate[0];
           $port = $gate[1];
@@ -321,7 +321,7 @@ class mySensors extends eqLogic {
     log::add('mySensors', 'info', $msg);
     $fp = fsockopen($ip, $port, $port, $errstr);
     if (!$fp) {
-      echo "ERROR: $errno - $errstr<br />\n";
+      echo "ERROR: $errstr<br />\n";
     } else {
       fwrite($fp, $msg);
       fclose($fp);
@@ -461,12 +461,13 @@ class mySensors extends eqLogic {
     if ($nodeid == '0') {
       config::save('gateLib', $value,  'mySensors');
       log::add('mySensors', 'info', 'Gateway Lib ' . $value . config::byKey('gateLib','mySensors'));
-    }
-    $elogic = self::byLogicalId($nodeid, 'mySensors');
-    if (is_object($elogic)) {
-      if ( $elogic->getConfiguration('LibVersion', '') != $value ) {
-        $elogic->setConfiguration('LibVersion',$value);
-        $elogic->save();
+    } else {
+      $elogic = self::byLogicalId($nodeid, 'mySensors');
+      if (is_object($elogic)) {
+        if ( $elogic->getConfiguration('LibVersion', '') != $value ) {
+          $elogic->setConfiguration('LibVersion',$value);
+          $elogic->save();
+        }
       }
     }
   }
