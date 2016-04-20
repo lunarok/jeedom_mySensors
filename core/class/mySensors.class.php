@@ -296,31 +296,22 @@ class mySensors extends eqLogic {
 
   public static function sendCommand($gateway, $destination, $sensor, $command, $acknowledge, $type, $payload) {
     //default master
-    $ip = '127.0.0.1';
+    if ($gateway == 'master') {
+      $ip = '127.0.0.1';
+    } else {
+      $ip = $gateway;
+    }
     $port = '8019';
 
-    $gatewayFound = false;
-    $jeeNetworks = jeeNetwork::byPlugin('mySensors');
-    foreach ($jeeNetworks as $key => $jeeNetwork) {
-      if ($jeeNetwork->getIp() == $gateway) {
-        $ip = $gateway;
-        $gatewayFound = true;
-        break;
-      }
-    }
-    if (!$gatewayFound && config::byKey('netgate','mySensors') != '') {
+    if (config::byKey('netgate','mySensors') != '') {
       $net = explode(";", config::byKey('netgate','mySensors'));
       foreach ($net as $value) {
         $gate = explode(":", $value);
         if ($gateway == $gate[0]) {
           $ip = $gate[0];
           $port = $gate[1];
-          $gatewayFound = true;
         }
       }
-    }
-    if (! $gatewayFound) {
-      throw new Exception("Gateway not found to sent messageType");
     }
     $msg = $destination . ";" . $sensor . ";" . $command . ";" . $acknowledge . ";" .$type . ";" . $payload;
     mySensors::sendToController($ip,$port,$msg);
@@ -469,12 +460,12 @@ class mySensors extends eqLogic {
     sleep(1);
     if ($nodeid == '0') {
       config::save('gateLib', $value,  'mySensors');
-      log::add('mySensors', 'info', 'Gateway Lib ' . $value . config::byKey('gateLib', 'mySensors'));
+      log::add('mySensors', 'info', 'Gateway Lib ' . $value . config::byKey('gateLib','mySensors'));
     } else {
       $elogic = self::byLogicalId($nodeid, 'mySensors');
       if (is_object($elogic)) {
         if ( $elogic->getConfiguration('LibVersion', '') != $value ) {
-          $elogic->setConfiguration('LibVersion', $value);
+          $elogic->setConfiguration('LibVersion',$value);
           $elogic->save();
         }
       }
