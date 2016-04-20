@@ -214,7 +214,7 @@ class mySensors extends eqLogic {
     if (config::byKey('netgate','mySensors') != '') {
       $net = explode(";", config::byKey('netgate','mySensors'));
       foreach ($net as $value) {
-        $gate = explode(';', $value);
+        $gate = explode(':', $value);
         $gateway = $gate[0] . ' ' . $value . ' network';
         mySensors::launch_svc($url, $gateway);
       }
