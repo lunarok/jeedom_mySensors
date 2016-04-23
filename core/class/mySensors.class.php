@@ -295,15 +295,7 @@ class mySensors extends eqLogic {
   }
 
   public static function sendCommand($gateway, $destination, $sensor, $command, $acknowledge, $type, $payload) {
-    //default master
-    if ($gateway == 'master') {
-      $ip = '127.0.0.1';
-    } else {
-      $ip = $gateway;
-    }
-    $port = '8019';
-
-    if (config::byKey('netgate','mySensors') != '') {
+    if (config::byKey('netgate','mySensors') != '' && strpos(config::byKey('netgate','mySensors'), $gateway) !== false) {
       $net = explode(";", config::byKey('netgate','mySensors'));
       foreach ($net as $value) {
         $gate = explode(":", $value);
@@ -312,14 +304,23 @@ class mySensors extends eqLogic {
           $port = $gate[1];
         }
       }
+    } else {
+      //default master
+      if ($gateway == 'master') {
+        $ip = '127.0.0.1';
+      } else {
+        $ip = $gateway;
+      }
+      $port = '8019';
     }
     $msg = $destination . ";" . $sensor . ";" . $command . ";" . $acknowledge . ";" .$type . ";" . $payload;
+    log::add('mySensors','debug','Gateway ' . $ip . ' port ' . $port . ' message ' . $msg);
     mySensors::sendToController($ip,$port,$msg);
   }
 
   public static function sendToController( $ip, $port, $msg ) {
     log::add('mySensors', 'info', $msg);
-    $fp = fsockopen($ip, $port, $port, $errstr);
+    $fp = fsockopen($ip, $port, $errstr);
     if (!$fp) {
       echo "ERROR: $errstr<br />\n";
     } else {
@@ -393,6 +394,9 @@ class mySensors extends eqLogic {
     $elogic = self::byLogicalId($nodeid, 'mySensors');
     if (is_object($elogic)) {
       $elogic->setStatus('lastCommunication', date('Y-m-d H:i:s'));
+      if ( $elogic->getConfiguration('gateway', '') != $gateway ) {
+        $elogic->setConfiguration('gateway',$gateway);
+      }
       $elogic->save();
       $cmdlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(),$cmdId);
       if (is_object($cmdlogic)) {
@@ -423,6 +427,10 @@ class mySensors extends eqLogic {
           $elogic->setConfiguration('SketchName',$value);
           //si le sketch a changé sur le node, alors on set le nom avec le sketch
           $elogic->setName($value.' - '.$nodeid);
+          $elogic->save();
+        }
+        if ( $elogic->getConfiguration('gateway', '') != $gateway ) {
+          $elogic->setConfiguration('gateway',$gateway);
           $elogic->save();
         }
       }
@@ -869,6 +877,10 @@ class mySensorsCmd extends cmd {
       }
 
       $eqLogic = $this->getEqLogic();
+      if ($eqLogic->getConfiguration('gateway', '') == '') {
+        log::add('mySensors', 'error', 'Gateway non définie, merci de relancer le noeud');
+        return true;
+      }
 
       $result = mySensors::sendCommand(
         $eqLogic->getConfiguration('gateway'),
