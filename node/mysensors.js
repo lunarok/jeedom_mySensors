@@ -16,7 +16,7 @@ process.argv.forEach(function(val, index, array) {
 		case 3 : gateway = val; break;
 		case 4 : gwAddress = val; break;
 		case 5 : type = val; break;
-		case 6 : debug = val; break;
+		case 6 : log = val; break;
 	}
 });
 
@@ -63,10 +63,10 @@ function encode(destination, sensor, command, acknowledge, type, payload) {
 
 function connectJeedom(messagetype, sender, sensor, type, payload) {
 	jeeApi = urlJeedom + "&messagetype="+messagetype.toString()+"&sender="+sender.toString()+"&sensor=" + sensor.toString() +"&type=" + type.toString() + "&payload="+payload;
-	if (debug == 1) {console.log((new Date()) + " : " + jeeApi);}
+	if (log == 'debug') {console.log((new Date()) + " : " + jeeApi);}
 	request(jeeApi, function (error, response, body) {
 		if (!error && response.statusCode == 200) {
-			//if (debug == 1) {console.log((new Date()) + " - Return OK from Jeedom");}
+			//if (log == 'debug') {console.log((new Date()) + " - Return OK from Jeedom");}
 		}else{
 			console.log((new Date()).toLocaleString(), error);
 		}
@@ -256,6 +256,27 @@ function launchGateway() {
 	    connectJeedom('saveGateway', 0, 0, 0, 0);
   	});
   } else {
+		//pour la connexion avec Jeedom => Node
+  	var pathsocket = '/tmp/mysensor.sock';
+  	fs.unlink(pathsocket, function () {
+  		var server = net.createServer(function(c) {
+  			console.log((new Date()) + " - Server connected");
+  			c.on('error', function(e) {
+  				console.log((new Date()) + " - Error server disconnected");
+  			});
+  			c.on('close', function() {
+  				console.log((new Date()) + " - Connexion closed");
+  			});
+  			c.on('data', function(data) {
+  				console.log((new Date()) + " - Response: " + data);
+  				gw.write(data.toString() + '\n');
+  			});
+  		});
+  		server.listen(8019, function(e) {
+  			console.log((new Date()) + " - server bound on 8019");
+  		});
+  	});
+		
     var tmp = gwAddress.split(':');
   	gw = require('net').Socket();
   	gw.connect({port: tmp[1], host: tmp[0]});
@@ -266,7 +287,7 @@ function launchGateway() {
       relaunchGw = true;
       attemptsGw = 0;
   	}).on('data', function(rd) {
-  		if (debug == 1) {console.log((new Date()) + " : "  + rd);}
+  		if (log == 'debug') {console.log((new Date()) + " : "  + rd);}
   		rfReceived(rd,gw);
   	}).on('end', function() {
   		console.log((new Date()) + " - disconnected from network gateway");

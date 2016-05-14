@@ -177,7 +177,7 @@ class mySensors extends eqLogic {
     return $return;
   }
 
-  public static function deamon_start($_debug = false) {
+  public static function deamon_start() {
     self::deamon_stop();
     $deamon_info = self::deamon_info();
     if ($deamon_info['launchable'] != 'ok') {
@@ -192,42 +192,35 @@ class mySensors extends eqLogic {
 
     //launching serial service
     if (config::byKey('nodeGateway', 'mySensors') != 'none' && config::byKey('nodeGateway', 'mySensors') != '') {
-      $usbGateway = jeedom::getUsbMapping(config::byKey('nodeGateway', 'mySensors'));
-      if ($usbGateway == '' ) {
-        throw new Exception(__('Le port : ', __FILE__) . $port . __(' n\'existe pas', __FILE__));
-      }
-      log::add('mySensors','info','Lancement du démon mySensors : Gateway ' . $usbGateway);
+      if (config::byKey('nodeGateway', 'mySensors') != 'network') {
+        $usbGateway = jeedom::getUsbMapping(config::byKey('nodeGateway', 'mySensors'));
+        if ($usbGateway == '' ) {
+          throw new Exception(__('Le port : ', __FILE__) . $port . __(' n\'existe pas', __FILE__));
+        }
+        log::add('mySensors','info','Lancement du démon mySensors : Gateway ' . $usbGateway);
 
-      if ($usbGateway != "none") {
-        exec('sudo chmod -R 777 ' . $usbGateway);
-      }
+        if ($usbGateway != "none") {
+          exec('sudo chmod -R 777 ' . $usbGateway);
+        }
 
-      if (config::byKey('jeeNetwork::mode') != 'master') { //Je suis l'esclave
-        $url = config::byKey('jeeNetwork::master::ip') . '/plugins/mySensors/core/api/jeeSensors.php?apikey=' . config::byKey('jeeNetwork::master::apikey');
-        $gateway = config::byKey('internalAddr') . ' ' . $usbGateway . ' serial';
+        if (config::byKey('jeeNetwork::mode') != 'master') { //Je suis l'esclave
+          $url = config::byKey('jeeNetwork::master::ip') . '/plugins/mySensors/core/api/jeeSensors.php?apikey=' . config::byKey('jeeNetwork::master::apikey');
+          $gateway = config::byKey('internalAddr') . ' ' . $usbGateway . ' serial';
+        } else {
+          $gateway = 'master ' . $usbGateway . ' serial';
+        }
+        mySensors::launch_svc($url, $gateway);
       } else {
-        $gateway = 'master ' . $usbGateway . ' serial';
-      }
-      mySensors::launch_svc($url, $gateway);
-    }
-
-    if (config::byKey('netgate','mySensors') != '') {
-      $net = explode(";", config::byKey('netgate','mySensors'));
-      foreach ($net as $value) {
-        $gate = explode(':', $value);
-        $gateway = $gate[0] . ' ' . $value . ' network';
+        $gateway = config::byKey('network', 'mySensors') . ' network';
         mySensors::launch_svc($url, $gateway);
       }
+
     }
 
   }
 
   public static function launch_svc($url, $gateway) {
-    if ($_debug = true) {
-      $log = "1";
-    } else {
-      $log = "0";
-    }
+    $log = log::convertLogLevel(log::getLogLevel('rflink'));
     $sensor_path = realpath(dirname(__FILE__) . '/../../node');
 
     $cmd = 'nice -n 19 nodejs ' . $sensor_path . '/mysensors.js ' . $url . ' ' . $gateway . ' ' . $log;
@@ -295,13 +288,13 @@ class mySensors extends eqLogic {
   }
 
   public static function sendCommand($gateway, $destination, $sensor, $command, $acknowledge, $type, $payload) {
-    if (config::byKey('netgate','mySensors') != '' && strpos(config::byKey('netgate','mySensors'), $gateway) !== false) {
-      $net = explode(";", config::byKey('netgate','mySensors'));
+    if (config::byKey('network','mySensors') != '' && strpos(config::byKey('network','mySensors'), $gateway) !== false) {
+      $net = explode(";", config::byKey('network','mySensors'));
       foreach ($net as $value) {
         $gate = explode(":", $value);
         if ($gateway == $gate[0]) {
-          $ip = $gate[0];
-          $port = $gate[1];
+          $ip = '127.0.0.1';
+          $port = '8019';
         }
       }
     } else {
