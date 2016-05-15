@@ -4,7 +4,7 @@
     <name>mySensors</name>
     <licence>AGPL</licence>
     <author>lunarok,AuFilElec,johann,Filoucaenais,Aloïs,mx85,totovaauski</author>
-    <require>2.1</require>
+    <require>2.3.3</require>
     <category>automation protocol</category>
     <allowRemote>1</allowRemote>
     <hasDependency>1</hasDependency>

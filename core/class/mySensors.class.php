@@ -211,7 +211,8 @@ class mySensors extends eqLogic {
         }
         mySensors::launch_svc($url, $gateway);
       } else {
-        $gateway = config::byKey('network', 'mySensors') . ' network';
+        $gate = explode(":", config::byKey('network','mySensors'));
+        $gateway = $gate[0] . ' ' . config::byKey('network', 'mySensors') . ' network';
         mySensors::launch_svc($url, $gateway);
       }
 
@@ -289,14 +290,7 @@ class mySensors extends eqLogic {
 
   public static function sendCommand($gateway, $destination, $sensor, $command, $acknowledge, $type, $payload) {
     if (config::byKey('network','mySensors') != '' && strpos(config::byKey('network','mySensors'), $gateway) !== false) {
-      $net = explode(";", config::byKey('network','mySensors'));
-      foreach ($net as $value) {
-        $gate = explode(":", $value);
-        if ($gateway == $gate[0]) {
-          $ip = '127.0.0.1';
-          $port = '8019';
-        }
-      }
+      $ip = '127.0.0.1';
     } else {
       //default master
       if ($gateway == 'master') {
@@ -304,8 +298,8 @@ class mySensors extends eqLogic {
       } else {
         $ip = $gateway;
       }
-      $port = '8019';
     }
+    $port = '8019';
     $msg = $destination . ";" . $sensor . ";" . $command . ";" . $acknowledge . ";" .$type . ";" . $payload;
     log::add('mySensors','debug','Gateway ' . $ip . ' port ' . $port . ' message ' . $msg);
     mySensors::sendToController($ip,$port,$msg);
