@@ -221,7 +221,7 @@ class mySensors extends eqLogic {
   }
 
   public static function launch_svc($url, $gateway) {
-    $log = log::convertLogLevel(log::getLogLevel('rflink'));
+    $log = log::convertLogLevel(log::getLogLevel('mySensors'));
     $sensor_path = realpath(dirname(__FILE__) . '/../../node');
 
     $cmd = 'nice -n 19 nodejs ' . $sensor_path . '/mysensors.js ' . $url . ' ' . $gateway . ' ' . $log;
