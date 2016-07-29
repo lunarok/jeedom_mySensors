@@ -169,7 +169,7 @@ if ($state == 1) {
                             <div class="form-group expertModeVisible">
                                 <label class="col-md-2 control-label">{{Type de piles}}</label>
                                 <div class="col-md-8">
-                                    <input class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="battery_type" placeholder="Doit être indiqué sous la forme : 3xAA"/>
+                                    <input class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="battery_type" placeholder="Doit être indiqué sous la forme : 3x AA"/>
                                 </div>
                             </div>
                             <div class="form-group">
