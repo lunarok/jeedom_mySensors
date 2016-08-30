@@ -202,13 +202,8 @@ class mySensors extends eqLogic {
         if ($usbGateway != "none") {
           exec('sudo chmod -R 777 ' . $usbGateway);
         }
+        $gateway = 'master ' . $usbGateway . ' serial';
 
-        if (config::byKey('jeeNetwork::mode') != 'master') { //Je suis l'esclave
-          $url = config::byKey('jeeNetwork::master::ip') . '/plugins/mySensors/core/api/jeeSensors.php?apikey=' . config::byKey('jeeNetwork::master::apikey');
-          $gateway = config::byKey('internalAddr') . ' ' . $usbGateway . ' serial';
-        } else {
-          $gateway = 'master ' . $usbGateway . ' serial';
-        }
         mySensors::launch_svc($url, $gateway);
       } else {
         $gate = explode(":", config::byKey('network','mySensors'));
@@ -870,18 +865,18 @@ class mySensorsCmd extends cmd {
       }
 
       $result = mySensors::sendCommand(
-        $eqLogic->getConfiguration('gateway'),
-        $eqLogic->getConfiguration('nodeid'),
-        $this->getConfiguration('sensor'),
-        $this->getConfiguration('cmdCommande'),
-        1,
-        $this->getConfiguration('cmdtype'),
-        $request
-      );
+      $eqLogic->getConfiguration('gateway'),
+      $eqLogic->getConfiguration('nodeid'),
+      $this->getConfiguration('sensor'),
+      $this->getConfiguration('cmdCommande'),
+      1,
+      $this->getConfiguration('cmdtype'),
+      $request
+    );
 
-      $result = $request;
-      return $result;
-    }
-    return true;
+    $result = $request;
+    return $result;
   }
+  return true;
+}
 }
