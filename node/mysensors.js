@@ -180,7 +180,7 @@ function rfReceived(data,gw) {
 			}
 			break;
 			case C_STREAM:
-			switch (type) {
+/*			switch (type) {
 				case ST_FIRMWARE_CONFIG_REQUEST:
 				break;
 				case ST_FIRMWARE_CONFIG_RESPONSE:
@@ -194,7 +194,7 @@ function rfReceived(data,gw) {
 				case ST_IMAGE:
 				break;
 			}
-			break;
+*/			break;
 		}
 	}
 }
