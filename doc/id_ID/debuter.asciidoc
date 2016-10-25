@@ -1,0 +1,16 @@
+Voici une liste pour ceux qui souhaiteraient s'essayer à mySensors.
+
+Celle-ci est prévu pour ne pas nécessiter de soudure. Elle consiste en une passerelle USB et un noeud de température/humidité.
+
+Vous trouverez la documentation et les sketchs des noeuds dans le chapitre documentation. Il est possible de prendre tout autre capteur pour essayer. La liste donnée ci dessous représente environ un somme de 20$ pour se lancer.
+
+
+* 2x http://s.click.aliexpress.com/e/zrb6euF6a[Arduino Nano]
+
+* 2x http://s.click.aliexpress.com/e/AMrFU37Qj[composant sans fil NRF24L01]
+
+* http://s.click.aliexpress.com/e/zR3jaqzJE[Carte d'extension Arduino Nano]
+
+* http://s.click.aliexpress.com/e/IQfqVRfYR[Cable de connexions]
+
+* http://s.click.aliexpress.com/e/Mj2nE2bUN[Capteur DHT22 pour Température et Humidité]
