@@ -184,11 +184,7 @@ class mySensors extends eqLogic {
       throw new Exception(__('Veuillez vérifier la configuration', __FILE__));
     }
 
-    if (!config::byKey('internalPort')) {
-      $url = config::byKey('internalProtocol') . config::byKey('internalAddr') . config::byKey('internalComplement') . '/plugins/mySensors/core/api/jeeSensors.php?apikey=' . config::byKey('api');
-    } else {
-      $url = config::byKey('internalProtocol') . config::byKey('internalAddr'). ':' . config::byKey('internalPort') . config::byKey('internalComplement') . '/plugins/mySensors/core/api/jeeSensors.php?apikey=' . config::byKey('api');
-    }
+    $url = network::getNetworkAccess('internal') . '/plugins/mySensors/core/api/jeeSensors.php?apikey=' . jeedom::getApiKey('mySensors');
 
     //launching serial service
     if (config::byKey('nodeGateway', 'mySensors') != 'none' && config::byKey('nodeGateway', 'mySensors') != '') {
