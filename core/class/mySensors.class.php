@@ -121,8 +121,8 @@ class mySensors extends eqLogic {
       0 => array('S_DOOR','Ouverture','door','binary','','','1','OPENING',),
       1 => array('S_MOTION','Mouvement','presence','binary','','','1','PRESENCE',),
       2 => array('S_SMOKE','Fumée','tile','binary','','','1','SMOKE',),
-      3 => array('S_LIGHT','Relais','light','binary','','','','ENERGY_STATE',),
-      4 => array('S_DIMMER','Variateur','light','numeric','%','','','ENERGY_STATE',),
+      3 => array('S_LIGHT','Relais','light','binary','','','0','ENERGY_STATE',),
+      4 => array('S_DIMMER','Variateur','light','numeric','%','','0','ENERGY_STATE',),
       5 => array('S_COVER','Store','store','binary','','','1','FLAP_STATE',),
       6 => array('S_TEMP','Température','tile','numeric','°C','1','1','TEMPERATURE',),
       7 => array('S_HUM','Humidité','tile','numeric','%','1','1','HUMIDITY',),
@@ -154,8 +154,8 @@ class mySensors extends eqLogic {
       33 => array('S_SOUND','Son','tile','numeric','','','1','GENERIC',),
       34 => array('S_VIBRATION','Vibration','tile','numeric','mm','1','1','GENERIC',),
       35 => array('S_MOISTURE','Humidité','tile','numeric','','','1','GENERIC',),
-      97 => array('GATEWAY','Connexion avec Gateway','tile','string','','','','GENERIC',),
-      98 => array('INNA_NODE','Inactivité des Nodes','tile','string','','','','GENERIC',),
+      97 => array('GATEWAY','Connexion avec Gateway','tile','string','','','0','GENERIC',),
+      98 => array('INNA_NODE','Inactivité des Nodes','tile','string','','','0','GENERIC',),
       99 => array('BATTERIE','Etat de la batterie','Sky-progressBar','numeric','%','','1','BATTERY',)
     )
 
