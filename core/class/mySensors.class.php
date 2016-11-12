@@ -292,7 +292,7 @@ class mySensors extends eqLogic {
     }
     $port = '8019';
     $msg = $destination . ";" . $sensor . ";" . $command . ";" . $acknowledge . ";" .$type . ";" . $payload;
-    log::add('mySensors','debug','Gateway ' . $ip . ' port ' . $port . ' message ' . $msg);
+	log::add('mySensors','debug','Gateway ' . $ip . ':' . $port . ' -> message = destination:'.$destination.', sensor:'.$sensor.', command:'.$command.', acknowledge:'.$acknowledge.', type:'.$type.' ('.self::$_dico['N'][$type].'), payload:'.$payload);
     mySensors::sendToController($ip,$port,$msg);
   }
 
@@ -459,6 +459,7 @@ class mySensors extends eqLogic {
   }
 
   public static function saveSensor($gateway, $nodeid, $sensor, $value) {
+    log::add('mySensors','debug','saveSensor(gateway : '.$gateway.', nodeid : '.$nodeid.', sensor : '.$sensor.', value : '.$value.' ('.self::$_dico['S'][$value][1].'))');
     sleep(1);
     //exemple : 0 => array('S_DOOR','Ouverture','door','binary','','','1',),
     $name = self::$_dico['S'][$value][1];
@@ -477,12 +478,14 @@ class mySensors extends eqLogic {
     if (is_object($elogic)) {
       $cmdlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(),$cmdId);
       if (is_object($cmdlogic)) {
+	    log::add('mySensors','debug','La commande existe déjà, pas besoin de la créer');
         if ( $cmdlogic->getConfiguration('sensorCategory', '') != $sType ) {
           $cmdlogic->setConfiguration('sensorCategory', $sType);
           $cmdlogic->save();
         }
       }
       else {
+	    log::add('mySensors','debug','La commande n\'existe pas, création');
         $mysCmd = new mySensorsCmd();
         $cmds = $elogic->getCmd();
         $order = count($cmds);
