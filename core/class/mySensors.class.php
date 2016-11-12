@@ -459,7 +459,7 @@ class mySensors extends eqLogic {
   }
 
   public static function saveSensor($gateway, $nodeid, $sensor, $value) {
-    log::add('mySensors','debug','saveSensor(gateway : '.$gateway.', nodeid : '.$nodeid.', sensor : '.$sensor.', value : '.$value.')');
+    log::add('mySensors','debug','saveSensor(gateway : '.$gateway.', nodeid : '.$nodeid.', sensor : '.$sensor.', value : '.$value.' ('.self::$_dico['S'][$value][1].'))');
     sleep(1);
     //exemple : 0 => array('S_DOOR','Ouverture','door','binary','','','1',),
     $name = self::$_dico['S'][$value][1];
