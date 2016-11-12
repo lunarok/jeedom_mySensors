@@ -292,7 +292,7 @@ class mySensors extends eqLogic {
     }
     $port = '8019';
     $msg = $destination . ";" . $sensor . ";" . $command . ";" . $acknowledge . ";" .$type . ";" . $payload;
-	log::add('mySensors','debug','Gateway ' . $ip . ':' . $port . ' -> message = destination:'.$destination.', sensor:'.$sensor.', command:'.$command.', acknowledge:'.$acknowledge.', type:'.$type.', payload:'.$payload);
+	log::add('mySensors','debug','Gateway ' . $ip . ':' . $port . ' -> message = destination:'.$destination.', sensor:'.$sensor.', command:'.$command.', acknowledge:'.$acknowledge.', type:'.$type.' ('.self::$_dico['N'][$type].'), payload:'.$payload);
     mySensors::sendToController($ip,$port,$msg);
   }
 
