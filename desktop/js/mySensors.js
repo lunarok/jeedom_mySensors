@@ -183,4 +183,4 @@ function addCmdToTable(_cmd) {
       }
     });
 
-}
+  }
