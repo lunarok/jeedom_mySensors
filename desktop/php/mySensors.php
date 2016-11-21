@@ -324,9 +324,9 @@ if ($state == 1) {
           <tr>
             <th style="width: 50px;">#</th>
             <th style="width: 150px;">{{Nom}}</th>
-            <th style="width: 110px;">{{Sous-Type}}</th>
-            <th>{{Capteur}}</th>
-            <th style="width: 100px;">{{Donnée}}</th>
+            <th style="width: 120px;">{{Sous-Type}}</th>
+            <th style="width: 200px;">{{Capteur}}</th>
+            <th style="width: 200px;">{{Donnée}}</th>
             <th style="width: 200px;">{{Paramètres}}</th>
             <th style="width: 100px;"></th>
           </tr>
