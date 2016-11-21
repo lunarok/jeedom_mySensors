@@ -101,3 +101,84 @@ var dicos = {
 };
 
 $("#table_cmd").sortable({axis: "y", cursor: "move", items: ".cmd", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
+
+function addCmdToTable(_cmd) {
+  if (!isset(_cmd)) {
+    var _cmd = {configuration: {}};
+  }
+    var tr = '<tr class="cmd" data-cmd_id="' + init(_cmd.id) + '">';
+    tr += '<td>';
+    tr += '<span class="cmdAttr" data-l1key="id"></span>';
+    tr += '</td>';
+    tr += '<td>';
+    if (_cmd.type == 'action') {
+        tr += '<a class="cmdAction btn btn-default btn-sm" data-l1key="chooseIcon"><i class="fa fa-flag"></i> Icone</a>';
+    }
+    tr += '<input class="cmdAttr form-control input-sm" data-l1key="name" style="width : 140px;" placeholder="{{Nom du capteur}}">';
+    if (_cmd.type == 'action') {
+        tr += '<select class="cmdAttr form-control tooltips input-sm" data-l1key="value" style="display : none;margin-top : 5px;" title="{{La valeur de la commande vaut par défaut la commande}}">';
+        tr += '<option value="">Aucune</option>';
+        tr += '</select>';
+    }
+    tr += '</td><td>';
+    tr += '<input class="cmdAttr form-control type input-sm" data-l1key="type" disabled style="margin-bottom : 5px;" />';
+    tr += '<span class="subType" subType="' + init(_cmd.subType) + '" style=""></span>';
+    if (_cmd.type == 'action') {
+        tr += '<span>{{Message}}:<select class="cmdAttr" data-l1key="configuration" data-l2key="cmdCommande">';
+        tr += dicos.C;
+        tr +='</select></span>';
+    }
+    tr += '</td>';
+    tr += '<td>';
+    tr += '<span  style="width : 30%;display : inline-block;">{{Numéro}} :</span><span  style="width : 60%;display : inline-block;">{{Type}} :</span>';
+    tr += '<textarea class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="sensor" style="height : 33px; width : 30%;display : inline-block;" ' + disabled + ' placeholder="{{Capteur}}"></textarea>';
+    tr += '<select class="cmdAttr" data-l1key="configuration" data-l2key="sensorCategory" style="height : 33px; width : 60%;display : inline-block;">';
+    tr += dicos.S;
+    tr +='</select>';
+    if (isset(_cmd.configuration.sensorCategory) && _cmd.configuration.sensorCategory == "23") {
+        tr += '<textarea class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="value"  style="height : 33px;width : 100%;display : inline-block;" ' + disabled + ' placeholder="{{Valeur}}"></textarea></br>';
+        tr += '<a class="btn btn-default cursor listEquipementInfo btn-sm" data-input="value"><i class="fa fa-list-alt "></i> {{Rechercher Equipement}}</a><br/>';
+    }
+    tr += '</td>';
+    tr += '<td>{{Unité}} :<br/>';
+    tr += '<input class="cmdAttr form-control input-sm" data-l1key="unite" style="width : 90px;" placeholder="{{Unite}}">';
+    tr += '<span>{{Type}}:<select class="cmdAttr" data-l1key="configuration" data-l2key="sensorType" >';
+    tr += dicos.N;
+    tr +='</select></span>';
+    tr += '</td><td>';
+    if (_cmd.subType == 'numeric' || _cmd.subType == 'binary') {
+        tr += '<span><label class="checkbox-inline"><input type="checkbox" class="cmdAttr checkbox-inline" data-l1key="isHistorized" checked/>{{Historiser}}</label></span> ';
+    }
+    if (_cmd.subType == 'binary') {
+        tr += '<span class="expertModeVisible"><label class="checkbox-inline"><input type="checkbox" class="cmdAttr checkbox-inline" data-l1key="display" data-l2key="invertBinary" checked/>{{Inverser}}</label></span> ';
+    }
+    tr += '<span><label class="checkbox-inline"><input type="checkbox" class="cmdAttr checkbox-inline" data-l1key="isVisible" checked/>{{Afficher}}</label></span> ';
+    if (_cmd.subType == 'numeric') {
+        tr += '<input class="tooltips cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="minValue" placeholder="{{Min}}" title="{{Min}}" style="width : 40%;display : inline-block;"> ';
+        tr += '<input class="tooltips cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="maxValue" placeholder="{{Max}}" title="{{Max}}" style="width : 40%;display : inline-block;">';
+    }
+    tr += '</td>';
+    tr += '<td>';
+    if (is_numeric(_cmd.id)) {
+        tr += '<a class="btn btn-default btn-xs cmdAction expertModeVisible" data-action="configure"><i class="fa fa-cogs"></i></a> ';
+        tr += '<a class="btn btn-default btn-xs cmdAction" data-action="test"><i class="fa fa-rss"></i> {{Tester}}</a>';
+    }
+    tr += '<i class="fa fa-minus-circle pull-right cmdAction cursor" data-action="remove"></i></td>';
+    tr += '</tr>';
+    $('#table_cmd tbody').append(tr);
+    $('#table_cmd tbody tr:last').setValues(_cmd, '.cmdAttr');
+
+    jeedom.eqLogic.builSelectCmd({
+      id: $(".li_eqLogic.active").attr('data-eqLogic_id'),
+      filter: {type: 'info'},
+      error: function (error) {
+        $('#div_alert').showAlert({message: error.message, level: 'danger'});
+      },
+      success: function (result) {
+        tr.find('.cmdAttr[data-l1key=value]').append(result);
+        tr.setValues(_cmd, '.cmdAttr');
+        jeedom.cmd.changeType(tr, init(_cmd.subType));
+      }
+    });
+
+  }
