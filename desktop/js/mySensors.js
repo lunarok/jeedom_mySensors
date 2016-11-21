@@ -100,32 +100,12 @@ var dicos = {
     S: sortDico(mySensorDico.S)
 };
 
-$("#table_cmd").delegate(".listEquipementInfo", 'click', function () {
-    var el = $(this);
-    jeedom.cmd.getSelectModal({cmd: {type: 'info'}}, function (result) {
-        var calcul = el.closest('tr').find('.cmdAttr[data-l1key=configuration][data-l2key=' + el.data('input') + ']');
-        calcul.atCaret('insert', result.human);
-    });
-});
-
-$("#table_cmd").delegate(".listEquipementAction", 'click', function () {
-    var el = $(this);
-    var subtype = $(this).closest('.cmd').find('.cmdAttr[data-l1key=subType]').value();
-    jeedom.cmd.getSelectModal({cmd: {type: 'action', subType: subtype}}, function (result) {
-        var calcul = el.closest('tr').find('.cmdAttr[data-l1key=configuration][data-l2key=' + el.attr('data-input') + ']');
-        calcul.atCaret('insert', result.human);
-    });
-});
-
 $("#table_cmd").sortable({axis: "y", cursor: "move", items: ".cmd", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
 
 function addCmdToTable(_cmd) {
-    if (!isset(_cmd)) {
-        var _cmd = {configuration: {}};
-    }
-    if (!isset(_cmd.configuration)) {
-        _cmd.configuration = {};
-    }
+  if (!isset(_cmd)) {
+    var _cmd = {configuration: {}};
+  }
 
     var disabled = (init(_cmd.configuration.virtualAction) == '1') ? 'disabled' : '';
     var tr = '<tr class="cmd" data-cmd_id="' + init(_cmd.id) + '">';
@@ -191,16 +171,16 @@ function addCmdToTable(_cmd) {
     $('#table_cmd tbody tr:last').setValues(_cmd, '.cmdAttr');
 
     jeedom.eqLogic.builSelectCmd({
-        id: $(".li_eqLogic.active").attr('data-eqLogic_id'),
-        filter: {type: 'info'},
-        error: function (error) {
-            $('#div_alert').showAlert({message: error.message, level: 'danger'});
-        },
-        success: function (result) {
-            tr.find('.cmdAttr[data-l1key=value]').append(result);
-            tr.setValues(_cmd, '.cmdAttr');
-            jeedom.cmd.changeType(tr, init(_cmd.subType));
-        }
+      id: $(".li_eqLogic.active").attr('data-eqLogic_id'),
+      filter: {type: 'info'},
+      error: function (error) {
+        $('#div_alert').showAlert({message: error.message, level: 'danger'});
+      },
+      success: function (result) {
+        tr.find('.cmdAttr[data-l1key=value]').append(result);
+        tr.setValues(_cmd, '.cmdAttr');
+        jeedom.cmd.changeType(tr, init(_cmd.subType));
+      }
     });
 
 }
