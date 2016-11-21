@@ -90,7 +90,7 @@ function sortDico(obj) {
     });
     var select = '';
     arr.forEach(function(item) {
-        select += '<option value="' + item.id + '">' + item.item + '</option>';
+        select += '<option value="' + item.id + '">' + item.id + ' - ' + item.item + '</option>';
     });
     return select;
 }
@@ -146,7 +146,6 @@ function addCmdToTable(_cmd) {
 			tr += '<option value="90">Aucun</option>';
 			tr += dicos.S;
 			tr +='</select>';
-	tr += '<span style="width : 40%;display : inline-block;">{{Valeur}} :</span>';
 	if (isset(_cmd.configuration.sensorCategory) && _cmd.configuration.sensorCategory == "23") {
 		tr += '<textarea class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="value"  style="height : 33px;width : 100%;display : inline-block;" ' + disabled + ' placeholder="{{Valeur}}"></textarea></br>';
 		tr += '<a class="btn btn-default cursor listEquipementInfo btn-sm" data-input="value"><i class="fa fa-list-alt "></i> {{Rechercher Ã©quipement}}</a><br/>';
