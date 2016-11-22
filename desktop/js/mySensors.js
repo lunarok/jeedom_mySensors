@@ -90,7 +90,7 @@ function sortDico(obj) {
     });
     var select = '';
     arr.forEach(function(item) {
-        select += '<option value="' + item.id + '">' + item.item + '</option>';
+        select += '<option value="' + item.id + '">' + item.id + ' - ' + item.item + '</option>';
     });
     return select;
 }
