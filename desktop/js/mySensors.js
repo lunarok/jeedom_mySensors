@@ -144,7 +144,7 @@ function addCmdToTable(_cmd) {
         tr += '</td>';
         tr += '<td>';
         tr += '<select class="cmdAttr" data-l1key="configuration" data-l2key="sensorCategory" style="height : 33px; width : 60%;display : inline-block;">';
-        tr += dicos.S;
+        tr += mySensorDico.S;
         tr +='</select>';
         if (isset(_cmd.configuration.sensorCategory) && _cmd.configuration.sensorCategory == "23") {
             tr += '<span style="width : 40%;display : inline-block;">{{Valeur}} :</span>';
@@ -157,7 +157,7 @@ function addCmdToTable(_cmd) {
         tr += '</td>';
         tr += '<td>';
         tr += '<select class="cmdAttr" data-l1key="configuration" data-l2key="sensorType" >';
-        tr += dicos.N;
+        tr += mySensorDico.N;
         tr +='</select>';
         tr += '</td><td>';
         if (_cmd.subType == 'numeric' || _cmd.subType == 'binary') {
@@ -205,7 +205,7 @@ if (init(_cmd.type) == 'action') {
     tr += '<td>';
     tr += '<input class="cmdAttr form-control type input-sm" data-l1key="type" value="action" disabled style="margin-bottom : 5px;" />';
     tr += '<span>{{Message}}:<select class="cmdAttr" data-l1key="configuration" data-l2key="cmdCommande">';
-    tr += dicos.C;
+    tr += mySensorDico.C;
     tr +='</select></span>';
     tr += '<span class="subType" subType="' + init(_cmd.subType) + '" style=""></span>';
     //tr += '<input class="cmdAttr" data-l1key="configuration" data-l2key="virtualAction" value="1" style="display:none;" >';
@@ -219,7 +219,7 @@ if (init(_cmd.type) == 'action') {
     tr += '</td>';
     tr += '<td>';
     tr += '<select class="cmdAttr" data-l1key="configuration" data-l2key="cmdtype">';
-    tr += dicos.N;
+    tr += mySensorDico.N;
     tr +='</select></span>';
     tr += '</td><td>';
     tr += '<span><label class="checkbox-inline"><input type="checkbox" class="cmdAttr checkbox-inline" data-l1key="isVisible" checked/>{{Afficher}}</label></span> ';
