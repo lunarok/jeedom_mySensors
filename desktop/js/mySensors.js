@@ -120,14 +120,16 @@ function addCmdToTable(_cmd) {
         tr += '<span class="subType" subType="' + init(_cmd.subType) + '"></span>';
         tr += '</td>';
         tr += '<td>';
-        tr += '<input class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="sensor" style="width : 90px;">';
+        tr += '<input class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="sensor">';
         tr += '</td>';
         tr += '<td>';
-        tr += '<select class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="sensorCategory"  style="width : 90px;">';
+        tr += '<select class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="sensorCategory">';
         $.each(mySensorDico['S'],function(index, item){
 				tr += '<option value="' + index + '">' + index + ' - ' + item + '</option>';
             })
         tr +='</select>';
+        tr += '</td>';
+        tr += '<td>';
         if (isset(_cmd.configuration.sensorCategory) && _cmd.configuration.sensorCategory == "23") {
             tr += '<span style="width : 40%;display : inline-block;">{{Valeur}} :</span>';
             tr += '<textarea class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="value"  style="height : 33px;width : 100%;display : inline-block;" ' + disabled + ' placeholder="{{Valeur}}"></textarea></br>';
@@ -135,14 +137,14 @@ function addCmdToTable(_cmd) {
         }
         tr += '</td>';
         tr += '<td>';
-        tr += '<select class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="sensorType"  style="width : 90px;">';
+        tr += '<select class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="sensorType">';
         $.each(mySensorDico['N'],function(index, item){
 				tr += '<option value="' + index + '">' + index + ' - ' + item + '</option>';
             })
         tr +='</select>';
         tr += '</td>';
         tr += '<td>';
-        tr += '<input class="cmdAttr form-control input-sm" data-l1key="unite" style="width : 90px;" placeholder="{{Unite}}">';
+        tr += '<input class="cmdAttr form-control input-sm" data-l1key="unite">';
         tr += '</td>';
         tr += '<td>';
         if (_cmd.subType == 'numeric' || _cmd.subType == 'binary') {
@@ -192,15 +194,17 @@ if (init(_cmd.type) == 'action') {
     tr += '<span class="subType" subType="' + init(_cmd.subType) + '" style=""></span>';
     tr += '</td>';
     tr += '<td>';
-    tr += '<input class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="sensor" style="width : 90px;">';
+    tr += '<input class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="sensor">';
     tr += '</td>';
     tr += '<td>';
-    tr += '<span><select class="cmdAttr" data-l1key="configuration" data-l2key="cmdCommande">';
+    tr += '<select class="cmdAttr" data-l1key="configuration" data-l2key="cmdCommande">';
     $.each(mySensorDico['C'],function(index, item){
             tr += '<option value="' + index + '">' + index + ' - ' + item + '</option>';
         })
-    tr +='</select></span>';
-    tr += '<span>{{Valeur : }}<input class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="request" style="width : 90px;"></span>';
+    tr +='</select>';
+    tr += '</td>';
+    tr += '<td>';
+    tr += '<input class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="request">';
     tr += '</td><td>';
     tr += '<select class="cmdAttr" data-l1key="configuration" data-l2key="cmdtype">';
     $.each(mySensorDico['N'],function(index, item){
