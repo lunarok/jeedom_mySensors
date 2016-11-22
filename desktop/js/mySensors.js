@@ -131,7 +131,7 @@ function addCmdToTable(_cmd) {
         if (isset(_cmd.configuration.sensorCategory) && _cmd.configuration.sensorCategory == "23") {
             tr += '<span style="width : 40%;display : inline-block;">{{Valeur}} :</span>';
             tr += '<textarea class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="value"  style="height : 33px;width : 100%;display : inline-block;" ' + disabled + ' placeholder="{{Valeur}}"></textarea></br>';
-            tr += '<a class="btn btn-default cursor listEquipementInfo btn-sm" data-input="value"><i class="fa fa-list-alt "></i> {{Rechercher Ã©quipement}}</a><br/>';
+            tr += '<a class="btn btn-default cursor listEquipementInfo btn-sm" data-input="value"><i class="fa fa-list-alt "></i> {{Rechercher équipement}}</a><br/>';
         }
         tr += '</td>';
         tr += '<td>';
@@ -153,8 +153,8 @@ function addCmdToTable(_cmd) {
         }
         tr += '<span><label class="checkbox-inline"><input type="checkbox" class="cmdAttr checkbox-inline" data-l1key="isVisible" checked/>{{Afficher}}</label></span> ';
         if (_cmd.subType == 'numeric') {
-            tr += '<input class="tooltips cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="minValue" placeholder="{{Min}}" title="{{Min}}"> ';
-            tr += '<input class="tooltips cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="maxValue" placeholder="{{Max}}" title="{{Max}}">';
+            tr += '<input class="tooltips cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="minValue" placeholder="{{Min}}" title="{{Min}}" style="width : 40px;"> ';
+            tr += '<input class="tooltips cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="maxValue" placeholder="{{Max}}" title="{{Max}}" style="width : 40px;">';
         }
         tr += '</td>';
         tr += '<td>';
@@ -189,19 +189,18 @@ if (init(_cmd.type) == 'action') {
     tr += '</td>';
     tr += '<td>';
     tr += '<input class="cmdAttr form-control type input-sm" data-l1key="type" value="action" disabled style="margin-bottom : 5px;" />';
-    tr += '<span>{{Message}}:<select class="cmdAttr" data-l1key="configuration" data-l2key="cmdCommande">';
+    tr += '<span class="subType" subType="' + init(_cmd.subType) + '" style=""></span>';
+    tr += '</td>';
+    tr += '<td>';
+    tr += '<input class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="sensor" style="width : 90px;">';
+    tr += '</td>';
+    tr += '<td>';
+    tr += '<span><select class="cmdAttr" data-l1key="configuration" data-l2key="cmdCommande">';
     $.each(mySensorDico['C'],function(index, item){
             tr += '<option value="' + index + '">' + index + ' - ' + item + '</option>';
         })
     tr +='</select></span>';
-    tr += '<span class="subType" subType="' + init(_cmd.subType) + '" style=""></span>';
-    //tr += '<input class="cmdAttr" data-l1key="configuration" data-l2key="virtualAction" value="1" style="display:none;" >';
-    tr += '</td>';
-    tr += '<td>';
-    tr += '<textarea class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="sensor" style="height : 33px;" ' + disabled + ' placeholder="{{Actionneur}}"></textarea><br/>';
-    tr += '</td>';
-    tr += '<td>';
-    tr += '<textarea class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="request" style="height : 33px;" ' + disabled + ' placeholder="{{Valeur}}"></textarea>';
+    tr += '<span>{{Valeur : }}<input class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="request" style="width : 90px;"></span>';
     tr += '</td><td>';
     tr += '<select class="cmdAttr" data-l1key="configuration" data-l2key="cmdtype">';
     $.each(mySensorDico['N'],function(index, item){

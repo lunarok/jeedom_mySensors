@@ -319,9 +319,9 @@ if ($state == 1) {
             <th style="width: 150px;">{{Nom}}</th>
             <th style="width: 120px;">{{Type Jeedom}}</th>
             <th style="width: 100px;">{{ID Capteur}}</th>
-            <th style="width: 150px;">{{Type Capteur}}</th>
-            <th style="width: 100px;">{{Type Donnée}}</th>
-            <th style="width: 150px;">{{Unité}}</th>
+            <th style="width: 200px;">{{Type Capteur / Valeur}}</th>
+            <th style="width: 150px;">{{Type Donnée}}</th>
+            <th style="width: 100px;">{{Unité}}</th>
             <th style="width: 200px;">{{Paramètres}}</th>
             <th style="width: 100px;"></th>
           </tr>
