@@ -120,10 +120,10 @@ function addCmdToTable(_cmd) {
         tr += '<span class="subType" subType="' + init(_cmd.subType) + '"></span>';
         tr += '</td>';
         tr += '<td>';
-        tr += '<textarea class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="sensor" style="height : 33px; width : 30%;display : inline-block;" ' + disabled + ' placeholder="{{Capteur}}"></textarea>';
+        tr += '<input class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="sensor" style="width : 90px;">';
         tr += '</td>';
         tr += '<td>';
-        tr += '<input class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="sensorCategory" style="width : 90px;">';
+        tr += '<select class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="sensorCategory"  style="width : 90px;">';
         $.each(mySensorDico['S'],function(index, item){
 				tr += '<option value="' + index + '">' + index + ' - ' + item + '</option>';
             })

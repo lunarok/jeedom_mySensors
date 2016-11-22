@@ -222,13 +222,6 @@ if ($state == 1) {
               </div>
 
               <div class="form-group">
-                <label class="col-sm-3 control-label">{{Batterie}}</label>
-                <div class="col-sm-3">
-                  <span class="eqLogicAttr" data-l1key="configuration" data-l2key="battery"></span>
-                </div>
-              </div>
-
-              <div class="form-group">
                 <label class="col-sm-3 control-label">{{Redémarrer le Node}}</label>
                 <div class="col-sm-3">
                   <a class="btn btn-default" id="bt_restartEq"><i class="fa fa-power-off"></i> Redémarrer</a>
@@ -327,8 +320,8 @@ if ($state == 1) {
             <th style="width: 120px;">{{Type Jeedom}}</th>
             <th style="width: 100px;">{{ID Capteur}}</th>
             <th style="width: 150px;">{{Type Capteur}}</th>
-            <th style="width: 100px;">{{Unité}}</th>
-            <th style="width: 150px;">{{Type Donnée}}</th>
+            <th style="width: 100px;">{{Type Donnée}}</th>
+            <th style="width: 150px;">{{Unité}}</th>
             <th style="width: 200px;">{{Paramètres}}</th>
             <th style="width: 100px;"></th>
           </tr>
