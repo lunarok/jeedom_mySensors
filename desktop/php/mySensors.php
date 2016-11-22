@@ -317,13 +317,13 @@ if ($state == 1) {
           <tr>
             <th style="width: 50px;">#</th>
             <th style="width: 150px;">{{Nom}}</th>
-            <th style="width: 100px;">{{Type Jeedom}}</th>
-            <th style="width: 100px;">{{ID Capteur}}</th>
+            <th style="width: 80px;">{{Type Jeedom}}</th>
+            <th style="width: 80px;">{{ID Capteur}}</th>
             <th style="width: 150px;">{{Type Capteur}}</th>
             <th style="width: 150px;">{{Valeur}}</th>
-            <th style="width: 150px;">{{Type Donnée}}</th>
+            <th style="width: 100px;">{{Type Donnée}}</th>
             <th style="width: 50px;">{{Unité}}</th>
-            <th style="width: 100px;">{{Paramètres}}</th>
+            <th style="width: 150px;">{{Paramètres}}</th>
             <th style="width: 50px;"></th>
           </tr>
         </thead>

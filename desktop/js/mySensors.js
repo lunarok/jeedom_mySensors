@@ -197,7 +197,7 @@ if (init(_cmd.type) == 'action') {
     tr += '<input class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="sensor">';
     tr += '</td>';
     tr += '<td>';
-    tr += '<select class="cmdAttr" data-l1key="configuration" data-l2key="cmdCommande">';
+    tr += '<select class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="cmdCommande">';
     $.each(mySensorDico['C'],function(index, item){
             tr += '<option value="' + index + '">' + index + ' - ' + item + '</option>';
         })
@@ -206,7 +206,7 @@ if (init(_cmd.type) == 'action') {
     tr += '<td>';
     tr += '<input class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="request">';
     tr += '</td><td>';
-    tr += '<select class="cmdAttr" data-l1key="configuration" data-l2key="cmdtype">';
+    tr += '<select class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="cmdtype">';
     $.each(mySensorDico['N'],function(index, item){
             tr += '<option value="' + index + '">' + index + ' - ' + item + '</option>';
         })
