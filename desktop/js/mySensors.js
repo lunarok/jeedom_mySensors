@@ -80,26 +80,6 @@ $('body').on('mySensors::includeDevice', function (_event,_options) {
     }
 });
 
-function sortDico(obj) {
-    var arr = [];
-    $.each(obj, function(index, item) {
-        arr.push({id: index, item: item});
-    });
-    arr.sort(function(a, b) {
-        return a.item < b.item ? -1 : a.item > b.item ? 1 : 0;
-    });
-    var select = '';
-    arr.forEach(function(item) {
-        select += '<option value="' + item.id + '">' + item.id + ' - ' + item.item + '</option>';
-    });
-    return select;
-}
-var dicos = {
-    C: sortDico(mySensorDico.C),
-    N: sortDico(mySensorDico.N),
-    S: sortDico(mySensorDico.S)
-};
-
 $("#table_cmd").delegate(".listEquipementInfo", 'click', function () {
     var el = $(this);
     jeedom.cmd.getSelectModal({cmd: {type: 'info'}}, function (result) {
@@ -143,8 +123,10 @@ function addCmdToTable(_cmd) {
         tr += '<textarea class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="sensor" style="height : 33px; width : 30%;display : inline-block;" ' + disabled + ' placeholder="{{Capteur}}"></textarea>';
         tr += '</td>';
         tr += '<td>';
-        tr += '<select class="cmdAttr" data-l1key="configuration" data-l2key="sensorCategory" style="height : 33px; width : 60%;display : inline-block;">';
-        tr += mySensorDico.S;
+        tr += '<input class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="sensorCategory" style="width : 90px;">';
+        $.each(mySensorDico['S'],function(index, item){
+				tr += '<option value="' + index + '">' + index + ' - ' + item + '</option>';
+            })
         tr +='</select>';
         if (isset(_cmd.configuration.sensorCategory) && _cmd.configuration.sensorCategory == "23") {
             tr += '<span style="width : 40%;display : inline-block;">{{Valeur}} :</span>';
@@ -153,13 +135,16 @@ function addCmdToTable(_cmd) {
         }
         tr += '</td>';
         tr += '<td>';
+        tr += '<select class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="sensorType"  style="width : 90px;">';
+        $.each(mySensorDico['N'],function(index, item){
+				tr += '<option value="' + index + '">' + index + ' - ' + item + '</option>';
+            })
+        tr +='</select>';
+        tr += '</td>';
+        tr += '<td>';
         tr += '<input class="cmdAttr form-control input-sm" data-l1key="unite" style="width : 90px;" placeholder="{{Unite}}">';
         tr += '</td>';
         tr += '<td>';
-        tr += '<select class="cmdAttr" data-l1key="configuration" data-l2key="sensorType" >';
-        tr += mySensorDico.N;
-        tr +='</select>';
-        tr += '</td><td>';
         if (_cmd.subType == 'numeric' || _cmd.subType == 'binary') {
             tr += '<span><label class="checkbox-inline"><input type="checkbox" class="cmdAttr checkbox-inline" data-l1key="isHistorized" checked/>{{Historiser}}</label></span> ';
         }
@@ -168,8 +153,8 @@ function addCmdToTable(_cmd) {
         }
         tr += '<span><label class="checkbox-inline"><input type="checkbox" class="cmdAttr checkbox-inline" data-l1key="isVisible" checked/>{{Afficher}}</label></span> ';
         if (_cmd.subType == 'numeric') {
-            tr += '<input class="tooltips cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="minValue" placeholder="{{Min}}" title="{{Min}}" style="width : 40%;display : inline-block;"> ';
-            tr += '<input class="tooltips cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="maxValue" placeholder="{{Max}}" title="{{Max}}" style="width : 40%;display : inline-block;">';
+            tr += '<input class="tooltips cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="minValue" placeholder="{{Min}}" title="{{Min}}"> ';
+            tr += '<input class="tooltips cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="maxValue" placeholder="{{Max}}" title="{{Max}}">';
         }
         tr += '</td>';
         tr += '<td>';
@@ -205,7 +190,9 @@ if (init(_cmd.type) == 'action') {
     tr += '<td>';
     tr += '<input class="cmdAttr form-control type input-sm" data-l1key="type" value="action" disabled style="margin-bottom : 5px;" />';
     tr += '<span>{{Message}}:<select class="cmdAttr" data-l1key="configuration" data-l2key="cmdCommande">';
-    tr += mySensorDico.C;
+    $.each(mySensorDico['C'],function(index, item){
+            tr += '<option value="' + index + '">' + index + ' - ' + item + '</option>';
+        })
     tr +='</select></span>';
     tr += '<span class="subType" subType="' + init(_cmd.subType) + '" style=""></span>';
     //tr += '<input class="cmdAttr" data-l1key="configuration" data-l2key="virtualAction" value="1" style="display:none;" >';
@@ -216,11 +203,13 @@ if (init(_cmd.type) == 'action') {
     tr += '<td>';
     tr += '<textarea class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="request" style="height : 33px;" ' + disabled + ' placeholder="{{Valeur}}"></textarea>';
     tr += '</td><td>';
+    tr += '<select class="cmdAttr" data-l1key="configuration" data-l2key="cmdtype">';
+    $.each(mySensorDico['N'],function(index, item){
+            tr += '<option value="' + index + '">' + index + ' - ' + item + '</option>';
+        })
+    tr +='</select></span>';
     tr += '</td>';
     tr += '<td>';
-    tr += '<select class="cmdAttr" data-l1key="configuration" data-l2key="cmdtype">';
-    tr += mySensorDico.N;
-    tr +='</select></span>';
     tr += '</td><td>';
     tr += '<span><label class="checkbox-inline"><input type="checkbox" class="cmdAttr checkbox-inline" data-l1key="isVisible" checked/>{{Afficher}}</label></span> ';
     tr += '</td>';
