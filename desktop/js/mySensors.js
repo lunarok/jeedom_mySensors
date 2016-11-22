@@ -139,8 +139,10 @@ function addCmdToTable(_cmd) {
         tr += '<input class="cmdAttr form-control type input-sm" data-l1key="type" value="info" disabled style="margin-bottom : 5px;" />';
         tr += '<span class="subType" subType="' + init(_cmd.subType) + '"></span>';
         tr += '</td>';
-        tr += '<td>';	tr += '<span  style="width : 30%;display : inline-block;">{{Numéro}} :</span><span  style="width : 60%;display : inline-block;">{{Type}} :</span>';
+        tr += '<td>';
         tr += '<textarea class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="sensor" style="height : 33px; width : 30%;display : inline-block;" ' + disabled + ' placeholder="{{Capteur}}"></textarea>';
+        tr += '</td>';
+        tr += '<td>';
         tr += '<select class="cmdAttr" data-l1key="configuration" data-l2key="sensorCategory" style="height : 33px; width : 60%;display : inline-block;">';
         tr += dicos.S;
         tr +='</select>';
@@ -150,11 +152,13 @@ function addCmdToTable(_cmd) {
             tr += '<a class="btn btn-default cursor listEquipementInfo btn-sm" data-input="value"><i class="fa fa-list-alt "></i> {{Rechercher Ã©quipement}}</a><br/>';
         }
         tr += '</td>';
-        tr += '<td>{{Unité}} :<br/>';
+        tr += '<td>';
         tr += '<input class="cmdAttr form-control input-sm" data-l1key="unite" style="width : 90px;" placeholder="{{Unite}}">';
-        tr += '<span>{{Type}}:<select class="cmdAttr" data-l1key="configuration" data-l2key="sensorType" >';
+        tr += '</td>';
+        tr += '<td>';
+        tr += '<select class="cmdAttr" data-l1key="configuration" data-l2key="sensorType" >';
         tr += dicos.N;
-        tr +='</select></span>';
+        tr +='</select>';
         tr += '</td><td>';
         if (_cmd.subType == 'numeric' || _cmd.subType == 'binary') {
             tr += '<span><label class="checkbox-inline"><input type="checkbox" class="cmdAttr checkbox-inline" data-l1key="isHistorized" checked/>{{Historiser}}</label></span> ';
@@ -207,11 +211,14 @@ if (init(_cmd.type) == 'action') {
     //tr += '<input class="cmdAttr" data-l1key="configuration" data-l2key="virtualAction" value="1" style="display:none;" >';
     tr += '</td>';
     tr += '<td>';
-    tr += '<textarea class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="sensor" style="height : 33px;" ' + disabled + ' placeholder="{{NÂ° Actionneur}}"></textarea><br/>';
-    tr += 'Valeur de la commande :<br/>';
+    tr += '<textarea class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="sensor" style="height : 33px;" ' + disabled + ' placeholder="{{Actionneur}}"></textarea><br/>';
+    tr += '</td>';
+    tr += '<td>';
     tr += '<textarea class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="request" style="height : 33px;" ' + disabled + ' placeholder="{{Valeur}}"></textarea>';
     tr += '</td><td>';
-    tr += '<span>{{Type}} :<select class="cmdAttr" data-l1key="configuration" data-l2key="cmdtype">';
+    tr += '</td>';
+    tr += '<td>';
+    tr += '<select class="cmdAttr" data-l1key="configuration" data-l2key="cmdtype">';
     tr += dicos.N;
     tr +='</select></span>';
     tr += '</td><td>';
