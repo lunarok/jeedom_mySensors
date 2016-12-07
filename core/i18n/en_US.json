@@ -1,22 +1,22 @@
 {
     "plugins\/mySensors\/core\/class\/mySensors.class.php": {
-        "Aucune gateway configurée": "Aucune gateway configurée"
+        "Aucune gateway configurée": "No gateway set"
     },
     "plugins\/mySensors\/plugin_info\/configuration.php": {
         "Gateway série maître": "Gateway série maître",
-        "Aucune": "Aucune",
-        "Réseau": "Réseau",
+        "Aucune": "None",
+        "Réseau": "Network",
         "Gateway réseau": "Gateway réseau"
     },
     "plugins\/mySensors\/desktop\/php\/mySensors.php": {
-        "Ouverture": "Ouverture",
+        "Ouverture": "Opening",
         "Mouvement": "Mouvement",
-        "Fumée": "Fumée",
-        "Relais": "Relais",
-        "Variateur": "Variateur",
+        "Fumée": "Smoke",
+        "Relais": "Relay",
+        "Variateur": "Dimmer",
         "Store": "Store",
-        "Température": "Température",
-        "Humidité": "Humidité",
+        "Température": "Temperature",
+        "Humidité": "humidity",
         "Baromètre": "Baromètre",
         "Vent": "Vent",
         "Pluie": "Pluie",
