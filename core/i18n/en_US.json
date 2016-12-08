@@ -10,7 +10,7 @@
     },
     "plugins\/mySensors\/desktop\/php\/mySensors.php": {
         "Ouverture": "Opening",
-        "Mouvement": "Mouvement",
+        "Mouvement": "Movement",
         "Fumée": "Smoke",
         "Relais": "Relay",
         "Variateur": "Dimmer",
