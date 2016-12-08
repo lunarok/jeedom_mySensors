@@ -288,7 +288,7 @@ function launchGateway() {
       attemptsGw = 0;
   	}).on('data', function(rd) {
   		if (log == 'debug') {console.log((new Date()) + " : "  + rd);}
-  		rfReceived(rd,gw);
+  		appendData(rd.toString(), gw);
   	}).on('end', function() {
   		console.log((new Date()) + " - disconnected from network gateway");
   		connectJeedom('saveGateway', 0, 0, 0, 0);
