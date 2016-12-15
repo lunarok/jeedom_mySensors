@@ -4,7 +4,7 @@ http://blog.domadoo.fr/2015/05/18/mysensors-presentation-protocole-domotique-ope
 
 http://blog.domadoo.fr/2015/05/26/jeedom-guide-dutilisation-de-mysensors/ [Présentation de mySensors dans Jeedom]
 
-=== Sur le Wiki Jeedom
+=== On Jeedom Wiki
 
 https://wiki.jeedom.fr/index.php?title=MySensors[La page du plugin] (attention, n'est pas maintenu à jour)
 
