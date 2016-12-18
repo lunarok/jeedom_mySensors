@@ -1,5 +1,5 @@
 '''
-=== mySensors, qu'est-ce que c'est ?
+=== mySensors, what is this ?
 
 mySensors est un protocole de communication sans fil orienté domotique
 
@@ -65,11 +65,11 @@ Exemple d'un message : 16;0;1;0;0;20,1
 | N°16 | N°0 | Paramétrage | Sans Ack | Température | 20,1
 |===================================================
 
-Noeud::
+Node::
   Le noeud cible ou source du message. C'est son identifiant numérique. Va de 1 à 254 pour les noeuds. 0 et 255 sont réservés.
   Cet identifiant est obtenu auprès du controleur au premier démarrage, puis utiliser par toute communication avec le noeud, il est visible sur la page de l'équipement.
 
-Capteur::
+Sensor::
   Le capteur du noeud auquel le message se rapporte. Les valeurs utilisables sont de 0 à 254 par noeud.
   C'est l'identifiant unique sur le noeud d'un capteur. C'est le noeud lors de sa présentation qui déclare ses capteurs et leurs identifiants.
 
@@ -81,11 +81,11 @@ Acquittement::
   Est-ce que le message doit être acquitté par la destination.
   C'est une valeur binaire (0 pour non acquitté, 1 pour acquittement) La trame d'acquittement est automatiquement émise par la lib mySensors
 
-Type de Donnée::
+Datas types:
   C'est un type qui est laissé libre par message. Généralement concordant avec le type de capteur défini. Actuellement ils vont de 0 à 36.
   Voir la section plus bas sur les types de donnée pour une information complète.
 
-Valeur::
+Value::
   C'est la valeur numérique associée au type de donnée.
 
 '''

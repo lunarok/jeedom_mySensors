@@ -1,5 +1,5 @@
 '''
-=== mySensors, un protocole domotique DIY
+=== mySensors, a DIY automation protocol
 
 Le plugin MySensors permet d'utiliser des équipement utilisant le protocole MySensors.
 
