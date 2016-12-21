@@ -1,4 +1,4 @@
-Voici une liste pour ceux qui souhaiteraient s'essayer à mySensors.
+Here is a list for those wishing to try their hand at mySensors.
 
 Celle-ci est prévu pour ne pas nécessiter de soudure. Elle consiste en une passerelle USB et un noeud de température/humidité.
 
