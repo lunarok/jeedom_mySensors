@@ -1,5 +1,5 @@
 [panel,primary]
-.Quel type de gateway mySensors est supporté ?
+. What type of mySensors gateway is supported?
 --
 On peut utiliser une gateway sur port USB ou réseau (voir les liens de documentation plus bas pour plus d'informations)
 

@@ -1,6 +1,6 @@
 Here is a list for those wishing to try their hand at mySensors.
 
-Celle-ci est prévu pour ne pas nécessiter de soudure. Elle consiste en une passerelle USB et un noeud de température/humidité.
+It is expected to do not require welding. It consists of a USB bridge and a knot of temperature/humidity.
 
 Vous trouverez la documentation et les sketchs des noeuds dans le chapitre documentation. Il est possible de prendre tout autre capteur pour essayer. La liste donnée ci dessous représente environ un somme de 20$ pour se lancer.
 
