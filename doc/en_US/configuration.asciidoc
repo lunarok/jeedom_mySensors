@@ -1,6 +1,6 @@
 === The plugin configuration
 
-Sur la page de configuration du plugin, vous pourrez sélectionner la ou les gateway à utiliser.
+On the plugin configuration page, you can select which gateway to use.
 
 Attention toutefois, il n'est pas conseillé d'avoir 2 gateways pour le même réseau de nodes.
 
