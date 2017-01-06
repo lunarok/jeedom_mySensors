@@ -1,4 +1,4 @@
-=== Configuration du plugin
+=== Plugin Konfiguration
 
 Sur la page de configuration du plugin, vous pourrez sélectionner la ou les gateway à utiliser.
 
@@ -12,12 +12,12 @@ Aussi, vous pourrez avoir deux jeedom éloignés gérant le même type de noeuds
 Vous pouvez sélectionner une gateway série par Jeedom installé (maitre ou esclave)
 
 '''
-==== Network Gateway
+==== Netzwerk Gateway
 
 Vous pouvez ajouter des gateways réseaux.
 
 '''
-=== Menu mySensors
+=== mySensors Menü
 
 Vous retrouverez toute la configuration des équipements (informations et commandes) dans le menu Plugins->Protocole domotique->mySensors
 

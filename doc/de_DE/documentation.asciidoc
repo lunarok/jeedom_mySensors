@@ -1,4 +1,4 @@
-=== Sur Domadoo
+=== Auf Domadoo
 
 http://blog.domadoo.fr/2015/05/18/mysensors-presentation-protocole-domotique-open-source-arduino/ [Présentation de mySensors]
 
@@ -22,7 +22,7 @@ https://forum.jeedom.fr/viewforum.php?f=35[La section mySensors]
 
 === Le site du projet mySensors
 
-http://mysensors.org/build/[Le site mySensors] (en anglais)
+http://mysensors.org/build/[Le site mySensors] (in englisch)
 
 === Les vidéos Jeedom
 

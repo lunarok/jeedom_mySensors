@@ -3,7 +3,7 @@
         "Aucune gateway configurée": "Kein Gateway konfiguriert"
     },
     "plugins\/mySensors\/plugin_info\/configuration.php": {
-        "Gateway série maître": "Gateway série maître",
+        "Gateway série maître": "Gateway Master Serie",
         "Aucune": "Keine",
         "Réseau": "Netzwerk",
         "Gateway réseau": "Netzwerk Gateway"
