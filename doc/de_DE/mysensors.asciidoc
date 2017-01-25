@@ -22,16 +22,16 @@ Le plugin Jeedom permet d'utiliser une gateway USB (sur un Jeedom central ou dé
   Controler::
     le service côté informatique qui communique avec la gateway
 
-  Node::
+  Knoten::
     un nœud de capteur/actionneur
 
   Sensor::
     un capteur sur un noeud
 
-  Sensor Type::
+  Sensortyp::
     le type de capteur (relais, lumière, température ...)
 
-  Data Type::
+  Datentyp::
     le type de donnée pour un capteur
 
   Repeater::
@@ -44,7 +44,7 @@ Le plugin Jeedom permet d'utiliser une gateway USB (sur un Jeedom central ou dé
     un autre composant qui peut assurer la communication sans fil entre les Arduino du réseau mySensors
 
 '''
-=== mySensors, le protocole
+=== MySensors Protokoll
 
 Ce chapitre n'a pas vocation a remplacer la documentation officielle mySensors. C'est juste un apercu à prendre comme un bloc-note, un rappel, un mémo ...
 

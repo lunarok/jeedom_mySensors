@@ -12,7 +12,7 @@ A monter soit même, dans la mouvance DIY (Do It Yourself, Faites le Vous Même)
 
 Le plugin mySensors permet d'utiliser les équipements mySensors via une gateway série ou réseau.
 
-Le plugin permet :
+Das Plugin ermöglicht :
 
  * création automatique des noeuds comme équipements lors de leur démarrage (avec leur sketch, version de sketch et de lib)
  * création automatique des capteurs comme informations lors de leur démarrage

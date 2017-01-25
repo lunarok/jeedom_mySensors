@@ -22,5 +22,5 @@ include::troubleshoting.asciidoc[]
 include::mysensors.asciidoc[]
 
 '''
-== Autres Documentations
+== Andere Dokumentationen
 include::documentation.asciidoc[]

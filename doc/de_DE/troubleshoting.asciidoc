@@ -7,7 +7,7 @@ Allez voir dans la section logs de Jeedom : catégorie mySensors et eventuelleme
 --
 
 [panel,danger]
-.Comment se créer mes équipements?
+.Wie kann ich meine Geräte erschaffen?
 --
 Au démarrage d'un noeud, celui-ci se présente sur le réseau, un équipement lié est alors créé avec tous ses capteurs et les commandes associées le cas échéant
 
