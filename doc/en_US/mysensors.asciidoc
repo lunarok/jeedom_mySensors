@@ -1,7 +1,7 @@
 '''
 === mySensors, what is this ?
 
-mySensors est un protocole de communication sans fil orienté domotique
+mySensors is a communication oriented wireless home automation protocol
 
 On a donc un réseau de noeuds qui communique sur la fréquence du 2.4GHz entre eux et ce réseau de noeuds dispose d'une passerelle qui fait le lien entre l'informatique et les noeuds
 
