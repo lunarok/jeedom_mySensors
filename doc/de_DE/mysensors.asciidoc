@@ -192,7 +192,7 @@ pos - La position à récupérer de l'EEPROM (0-255)
 
 
 '''
-==== Envoi de messages
+==== Senden von Nachrichten
 
 ===== gw.send
 
