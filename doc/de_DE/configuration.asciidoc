@@ -35,7 +35,7 @@ Exemple : si on reprend le cas du capteur de température, le protocole mySensor
 image::../images/mySensors2.png[Image du produit]
 
 '''
-==== Configuration des commandes des nodes
+==== Konfiguration der Knoten Befehle
 
 Des commandes sont créées automatiquement pour certains capteurs.
 
