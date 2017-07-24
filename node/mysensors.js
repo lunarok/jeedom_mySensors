@@ -226,7 +226,7 @@ function launchGateway() {
   		});
   	});
 
-  	var SerialPort = require('serialport').SerialPort;
+  	var SerialPort = require('serialport');
   	gw = new SerialPort(gwAddress, { baudrate: 115200 });
   	gw.on('open', function() {
   		console.log((new Date()) + " - connected to serial gateway at " + gwAddress);
