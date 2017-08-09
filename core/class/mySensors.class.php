@@ -198,7 +198,7 @@ class mySensors extends eqLogic {
       throw new Exception(__('Veuillez vérifier la configuration', __FILE__));
     }
 
-    $url = network::getNetworkAccess('internal') . '/plugins/mySensors/core/api/jeeSensors.php?apikey=' . jeedom::getApiKey('mySensors');
+    $url = network::getNetworkAccess('internal', 'proto:127.0.0.1:port:comp') . '/plugins/mySensors/core/api/jeeSensors.php?apikey=' . jeedom::getApiKey('mySensors');
 
     //launching serial service
     if (config::byKey('nodeGateway', 'mySensors') != 'none' && config::byKey('nodeGateway', 'mySensors') != '') {
