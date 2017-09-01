@@ -45,7 +45,7 @@ foreach ($eqLogics as $eqLogic) {
 	}
 	echo '<td>' . $status . '</td>';
 	$battery_status = '<span class="label label-success" style="font-size : 1em;">{{OK}}</span>';
-	$battery = $eqLogic->getConfiguration('batteryStatus');
+	$battery = $eqLogic->getStatus('battery'); 
 	if ($battery == '') {
 		$battery_status = '<span class="label label-primary" style="font-size : 1em;" title="{{Secteur}}"><i class="fa fa-plug"></i></span>';
   } elseif ($battery < 20) {
