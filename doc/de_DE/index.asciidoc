@@ -6,10 +6,6 @@ include::presentation.asciidoc[]
 include::configuration.asciidoc[]
 
 '''
-== Der Anfang
-include::debuter.asciidoc[]
-
-'''
 == FAQ
 include::faq.asciidoc[]
 
