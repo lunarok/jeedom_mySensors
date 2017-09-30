@@ -16,7 +16,3 @@ include::troubleshoting.asciidoc[]
 '''
 == mySensors, informations utiles
 include::mysensors.asciidoc[]
-
-'''
-== Autres Documentations
-include::documentation.asciidoc[]
