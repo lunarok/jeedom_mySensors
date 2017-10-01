@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.3.dev">
-<title>Description</title>
+<title>Beschreibung</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -415,37 +415,37 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toc" class="toc2">
 <div id="toctitle">Table des matières</div>
 <ul class="sectlevel1">
-<li><a href="#_description">1. Description</a>
+<li><a href="#_beschreibung">1. Beschreibung</a>
 <ul class="sectlevel2">
 <li><a href="#_mysensors_un_protocole_domotique_diy">1.1. mySensors, un protocole domotique DIY</a></li>
 <li><a href="#_que_fait_le_plugin_jeedom_pour_mysensors">1.2. Que fait le plugin Jeedom pour mySensors</a></li>
 <li><a href="#_mysensors_qu_est_ce_que_ca_peut_faire">1.3. mySensors, qu&#8217;est-ce que ca peut faire ?</a></li>
 </ul>
 </li>
-<li><a href="#_configuration">2. Configuration</a>
+<li><a href="#_konfiguration">2. Konfiguration</a>
 <ul class="sectlevel2">
-<li><a href="#_configuration_du_plugin">2.1. Configuration du plugin</a>
+<li><a href="#_plugin_konfiguration">2.1. Plugin Konfiguration</a>
 <ul class="sectlevel3">
 <li><a href="#_serial_gateway">2.1.1. Serial Gateway</a></li>
-<li><a href="#_network_gateway">2.1.2. Network Gateway</a></li>
+<li><a href="#_netzwerk_gateway">2.1.2. Netzwerk Gateway</a></li>
 </ul>
 </li>
-<li><a href="#_menu_mysensors">2.2. Menu mySensors</a>
+<li><a href="#_mysensors_menü">2.2. mySensors Menü</a>
 <ul class="sectlevel3">
 <li><a href="#_configuration_des_nodes_et_leurs_capteurs">2.2.1. Configuration des nodes et leurs capteurs</a></li>
-<li><a href="#_configuration_des_commandes_des_nodes">2.2.2. Configuration des commandes des nodes</a></li>
+<li><a href="#_konfiguration_der_knoten_befehle">2.2.2. Konfiguration der Knoten Befehle</a></li>
 <li><a href="#_création_de_commandes_avancées">2.2.3. Création de commandes avancées</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li><a href="#_faq">3. FAQ</a></li>
-<li><a href="#_troubleshoting">4. Troubleshoting</a></li>
+<li><a href="#_fehlersuche">4. Fehlersuche</a></li>
 <li><a href="#_mysensors_informations_utiles">5. mySensors, informations utiles</a>
 <ul class="sectlevel2">
 <li><a href="#_mysensors_qu_est_ce_que_c_est">5.1. mySensors, qu&#8217;est-ce que c&#8217;est ?</a></li>
 <li><a href="#_mysensors_lexique">5.2. mySensors, lexique</a></li>
-<li><a href="#_mysensors_le_protocole">5.3. mySensors, le protocole</a>
+<li><a href="#_mysensors_protokoll">5.3. MySensors Protokoll</a>
 <ul class="sectlevel3">
 <li><a href="#_construction_des_messages_mysensors">5.3.1. Construction des messages mySensors</a></li>
 <li><a href="#_liste_des_types_de_sensors">5.3.2. Liste des types de sensors</a></li>
@@ -458,7 +458,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_paramétrage_d_un_noeud">5.4.1. Paramétrage d&#8217;un noeud</a></li>
 <li><a href="#_présentation_d_un_noeud">5.4.2. Présentation d&#8217;un noeud</a></li>
 <li><a href="#_sauvegarde_d_état_des_capteurs">5.4.3. Sauvegarde d&#8217;état des capteurs</a></li>
-<li><a href="#_envoi_de_messages">5.4.4. Envoi de messages</a></li>
+<li><a href="#_senden_von_nachrichten">5.4.4. Senden von Nachrichten</a></li>
 <li><a href="#_réception_de_messages">5.4.5. Réception de messages</a></li>
 <li><a href="#_sleep_et_réveil">5.4.6. Sleep et réveil</a></li>
 </ul>
@@ -470,7 +470,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_description">1. Description</h2>
+<h2 id="_beschreibung">1. Beschreibung</h2>
 <div class="sectionbody">
 <hr>
 <div class="sect2">
@@ -492,7 +492,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>Le plugin mySensors permet d&#8217;utiliser les équipements mySensors via une gateway série ou réseau.</p>
 </div>
 <div class="paragraph">
-<p>Le plugin permet :</p>
+<p>Das Plugin ermöglicht :</p>
 </div>
 <div class="ulist">
 <ul>
@@ -540,10 +540,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect1">
-<h2 id="_configuration">2. Configuration</h2>
+<h2 id="_konfiguration">2. Konfiguration</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_configuration_du_plugin">2.1. Configuration du plugin</h3>
+<h3 id="_plugin_konfiguration">2.1. Plugin Konfiguration</h3>
 <div class="paragraph">
 <p>Sur la page de configuration du plugin, vous pourrez sélectionner la ou les gateway à utiliser.</p>
 </div>
@@ -562,7 +562,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <hr>
 </div>
 <div class="sect3">
-<h4 id="_network_gateway">2.1.2. Network Gateway</h4>
+<h4 id="_netzwerk_gateway">2.1.2. Netzwerk Gateway</h4>
 <div class="paragraph">
 <p>Vous pouvez ajouter des gateways réseaux.</p>
 </div>
@@ -570,7 +570,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect2">
-<h3 id="_menu_mysensors">2.2. Menu mySensors</h3>
+<h3 id="_mysensors_menü">2.2. mySensors Menü</h3>
 <div class="paragraph">
 <p>Vous retrouverez toute la configuration des équipements (informations et commandes) dans le menu Plugins&#8594;Protocole domotique&#8594;mySensors</p>
 </div>
@@ -599,14 +599,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <hr>
 </div>
 <div class="sect3">
-<h4 id="_configuration_des_commandes_des_nodes">2.2.2. Configuration des commandes des nodes</h4>
+<h4 id="_konfiguration_der_knoten_befehle">2.2.2. Konfiguration der Knoten Befehle</h4>
 <div class="paragraph">
 <p>Des commandes sont créées automatiquement pour certains capteurs.</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Relais : on/off</p>
+<p>Relais : ein/aus</p>
 </li>
 <li>
 <p>Dimmer : slider</p>
@@ -628,7 +628,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="paragraph">
 <p>Il est possible que certains capteurs nécessitent des commandes qui ne sont pas créées automatiquement
 car elles ne peuvent être déduites de la présentation. Dans ce cas, on créera une commande avec le bouton ajout commande
-et les options nécessaires.</p>
+und die notwendigen Optionen.</p>
 </div>
 <hr>
 </div>
@@ -728,7 +728,7 @@ et les options nécessaires.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_troubleshoting">4. Troubleshoting</h2>
+<h2 id="_fehlersuche">4. Fehlersuche</h2>
 <div class="sectionbody">
 <div class="openblock panel">
 <div class="title">Aucun équipement ne se créé</div><div class="content">
@@ -741,7 +741,7 @@ et les options nécessaires.</p>
 </div>
 </div>
 <div class="openblock panel">
-<div class="title">Comment se créer mes équipements?</div><div class="content">
+<div class="title">Wie kann ich meine Geräte erschaffen?</div><div class="content">
 <div class="paragraph">
 <p>Au démarrage d&#8217;un noeud, celui-ci se présente sur le réseau, un équipement lié est alors créé avec tous ses capteurs et les commandes associées le cas échéant</p>
 </div>
@@ -838,7 +838,7 @@ et les options nécessaires.</p>
 <dd>
 <p>le service côté informatique qui communique avec la gateway</p>
 </dd>
-<dt class="hdlist1">Node</dt>
+<dt class="hdlist1">Knoten</dt>
 <dd>
 <p>un nœud de capteur/actionneur</p>
 </dd>
@@ -846,11 +846,11 @@ et les options nécessaires.</p>
 <dd>
 <p>un capteur sur un noeud</p>
 </dd>
-<dt class="hdlist1">Sensor Type</dt>
+<dt class="hdlist1">Sensortyp</dt>
 <dd>
 <p>le type de capteur (relais, lumière, température &#8230;&#8203;)</p>
 </dd>
-<dt class="hdlist1">Data Type</dt>
+<dt class="hdlist1">Datentyp</dt>
 <dd>
 <p>le type de donnée pour un capteur</p>
 </dd>
@@ -871,7 +871,7 @@ et les options nécessaires.</p>
 <hr>
 </div>
 <div class="sect2">
-<h3 id="_mysensors_le_protocole">5.3. mySensors, le protocole</h3>
+<h3 id="_mysensors_protokoll">5.3. MySensors Protokoll</h3>
 <div class="paragraph">
 <p>Ce chapitre n&#8217;a pas vocation a remplacer la documentation officielle mySensors. C&#8217;est juste un apercu à prendre comme un bloc-note, un rappel, un mémo &#8230;&#8203;</p>
 </div>
@@ -983,190 +983,6 @@ Voir la section plus bas sur les types de donnée pour une information complète
 <th class="tableblock halign-left valign-top">Commandes créées sous Jeedom</th>
 </tr>
 </thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'0'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'S_DOOR'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Ouverture'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'doorIMG'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Aucune'</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'1'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'S_MOTION'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Mouvement'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Intrusions'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Aucune'</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'2'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'S_SMOKE'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Fumée'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'SmokeSensorIMG'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Aucune'</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'3'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'S_LIGHT'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Relais'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'lightIMG'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'On et Off'</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'4'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'S_DIMMER'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Variateur'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'lightIMG'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Dimmer et On et Off'</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'5'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'S_COVER'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Store'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'StoreIMG'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Up et Down et Stop'</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'6'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'S_TEMP'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Température'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'tempIMG'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Aucune'</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'7'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'S_HUM'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Humidité'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'HydroIMG'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Aucune'</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'8'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'S_BARO'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Baromètre'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'tile'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Aucune'</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'9'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'S_WIND'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Vent'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Anenometre'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Aucune'</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'10'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'S_RAIN'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Pluie'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'badge'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Aucune'</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'11'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'S_UV'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'UV'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'badge'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Aucune'</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'12'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'S_WEIGHT'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Poids'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'badge'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Aucune'</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'13'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'S_POWER'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Energie'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'badge'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Aucune'</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'14'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'S_HEATER'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Radiateur'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'chauffage'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'On et Off'</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'15'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'S_DISTANCE'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Distance'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'badge'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Aucune'</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'16'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'S_LIGHT_LEVEL'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Luminosité'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'luminositeIMG'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Aucune'</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'17'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'S_ARDUINO_NODE'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Noeud Arduino'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'tile'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Aucune'</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'18'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'S_ARDUINO_RELAY'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Noeud Répéteur'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'tile'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Aucune'</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'19'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'S_LOCK'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Verrou'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'lock'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'On et Off'</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'20'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'S_IR'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Infrarouge'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'tile'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Envoi IR'</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'21'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'S_WATER'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Eau'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'badge'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Aucune'</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'22'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'S_AIR_QUALITY'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Qualité d Air'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'badge'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Aucune'</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'23'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'S_CUSTOM'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Custom'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'tile'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Aucune'</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'24'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'S_DUST'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Poussière'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'badge'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Aucune'</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'25'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'S_SCENE_CONTROLLER'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Controleur de Scène'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'alert'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Aucune'</p></td>
-</tr>
-</tbody>
 </table>
 </div>
 <div class="sect3">
@@ -1241,208 +1057,6 @@ Exemple : une consigne liée à un virtuel ou une température venant d'un capte
 <th class="tableblock halign-left valign-top">Nom de la Donnée</th>
 </tr>
 </thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'0'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'V_TEMP'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Température'</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'1'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'V_HUM'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Humidité'</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'2'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'V_LIGHT'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Relais'</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'3'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'V_DIMMER'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Dimmer'</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'4'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'V_PRESSURE'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Pression'</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'5'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'V_FORECAST'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Prévision'</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'6'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'V_RAIN'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Niveau de pluie'</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'7'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'V_RAINRATE'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Débit de pluie'</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'8'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'V_WIND'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Vitesse de vent'</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'9'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'V_GUST'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Rafale de vent'</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'10'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'V_DIRECTION'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Direction du vent'</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'11'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'V_UV'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'UV'</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'12'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'V_WEIGHT'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Poids'</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'13'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'V_DISTANCE'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Distance'</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'14'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'V_IMPEDANCE'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Impédance'</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'15'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'V_ARMED'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Sécurité activée'</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'16'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'V_TRIPPED'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Activation'</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'17'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'V_WATT'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Puissance'</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'18'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'V_KWH'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'KWh'</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'19'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'V_SCENE_ON'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Activation Scène'</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'20'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'V_SCENE_OFF'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Désactivation Scène'</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'21'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'V_HEATER'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Mode de chauffage'</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'22'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'V_HEATER_SW'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Radiateur'</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'23'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'V_LIGHT_LEVEL'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Niveau de Lumière'</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'24'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'V_VAR1'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Variable1'</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'25'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'V_VAR2'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Variable2'</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'26'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'V_VAR3'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Variable3'</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'27'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'V_VAR4'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Variable4'</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'28'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'V_VAR5'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Virtuel'</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'29'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'V_UP'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Lever'</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'30'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'V_DOWN'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Descente'</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'31'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'V_STOP'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Arrêt'</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'32'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'V_IR_SEND'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Envoi IR'</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'33'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'V_IR_RECEIVE'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Réception IR'</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'34'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'V_FLOW'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Débit Eau'</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'35'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'V_VOLUME'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Volume Eau'</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'36'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'V_LOCK_STATUS'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Verrou'</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'37'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'V_DUST_LEVEL'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Poussière'</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'38'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'V_VOLTAGE'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Voltage'</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'39'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'V_CURRENT'</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">'Courant'</p></td>
-</tr>
-</tbody>
 </table>
 <hr>
 </div>
@@ -1549,7 +1163,7 @@ Par défaut en AUTO ce qui laisse au noeud le choix de trouver son parent automa
 </div>
 </div>
 <div class="sect3">
-<h4 id="_envoi_de_messages">5.4.4. Envoi de messages</h4>
+<h4 id="_senden_von_nachrichten">5.4.4. Senden von Nachrichten</h4>
 <div class="sect4">
 <h5 id="_gw_send">gw.send</h5>
 <div class="literalblock">

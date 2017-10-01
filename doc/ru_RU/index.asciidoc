@@ -1,0 +1,18 @@
+== Description
+include::presentation.asciidoc[]
+
+'''
+== Configuration
+include::configuration.asciidoc[]
+
+'''
+== FAQ
+include::faq.asciidoc[]
+
+'''
+== Troubleshoting
+include::troubleshoting.asciidoc[]
+
+'''
+== mySensors, informations utiles
+include::mysensors.asciidoc[]
