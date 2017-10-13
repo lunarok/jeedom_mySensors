@@ -226,13 +226,13 @@ function launchGateway() {
   		});
   	});
 
-  	var SerialPort = require('serialport');
-  	gw = new SerialPort(gwAddress, { baudrate: 115200 });
-	//compatibilité avec la nouvelle verion de serialport
+	gw = new SerialPort(gwAddress);
+        //compatibilité avec la nouvelle verion de serialport
         if ( gw.settings.baudRate ){
                 gw.settings.baudRate=115200;
+        }else{
+                gw.settings.baudrate=115200;
         }
-
   	gw.on('open', function() {
   		console.log((new Date()) + " - connected to serial gateway at " + gwAddress);
   		connectJeedom('saveGateway', 0, 0, 0, 1);
