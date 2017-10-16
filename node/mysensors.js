@@ -5,6 +5,7 @@ var request = require('request');
 var urlJeedom = '';
 var gwAddress = '';
 var type = '';
+var baudrate = '';
 var fs = require('fs');
 var appendedString="";
 
@@ -16,7 +17,8 @@ process.argv.forEach(function(val, index, array) {
 		case 3 : gateway = val; break;
 		case 4 : gwAddress = val; break;
 		case 5 : type = val; break;
-		case 6 : log = val; break;
+		case 6 : baudrate = val; break;
+		case 7 : log = val; break;
 	}
 });
 
@@ -229,9 +231,9 @@ function launchGateway() {
 	gw = new SerialPort(gwAddress);
         //compatibilité avec la nouvelle verion de serialport
         if ( gw.settings.baudRate ){
-                gw.settings.baudRate=115200;
+                gw.settings.baudRate=baudrate;
         }else{
-                gw.settings.baudrate=115200;
+                gw.settings.baudrate=baudrate;
         }
   	gw.on('open', function() {
   		console.log((new Date()) + " - connected to serial gateway at " + gwAddress);

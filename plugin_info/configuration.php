@@ -51,6 +51,13 @@ if (!isConnect()) {
           <input class="configKey form-control" data-l1key="network" placeholder="192.168.1.1:5003"/>
         </div>
       </div>
+      
+       <div id="masterbd" class="form-group">
+        <label class="col-lg-4 control-label">{{Serial BaudRate}} :</label>
+        <div class="col-lg-4 div_baudrate">
+          <input class="configKey form-control" data-l1key="baudrate" placeholder="115200"/>
+        </div>
+       </div>
     </fieldset>
   </div>
 </form>
@@ -86,9 +93,15 @@ if (config::byKey('jeeNetwork::mode') == 'master') {
 $( "#select_port" ).change(function() {
   if ($("#select_port option:selected").val() == "network"){
     $("#netgate").show();
+    $("#masterbd").hide();
+  }
+  else if ($("#select_port option:selected").val() != "network" && $("#select_port option:selected").val() != "none" && $("#select_port option:selected").val() != ""){
+    $("#netgate").hide();
+    $("#masterbd").show();
   }
   else {
     $("#netgate").hide();
+    $("#masterbd").hide();
   }
 });
 
