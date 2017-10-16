@@ -5,6 +5,7 @@ var request = require('request');
 var urlJeedom = '';
 var gwAddress = '';
 var type = '';
+var baudrate = '';
 var fs = require('fs');
 var appendedString="";
 
