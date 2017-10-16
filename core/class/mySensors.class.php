@@ -212,12 +212,13 @@ class mySensors extends eqLogic {
         if ($usbGateway != "none") {
           exec('sudo chmod -R 777 ' . $usbGateway);
         }
-        $gateway = 'master ' . $usbGateway . ' serial';
+	$baudrate =config::byKey('nodeGateway', 'mySensors');
+        $gateway = 'master ' . $usbGateway . ' serial'. $baudrate;
 
         mySensors::launch_svc($url, $gateway);
       } else {
         $gate = explode(":", config::byKey('network','mySensors'));
-        $gateway = $gate[0] . ' ' . config::byKey('network', 'mySensors') . ' network';
+        $gateway = $gate[0] . ' ' . config::byKey('network', 'mySensors') . ' network'. '0';
         mySensors::launch_svc($url, $gateway);
       }
 
