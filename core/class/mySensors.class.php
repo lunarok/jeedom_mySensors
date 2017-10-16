@@ -212,7 +212,7 @@ class mySensors extends eqLogic {
         if ($usbGateway != "none") {
           exec('sudo chmod -R 777 ' . $usbGateway);
         }
-	$baudrate =config::byKey('nodeGateway', 'mySensors');
+	$baudrate =config::byKey('baudrate', 'mySensors');
         $gateway = 'master ' . $usbGateway . ' serial'. $baudrate;
 
         mySensors::launch_svc($url, $gateway);
