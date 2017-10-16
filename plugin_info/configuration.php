@@ -95,7 +95,7 @@ $( "#select_port" ).change(function() {
     $("#netgate").show();
     $("#masterbd").hide();
   }
-  else if ($("#select_port option:selected").val() != "network" && $("#select_port option:selected").val() != "none"){
+  else if ($("#select_port option:selected").val() != "network" && $("#select_port option:selected").val() != "none" && $("#select_port option:selected").val() != ""){
     $("#netgate").hide();
     $("#masterbd").show();
   }
