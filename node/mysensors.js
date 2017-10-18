@@ -226,6 +226,7 @@ function launchGateway() {
   		});
   	});
 
+	var SerialPort = require('serialport');
 	gw = new SerialPort(gwAddress);
         //compatibilité avec la nouvelle verion de serialport
         if ( gw.settings.baudRate ){
