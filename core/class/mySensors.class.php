@@ -700,7 +700,7 @@ class mySensors extends eqLogic {
           $mysCmd->save();
         }
       }
-      if ($name == 'Inrarouge') {
+      if ($name == 'Infrarouge') {
         $dimmerId = 'EnvoiIR'.$sensor;
         $dimlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(),$dimmerId);
         $cmdlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(),$cmdId);
