@@ -25,7 +25,7 @@ Vérifier votre configuration réseau Jeedom dans Général->Administration->Con
 --
 
 [panel,primary]
-.Le champ "version de librairie" de ma passerelle ne se remplit pas ?
+. Das Feld "Version der Bibliothek" von meinem Gateway funktioniert nicht?
 --
 Il faut adapter le sketch de la passerelle pour qu'elle envoit cette information, ce qui n'est pas le cas dans la lib 1.4.1
 
