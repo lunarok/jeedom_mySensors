@@ -1,7 +1,7 @@
 [panel,danger]
 .Aucun équipement ne se créé
 --
-Sur la page de configuration vous pouvez vérifier que le service du plugin est démarré et connecté.
+Auf der Konfigurationsseite können Sie überprüfen, dass der Dienst des Plugins gestartet und verbunden ist.
 
 Allez voir dans la section logs de Jeedom : catégorie mySensors et eventuellement la catégorie API
 --
