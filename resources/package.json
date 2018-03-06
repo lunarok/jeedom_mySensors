@@ -1,0 +1,11 @@
+{
+  "name": "JeedomMySensors",
+  "version": "0.0.1",
+  "description": "Node to connect mySensors to Jeedom",
+  "license": "GPL-3.0",
+  "repository": "npm/npm",
+  "dependencies": {
+    "request": "latest",
+    "serialport": "latest"
+  }
+}

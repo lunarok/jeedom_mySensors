@@ -179,7 +179,7 @@ class mySensors extends eqLogic {
     $return = array();
     $return['log'] = 'mySensors_node';
     $return['state'] = 'nok';
-    $pid = trim( shell_exec ('ps ax | grep "mySensors/node/mysensors.js" | grep -v "grep" | wc -l') );
+    $pid = trim( shell_exec ('ps ax | grep "mySensors/resources/mysensors.js" | grep -v "grep" | wc -l') );
     if ($pid != '' && $pid != '0') {
       $return['state'] = 'ok';
     }
@@ -227,7 +227,7 @@ class mySensors extends eqLogic {
 
   public static function launch_svc($url, $gateway) {
     $log = log::convertLogLevel(log::getLogLevel('mySensors'));
-    $sensor_path = realpath(dirname(__FILE__) . '/../../node');
+    $sensor_path = realpath(dirname(__FILE__) . '/../../resources');
 
     $cmd = 'nice -n 19 nodejs ' . $sensor_path . '/mysensors.js ' . $url . ' ' . $gateway . ' ' . $log;
 
@@ -258,17 +258,17 @@ class mySensors extends eqLogic {
   }
 
   public static function deamon_stop() {
-    exec('kill $(ps aux | grep "mySensors/node/mysensors.js" | awk \'{print $2}\')');
+    exec('kill $(ps aux | grep "mySensors/resources/mysensors.js" | awk \'{print $2}\')');
     log::add('mySensors', 'info', 'Arrêt du service mySensors');
     $deamon_info = self::deamon_info();
     if ($deamon_info['state'] == 'ok') {
       sleep(1);
-      exec('kill -9 $(ps aux | grep "mySensors/node/mysensors.js" | awk \'{print $2}\')');
+      exec('kill -9 $(ps aux | grep "mySensors/resources/mysensors.js" | awk \'{print $2}\')');
     }
     $deamon_info = self::deamon_info();
     if ($deamon_info['state'] == 'ok') {
       sleep(1);
-      exec('sudo kill -9 $(ps aux | grep "mySensors/node/mysensors.js" | awk \'{print $2}\')');
+      exec('sudo kill -9 $(ps aux | grep "mySensors/resources/mysensors.js" | awk \'{print $2}\')');
     }
     config::save('gateway', '0',  'mySensors');
   }
@@ -276,8 +276,8 @@ class mySensors extends eqLogic {
   public static function dependancy_info() {
     $return = array();
     $return['log'] = 'mySensors_dep';
-    $serialport = realpath(dirname(__FILE__) . '/../../node/node_modules/serialport');
-    $request = realpath(dirname(__FILE__) . '/../../node/node_modules/request');
+    $serialport = realpath(dirname(__FILE__) . '/../../resources/node_modules/serialport');
+    $request = realpath(dirname(__FILE__) . '/../../resources/node_modules/request');
     $return['progress_file'] = '/tmp/mySensors_dep';
     if (is_dir($serialport) && is_dir($request)) {
       $return['state'] = 'ok';
@@ -290,7 +290,7 @@ class mySensors extends eqLogic {
   public static function dependancy_install() {
     log::add('mySensors','info','Installation des dépéndances nodejs');
     $resource_path = realpath(dirname(__FILE__) . '/../../resources');
-    passthru('/bin/bash ' . $resource_path . '/nodejs.sh ' . $resource_path . ' > ' . log::getPathToLog('mySensors_dep') . ' 2>&1 &');
+    passthru('/bin/bash ' . $resource_path . '/nodejs.sh ' . $resource_path . ' mySensors > ' . log::getPathToLog('mySensors_dep') . ' 2>&1 &');
   }
 
   public static function sendCommand($gateway, $destination, $sensor, $command, $acknowledge, $type, $payload) {
