@@ -258,17 +258,17 @@ class mySensors extends eqLogic {
   }
 
   public static function deamon_stop() {
-    exec('kill $(ps aux | grep "mySensors/resources/mysensors.js" | awk \'{print $2}\')');
+    exec('kill $(ps aux | grep "/mysensors.js" | awk \'{print $2}\')');
     log::add('mySensors', 'info', 'Arrêt du service mySensors');
     $deamon_info = self::deamon_info();
     if ($deamon_info['state'] == 'ok') {
       sleep(1);
-      exec('kill -9 $(ps aux | grep "mySensors/resources/mysensors.js" | awk \'{print $2}\')');
+      exec('kill -9 $(ps aux | grep "/mysensors.js" | awk \'{print $2}\')');
     }
     $deamon_info = self::deamon_info();
     if ($deamon_info['state'] == 'ok') {
       sleep(1);
-      exec('sudo kill -9 $(ps aux | grep "mySensors/resources/mysensors.js" | awk \'{print $2}\')');
+      exec('sudo kill -9 $(ps aux | grep "/mysensors.js" | awk \'{print $2}\')');
     }
     config::save('gateway', '0',  'mySensors');
   }
