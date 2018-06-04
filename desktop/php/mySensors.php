@@ -165,13 +165,13 @@ if ($state == 1) {
                   <label class="checkbox-inline"><input type="checkbox" class="eqLogicAttr" data-l1key="isVisible" checked/>{{Visible}}</label>
                 </div>
               </div>
-              <div class="form-group expertModeVisible">
+              <div class="form-group">
                 <label class="col-sm-3 control-label">{{Délai max entre 2 messages}}</label>
                 <div class="col-sm-3">
                   <input class="eqLogicAttr form-control" data-l1key="timeout" placeholder="Délai maximum autorisé entre 2 messages (en mn)"/>
                 </div>
               </div>
-              <div class="form-group expertModeVisible">
+              <div class="form-group">
                 <label class="col-sm-3 control-label">{{Type de piles}}</label>
                 <div class="col-sm-3">
                   <input class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="battery_type" placeholder="Doit être indiqué sous la forme : 3x AA"/>
