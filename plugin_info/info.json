@@ -1,12 +1,15 @@
 {
 	"id" : "mySensors",
 	"name" : "mySensors",
+	"description" : "mySensors est un protocole sans fil utilisant des noeuds Arduino avec un composant NRF24L01 pour le sans-fil. Tous les capteurs pour Arduino sont possibles et imaginieables. Ce puglin vous permet d'en profiter dans Jeedom et facilement puisque tous les capteurs et leurs actions sont créées automatiquement.",
 	"licence" : "AGPL",
 	"author" : "lunarok",
 	"require" : "2.4",
 	"category" : "automation protocol",
   "hasDependency" : 1,
   "hasOwnDeamon" : 1,
+	"language" : ["fr_FR","en_US"],
+	"compatibility" : ["miniplus","smart","rpi","docker","diy","mobile"],
 	"changelog" : "https://lunarok.github.io/jeedom_docs/plugins/mySensors/changelog.html",
 	"documentation" : "https://lunarok.github.io/jeedom_docs/plugins/mySensors/"
 }
