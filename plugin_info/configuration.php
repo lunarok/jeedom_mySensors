@@ -34,7 +34,8 @@ if (!isConnect()) {
         <div class="col-lg-4">
           <select id="select_port" style="margin-top:5px" class="configKey form-control" data-l1key="nodeGateway">
             <option value="none">{{Aucune}}</option>
-            <option value="network">{{Réseau}}</option>
+            <option value="network">{{Réseau client}}</option>
+            <option value="networkServer">{{Réseau serveur}}</option>
             <?php
             foreach (jeedom::getUsbMapping('', true) as $name => $value) {
               echo '<option value="' . $name . '">' . $name . ' (' . $value . ')</option>';
@@ -46,7 +47,8 @@ if (!isConnect()) {
       </div>
 
       <div id="netgate" class="form-group">
-        <label class="col-lg-4 control-label">{{Gateway réseau}} :</label>
+        <label class="col-lg-4 control-label" id="clientMode">{{Gateway réseau}} :</label>
+        <label class="col-lg-4 control-label" id="serverMode">{{Interface d'écoute}} :</label>
         <div class="col-lg-4 div_network">
           <input class="configKey form-control" data-l1key="network" placeholder="192.168.1.1:5003"/>
         </div>
@@ -84,10 +86,16 @@ if (config::byKey('jeeNetwork::mode') == 'master') {
 <script>
 
 $( "#select_port" ).change(function() {
-  if ($("#select_port option:selected").val() == "network"){
+  let mode = $("#select_port option:selected").val();
+  if ( mode == "network"){
     $("#netgate").show();
-  }
-  else {
+    $("#clientMode").show();
+    $("#serverMode").hide();
+  } else if (mode == "networkServer"){
+    $("#netgate").show();
+    $("#clientMode").hide();
+    $("#serverMode").show();
+  } else {
     $("#netgate").hide();
   }
 });
