@@ -251,6 +251,7 @@ function launchGateway() {
 		attemptsGw = 0;
 		c.setEncoding('ascii');
 		addGatewayBehavior(c);
+		gw=c;
 	});
 	serverGw.listen(tmp[1], function(e) {
 		console.log((new Date()) + " - server bound on "+tmp[1]);
