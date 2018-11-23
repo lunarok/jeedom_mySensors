@@ -396,6 +396,8 @@ class mySensors extends eqLogic {
         $cmdlogic->setConfiguration('sensorType', $type);
         $cmdlogic->save();
         $cmdlogic->event($value);
+      } else {
+        self::saveSensor($gateway, $nodeid, $sensor, $type);
       }
     }
   }
