@@ -5,8 +5,10 @@
     "plugins\/mySensors\/plugin_info\/configuration.php": {
         "Gateway série maître": "Gateway Master Serie",
         "Aucune": "Keine",
-        "Réseau": "Netzwerk",
-        "Gateway réseau": "Netzwerk Gateway"
+        "Réseau client": "Netzwerk client",
+        "Réseau serveur": "Netzwerk serveur",
+        "Gateway réseau": "Netzwerk Gateway",
+        "Interface d'écoute": "Interface d'écoute"
     },
     "plugins\/mySensors\/desktop\/php\/mySensors.php": {
         "Ouverture": "Türöffnung",

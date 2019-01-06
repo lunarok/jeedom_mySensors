@@ -6,7 +6,10 @@
         "Gateway série maître": "Gateway serie maestro",
         "Aucune": "Ninguno",
         "Réseau": "Red",
-        "Gateway réseau": "Red Gateway"
+        "Réseau client": "Red client",
+        "Réseau serveur": "Red serveur",
+        "Gateway réseau": "Red Gateway",
+        "Interface d'écoute": "Interface d'écoute"
     },
     "plugins\/mySensors\/desktop\/php\/mySensors.php": {
         "Ouverture": "Apertura",

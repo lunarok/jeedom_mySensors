@@ -202,7 +202,7 @@ class mySensors extends eqLogic {
 
     //launching serial service
     if (config::byKey('nodeGateway', 'mySensors') != 'none' && config::byKey('nodeGateway', 'mySensors') != '') {
-      if (config::byKey('nodeGateway', 'mySensors') != 'network') {
+      if (config::byKey('nodeGateway', 'mySensors') != 'network' && config::byKey('nodeGateway', 'mySensors') != 'networkServer') {
         $usbGateway = jeedom::getUsbMapping(config::byKey('nodeGateway', 'mySensors'));
         if ($usbGateway == '' ) {
           throw new Exception(__('Le port : ', __FILE__) . $port . __(' n\'existe pas', __FILE__));
@@ -217,7 +217,7 @@ class mySensors extends eqLogic {
         mySensors::launch_svc($url, $gateway);
       } else {
         $gate = explode(":", config::byKey('network','mySensors'));
-        $gateway = $gate[0] . ' ' . config::byKey('network', 'mySensors') . ' network';
+        $gateway = $gate[0] . ' ' . config::byKey('network', 'mySensors') . ' ' . config::byKey('nodeGateway', 'mySensors');
         mySensors::launch_svc($url, $gateway);
       }
 
