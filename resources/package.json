@@ -6,6 +6,7 @@
   "repository": "npm/npm",
   "dependencies": {
     "request": "latest",
-    "serialport": "latest"
+    "serialport": "7.1.0",
+    "serialport/bindings": "2.0.3"
   }
 }
