@@ -89,7 +89,7 @@ if ($state == 1) {
       ?>
       <div class="eqLogicThumbnailContainer">
         <?php
-        $dir = dirname(__FILE__) . '/../../doc/images/';
+        $dir = dirname(__FILE__) . '/../../plugin_info/';
         $files = scandir($dir);
         foreach ($eqLogics as $eqLogic) {
           $opacity = ($eqLogic->getIsEnable()) ? '' : jeedom::getConfiguration('eqLogic:style:noactive');
@@ -342,7 +342,7 @@ if ($state == 1) {
 
 <script>
 $( "#sel_icon" ).change(function(){
-  var text = 'plugins/mySensors/doc/images/node_' + $("#sel_icon").val() + '.png';
+  var text = 'plugins/mySensors/plugin_info/node_' + $("#sel_icon").val() + '.png';
   //$("#icon_visu").attr('src',text);
   document.icon_visu.src=text;
 });
