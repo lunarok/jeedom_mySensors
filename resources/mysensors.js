@@ -131,7 +131,7 @@ function rfReceived(data,gw) {
 			;
 			else
 			connectJeedom('saveSensor', sender, sensor, type, payload);
-			connectJeedom('saveLibVersion', sender, sensor, type, payload);
+			//connectJeedom('saveLibVersion', sender, sensor, type, payload);
 			break;
 			case C_SET:
 			connectJeedom('saveValue', sender, sensor, type, payload);
