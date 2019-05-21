@@ -46,7 +46,12 @@ foreach ($eqLogics as $eqLogic) {
 	echo '<td>' . $status . '</td>';
 	$battery_status = '<span class="label label-success" style="font-size : 1em;">{{OK}}</span>';
 	$battery = $eqLogic->getStatus('battery'); 
+	$battery_type = $eqLogic->getConfiguration('battery_type', '');
 	if ($battery == '') {
+		$battery_status = '<span class="label label-primary" style="font-size : 1em;" title="{{Secteur}}"><i class="fas fa-plug"></i></span>';
+  } elseif ($battery == 0 && $battery_type == '') {
+		$eqLogic->setStatus( 'battery', '' );
+		$eqLogic->setStatus( 'batteryDatetime', '' );
 		$battery_status = '<span class="label label-primary" style="font-size : 1em;" title="{{Secteur}}"><i class="fas fa-plug"></i></span>';
   } elseif ($battery < 20) {
 		$battery_status = '<span class="label label-danger" style="font-size : 1em;">' . $battery . '%</span>';
