@@ -5,7 +5,6 @@ var request = require('request');
 var urlJeedom = '';
 var gwAddress = '';
 var type = '';
-var fs = require('fs');
 var appendedString="";
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
