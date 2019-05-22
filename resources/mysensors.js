@@ -5,7 +5,6 @@ var request = require('request');
 var urlJeedom = '';
 var gwAddress = '';
 var type = '';
-var fs = require('fs');
 var appendedString="";
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
@@ -132,7 +131,7 @@ function rfReceived(data,gw) {
 			;
 			else
 			connectJeedom('saveSensor', sender, sensor, type, payload);
-			connectJeedom('saveLibVersion', sender, sensor, type, payload);
+			//connectJeedom('saveLibVersion', sender, sensor, type, payload);
 			break;
 			case C_SET:
 			connectJeedom('saveValue', sender, sensor, type, payload);
