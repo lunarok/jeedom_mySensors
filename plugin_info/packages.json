@@ -1,0 +1,6 @@
+{
+    "npm" : {
+        "serialport" : {"version": "~9.2.8"},
+        "request" : {}
+      }
+    }

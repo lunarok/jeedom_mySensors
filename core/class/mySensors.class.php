@@ -273,26 +273,6 @@ class mySensors extends eqLogic {
     config::save('gateway', '0',  'mySensors');
   }
 
-  public static function dependancy_info() {
-    $return = array();
-    $return['log'] = 'mySensors_dep';
-    $serialport = realpath(dirname(__FILE__) . '/../../resources/node_modules/serialport');
-    $request = realpath(dirname(__FILE__) . '/../../resources/node_modules/request');
-    $return['progress_file'] = '/tmp/mySensors_dep';
-    if (is_dir($serialport) && is_dir($request)) {
-      $return['state'] = 'ok';
-    } else {
-      $return['state'] = 'nok';
-    }
-    return $return;
-  }
-
-  public static function dependancy_install() {
-    log::add('mySensors','info','Installation des dépéndances nodejs');
-    $resource_path = realpath(dirname(__FILE__) . '/../../resources');
-    passthru('/bin/bash ' . $resource_path . '/nodejs.sh ' . $resource_path . ' mySensors > ' . log::getPathToLog('mySensors_dep') . ' 2>&1 &');
-  }
-
   public static function sendCommand($gateway, $destination, $sensor, $command, $acknowledge, $type, $payload) {
     if (config::byKey('network','mySensors') != '' && strpos(config::byKey('network','mySensors'), $gateway) !== false) {
       $ip = '127.0.0.1';
