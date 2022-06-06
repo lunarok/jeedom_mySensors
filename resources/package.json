@@ -1,0 +1,12 @@
+{
+    "name": "JeedomMySensors",
+    "version": "0.0.1",
+    "description": "Node to use mySensors with Jeedom",
+    "license": "GPL-3.0",
+    "repository": "npm/npm",
+    "dependencies": {
+      "request": "latest",
+      "serialport": "~9.2.8",
+      "telnet-client": "latest"
+    }
+  }
