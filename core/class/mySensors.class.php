@@ -24,10 +24,10 @@ class mySensors extends eqLogic {
 
   public static function health() {
     $return = array();
-    $statusGateway = false;
-    $statusGateway = config::byKey('gateway', 'mySensors');
-    $libVer = config::byKey('gateLib', 'mySensors');
-    if ($libVer == '') {
+    $statusGateway=false;
+    $statusGateway = config::byKey('gateway','mySensors');
+    $libVer = config::byKey('gateLib','mySensors');
+    if ($libVer=='') {
       $libVer = '{{inconnue}}';
     }
     $return[] = array(
@@ -43,134 +43,134 @@ class mySensors extends eqLogic {
   public static $_dico =
   array(
     'C' => array(
-      0 => 'Présentation',
-      1 => 'Paramétrage',
-      2 => 'Récupération',
-      3 => 'Interne',
-      4 => 'OTA',
+      0=>'Présentation',
+      1=>'Paramétrage',
+      2=>'Récupération',
+      3=>'Interne',
+      4=>'OTA',
     ),
     'I' => array(
-      'I_BATTERY_LEVEL' => 0,
-      'I_TIME' => 1,
-      'I_VERSION' => 2,
-      'I_ID_REQUEST' => 3,
-      'I_ID_RESPONSE' => 4,
-      'I_INCLUSION_MODE' => 5,
-      'I_CONFIG' => 6,
-      'I_PING' => 7,
-      'I_PING_ACK' => 8,
-      'I_LOG_MESSAGE' => 9,
-      'I_CHILDREN' => 10,
-      'I_SKETCH_NAME' => 11,
-      'I_SKETCH_VERSION' => 12,
-      'I_REBOOT' => 13,
+      'I_BATTERY_LEVEL'=> 0,
+      'I_TIME'=> 1,
+      'I_VERSION'=> 2,
+      'I_ID_REQUEST'=> 3,
+      'I_ID_RESPONSE'=> 4,
+      'I_INCLUSION_MODE'=> 5,
+      'I_CONFIG'=> 6,
+      'I_PING'=> 7,
+      'I_PING_ACK'=> 8,
+      'I_LOG_MESSAGE'=> 9,
+      'I_CHILDREN'=> 10,
+      'I_SKETCH_NAME'=> 11,
+      'I_SKETCH_VERSION'=> 12,
+      'I_REBOOT'=> 13,
     ),
     'N' => array( // Type de donnée
-      0 => 'Température',
-      1 => 'Humidité',
-      2 => 'Relais',
-      3 => 'Dimmer',
-      4 => 'Pression',
-      5 => 'Prévision',
-      6 => 'Niveau de pluie',
-      7 => 'Débit de pluie',
-      8 => 'Vitesse de vent',
-      9 => 'Rafale de vent',
-      10 => 'Direction du vent',
-      11 => 'UV',
-      12 => 'Poids',
-      13 => 'Distance',
-      14 => 'Impédance',
-      15 => 'Sécurité activée',
-      16 => 'Activation',
-      17 => 'Puissance',
-      18 => 'KWh',
-      19 => 'Activation Scène',
-      20 => 'Désactivation Scène',
-      21 => 'Mode de chauffage',
-      22 => 'Radiateur',
-      23 => 'Niveau de Lumière',
-      24 => 'Variable1',
-      25 => 'Variable2',
-      26 => 'Variable3',
-      27 => 'Variable4',
-      28 => 'Virtuel',
-      29 => 'Lever',
-      30 => 'Descente',
-      31 => 'Arrêt',
-      32 => 'Envoi IR',
-      33 => 'Réception IR',
-      34 => 'Débit Eau',
-      35 => 'Volume Eau',
-      36 => 'Verrou',
-      37 => 'Poussière',
-      38 => 'Voltage',
-      39 => 'Courant',
-      40 => 'RVB',
-      41 => 'RVBB',
-      42 => 'ID',
-      43 => 'Prefix Unit',
-      44 => 'Seuil Froid',
-      45 => 'Seuil Chaud',
-      46 => 'Mode',
-      47 => 'Texte',
-      48 => 'Personnalisé',
-      49 => 'Position',
-      50 => 'Enregistrement IR',
-      51 => 'Eau PH',
-      52 => 'Eau ORP',
-      53 => 'Eau EC',
-      54 => 'VAR',
-      55 => 'VA',
-      56 => 'Ratio de puissance',
-      97 => 'Connexion',
-      98 => 'Inactivité',
-      99 => 'Batterie'
+      0=>'Température',
+      1=>'Humidité',
+      2=>'Relais',
+      3=>'Dimmer',
+      4=>'Pression',
+      5=>'Prévision',
+      6=>'Niveau de pluie',
+      7=>'Débit de pluie',
+      8=>'Vitesse de vent',
+      9=>'Rafale de vent',
+      10 =>'Direction du vent',
+      11 =>'UV',
+      12 =>'Poids',
+      13 =>'Distance',
+      14 =>'Impédance',
+      15 =>'Sécurité activée',
+      16=>'Activation',
+      17=>'Puissance',
+      18=>'KWh',
+      19=>'Activation Scène',
+      20=>'Désactivation Scène',
+      21=>'Mode de chauffage',
+      22=>'Radiateur',
+      23=>'Niveau de Lumière',
+      24=>'Variable1',
+      25=>'Variable2',
+      26=>'Variable3',
+      27=>'Variable4',
+      28=>'Virtuel',
+      29=>'Lever',
+      30=>'Descente',
+      31=>'Arrêt',
+      32=>'Envoi IR',
+      33=>'Réception IR',
+      34=>'Débit Eau',
+      35=>'Volume Eau',
+      36=>'Verrou',
+      37=>'Poussière',
+      38=>'Voltage',
+      39=>'Courant',
+      40=>'RVB',
+      41=>'RVBB',
+      42=>'ID',
+      43=>'Prefix Unit',
+      44=>'Seuil Froid',
+      45=>'Seuil Chaud',
+      46=>'Mode',
+      47=>'Texte',
+      48=>'Personnalisé',
+      49=>'Position',
+      50=>'Enregistrement IR',
+      51=>'Eau PH',
+      52=>'Eau ORP',
+      53=>'Eau EC',
+      54=>'VAR',
+      55=>'VA',
+      56=>'Ratio de puissance',
+      97=>'Connexion',
+      98=>'Inactivité',
+      99=>'Batterie'
     ),
     'S' => array( // 'S_TYPE', 'Nom', 'widget', 'variable, 'unité', 'historique', 'affichage'
-      0 => array('S_DOOR', 'Ouverture', 'door', 'binary', '', '', '1', 'OPENING',),
-      1 => array('S_MOTION', 'Mouvement', 'presence', 'binary', '', '', '1', 'PRESENCE',),
-      2 => array('S_SMOKE', 'Fumée', 'line', 'binary', '', '', '1', 'SMOKE',),
-      3 => array('S_LIGHT', 'Relais', 'light', 'binary', '', '', '0', 'ENERGY_STATE',),
-      4 => array('S_DIMMER', 'Variateur', 'light', 'numeric', '%', '', '0', 'ENERGY_STATE',),
-      5 => array('S_COVER', 'Store', 'store', 'binary', '', '', '1', 'FLAP_STATE',),
-      6 => array('S_TEMP', 'Température', 'line', 'numeric', '°C', '1', '1', 'TEMPERATURE',),
-      7 => array('S_HUM', 'Humidité', 'line', 'numeric', '%', '1', '1', 'HUMIDITY',),
-      8 => array('S_BARO', 'Baromètre', 'line', 'string', 'Pa', '1', '1', 'PRESSURE',),
-      9 => array('S_WIND', 'Vent', 'line', 'numeric', '', '', '1', 'WIND_SPEED',),
-      10 => array('S_RAIN', 'Pluie', 'line', 'numeric', 'cm', '1', '1', 'RAIN_CURRENT',),
-      11 => array('S_UV', 'UV', 'line', 'numeric', 'uvi', '1', '1', 'UV',),
-      12 => array('S_WEIGHT', 'Poids', 'line', 'numeric', 'kg', '1', '1', 'GENERIC',),
-      13 => array('S_POWER', 'Energie', 'line', 'numeric', '', '1', '1', 'POWER',),
-      14 => array('S_HEATER', 'Radiateur', 'line', 'binary', '', '', '1', 'HEATING_STATE',),
-      15 => array('S_DISTANCE', 'Distance', 'line', 'numeric', 'cm', '', '1', 'GENERIC',),
-      16 => array('S_LIGHT_LEVEL', 'Luminosité', 'line', 'numeric', '', '', '1', 'GENERIC',),
-      17 => array('S_ARDUINO_NODE', 'Noeud Arduino', 'line', 'string', '', '', '1', 'GENERIC',),
-      18 => array('S_ARDUINO_RELAY', 'Noeud Répéteur', 'line', 'string', '', '', '1', 'GENERIC',),
-      19 => array('S_LOCK', 'Verrou', 'lock', 'binary', '', '', '1', 'LOCK_STATE',),
-      20 => array('S_IR', 'Infrarouge', 'line', 'string', '', '', '1', 'GENERIC',),
-      21 => array('S_WATER', 'Eau', 'line', 'numeric', '', '1', '1', 'CONSUMPTION',),
-      22 => array('S_AIR_QUALITY', 'Qualité d Air', 'line', 'numeric', '', '1', '1', 'GENERIC',),
-      23 => array('S_CUSTOM', 'Custom', 'line', 'string', '', '', '1', 'GENERIC',),
-      24 => array('S_DUST', 'Poussière', 'line', 'numeric', 'mm', '1', '1', 'GENERIC',),
-      25 => array('S_SCENE_CONTROLLER', 'Controleur de Scène', 'alert', 'binary', '', '', '1', 'GENERIC',),
-      26 => array('S_RGB_LIGHT', 'Lampe RVB', 'line', 'string', '', '', '1', 'LIGHT_COLOR',),
-      27 => array('S_RGBW_LIGHT', 'Lampe RVB+B', 'line', 'string', '', '', '1', 'LIGHT_COLOR',),
-      28 => array('S_COLOR_SENSOR', 'Capteur de couleur', 'line', 'string', '', '', '1', 'LIGHT_COLOR',),
-      29 => array('S_HVAC', 'Thermostat', 'line', 'string', '', '', '1', 'HEATING_STATE',),
-      30 => array('S_MULTIMETER', 'Multimètre', 'line', 'string', '', '', '1', 'GENERIC',),
-      31 => array('S_SPRINKLER', 'Arrosage', 'line', 'string', '', '1', '1', 'GENERIC',),
-      32 => array('S_WATER_LEAK', 'Fuite d eau', 'line', 'binary', '', '1', '1', 'FLOOD',),
-      33 => array('S_SOUND', 'Son', 'line', 'numeric', '', '', '1', 'GENERIC',),
-      34 => array('S_VIBRATION', 'Vibration', 'line', 'numeric', 'mm', '1', '1', 'GENERIC',),
-      35 => array('S_MOISTURE', 'Humidité', 'line', 'numeric', '', '', '1', 'GENERIC',),
-      36 => array('S_INFO', 'Info texte LCD', 'line', 'string', '', '1', '1', 'FLOOD',),
-      37 => array('S_GAS', 'Gaz', 'line', 'numeric', '', '', '1', 'GENERIC',),
-      38 => array('S_GPS', 'GPS', 'line', 'numeric', 'mm', '1', '1', 'GENERIC',),
-      39 => array('S_WATER_QUALITY', 'Qualité Eau', 'line', 'numeric', '', '', '1', 'GENERIC',),
-      97 => array('GATEWAY', 'Connexion avec Gateway', 'line', 'string', '', '', '0', 'GENERIC',),
-      98 => array('INNA_NODE', 'Inactivité des Nodes', 'line', 'string', '', '', '0', 'GENERIC',),
-      99 => array('BATTERIE', 'Etat de la batterie', 'line', 'numeric', '%', '', '1', 'BATTERY',)
+      0 => array('S_DOOR','Ouverture','door','binary','','','1','OPENING',),
+      1 => array('S_MOTION','Mouvement','presence','binary','','','1','PRESENCE',),
+      2 => array('S_SMOKE','Fumée','line','binary','','','1','SMOKE',),
+      3 => array('S_LIGHT','Relais','light','binary','','','0','ENERGY_STATE',),
+      4 => array('S_DIMMER','Variateur','light','numeric','%','','0','ENERGY_STATE',),
+      5 => array('S_COVER','Store','store','binary','','','1','FLAP_STATE',),
+      6 => array('S_TEMP','Température','line','numeric','°C','1','1','TEMPERATURE',),
+      7 => array('S_HUM','Humidité','line','numeric','%','1','1','HUMIDITY',),
+      8 => array('S_BARO','Baromètre','line','string','Pa','1','1','PRESSURE',),
+      9 => array('S_WIND','Vent','line','numeric','','','1','WIND_SPEED',),
+      10 => array('S_RAIN','Pluie','line','numeric','cm','1','1','RAIN_CURRENT',),
+      11 => array('S_UV','UV','line','numeric','uvi','1','1','UV',),
+      12 => array('S_WEIGHT','Poids','line','numeric','kg','1','1','GENERIC',),
+      13 => array('S_POWER','Energie','line','numeric','','1','1','POWER',),
+      14 => array('S_HEATER','Radiateur','line','binary','','','1','HEATING_STATE',),
+      15 => array('S_DISTANCE','Distance','line','numeric','cm','','1','GENERIC',),
+      16 => array('S_LIGHT_LEVEL','Luminosité','line','numeric','','','1','GENERIC',),
+      17 => array('S_ARDUINO_NODE','Noeud Arduino','line','string','','','1','GENERIC',),
+      18 => array('S_ARDUINO_RELAY','Noeud Répéteur','line','string','','','1','GENERIC',),
+      19 => array('S_LOCK','Verrou','lock','binary','','','1','LOCK_STATE',),
+      20 => array('S_IR','Infrarouge','line','string','','','1','GENERIC',),
+      21 => array('S_WATER','Eau','line','numeric','','1','1','CONSUMPTION',),
+      22 => array('S_AIR_QUALITY','Qualité d Air','line','numeric','','1','1','GENERIC',),
+      23 => array('S_CUSTOM','Custom','line','string','','','1','GENERIC',),
+      24 => array('S_DUST','Poussière','line','numeric','mm','1','1','GENERIC',),
+      25 => array('S_SCENE_CONTROLLER','Controleur de Scène','alert','binary','','','1','GENERIC',),
+      26 => array('S_RGB_LIGHT','Lampe RVB','line','string','','','1','LIGHT_COLOR',),
+      27 => array('S_RGBW_LIGHT','Lampe RVB+B','line','string','','','1','LIGHT_COLOR',),
+      28 => array('S_COLOR_SENSOR','Capteur de couleur','line','string','','','1','LIGHT_COLOR',),
+      29 => array('S_HVAC','Thermostat','line','string','','','1','HEATING_STATE',),
+      30 => array('S_MULTIMETER','Multimètre','line','string','','','1','GENERIC',),
+      31 => array('S_SPRINKLER','Arrosage','line','string','','1','1','GENERIC',),
+      32 => array('S_WATER_LEAK','Fuite d eau','line','binary','','1','1','FLOOD',),
+      33 => array('S_SOUND','Son','line','numeric','','','1','GENERIC',),
+      34 => array('S_VIBRATION','Vibration','line','numeric','mm','1','1','GENERIC',),
+      35 => array('S_MOISTURE','Humidité','line','numeric','','','1','GENERIC',),
+      36 => array('S_INFO','Info texte LCD','line','string','','1','1','FLOOD',),
+      37 => array('S_GAS','Gaz','line','numeric','','','1','GENERIC',),
+      38 => array('S_GPS','GPS','line','numeric','mm','1','1','GENERIC',),
+      39 => array('S_WATER_QUALITY','Qualité Eau','line','numeric','','','1','GENERIC',),
+      97 => array('GATEWAY','Connexion avec Gateway','line','string','','','0','GENERIC',),
+      98 => array('INNA_NODE','Inactivité des Nodes','line','string','','','0','GENERIC',),
+      99 => array('BATTERIE','Etat de la batterie','line','numeric','%','','1','BATTERY',)
     )
 
   );
@@ -179,12 +179,12 @@ class mySensors extends eqLogic {
     $return = array();
     $return['log'] = 'mySensors_node';
     $return['state'] = 'nok';
-    $pid = trim(shell_exec('ps ax | grep "mySensors/resources/mysensors.js" | grep -v "grep" | wc -l'));
+    $pid = trim( shell_exec ('ps ax | grep "mySensors/resources/mysensors.js" | grep -v "grep" | wc -l') );
     if ($pid != '' && $pid != '0') {
       $return['state'] = 'ok';
     }
     $return['launchable'] = 'ok';
-    if ((config::byKey('nodeGateway', 'mySensors') == 'none' || config::byKey('nodeGateway', 'mySensors') == '') && (config::byKey('netgate', 'mySensors') == '')) {
+    if ((config::byKey('nodeGateway', 'mySensors') == 'none' || config::byKey('nodeGateway', 'mySensors') == '') && (config::byKey('netgate','mySensors') == '')) {
       $return['launchable'] = 'nok';
       $return['launchable_message'] = __('Aucune gateway configurée', __FILE__);
     }
@@ -204,10 +204,10 @@ class mySensors extends eqLogic {
     if (config::byKey('nodeGateway', 'mySensors') != 'none' && config::byKey('nodeGateway', 'mySensors') != '') {
       if (config::byKey('nodeGateway', 'mySensors') != 'network' && config::byKey('nodeGateway', 'mySensors') != 'networkServer') {
         $usbGateway = jeedom::getUsbMapping(config::byKey('nodeGateway', 'mySensors'));
-        if ($usbGateway == '') {
+        if ($usbGateway == '' ) {
           throw new Exception(__('Le port : ', __FILE__) . $usbGateway . __(' n\'existe pas', __FILE__));
         }
-        log::add('mySensors', 'info', 'Lancement du démon mySensors : Gateway ' . $usbGateway);
+        log::add('mySensors','info','Lancement du démon mySensors : Gateway ' . $usbGateway);
 
         if ($usbGateway != "none") {
           exec('sudo chmod -R 777 ' . $usbGateway);
@@ -216,7 +216,7 @@ class mySensors extends eqLogic {
 
         mySensors::launch_svc($url, $gateway);
       } else {
-        $gate = explode(":", config::byKey('network', 'mySensors'));
+        $gate = explode(":", config::byKey('network','mySensors'));
         $gateway = $gate[0] . ' ' . config::byKey('network', 'mySensors') . ' ' . config::byKey('nodeGateway', 'mySensors');
         mySensors::launch_svc($url, $gateway);
       }
@@ -272,7 +272,7 @@ class mySensors extends eqLogic {
   }
 
   public static function sendCommand($gateway, $destination, $sensor, $command, $acknowledge, $type, $payload) {
-    if (config::byKey('network', 'mySensors') != '' && strpos(config::byKey('network', 'mySensors'), $gateway) !== false) {
+    if (config::byKey('network','mySensors') != '' && strpos(config::byKey('network','mySensors'), $gateway) !== false) {
       $ip = '127.0.0.1';
     } else {
       //default master
@@ -283,12 +283,12 @@ class mySensors extends eqLogic {
       }
     }
     $port = '8019';
-    $msg = $destination . ";" . $sensor . ";" . $command . ";" . $acknowledge . ";" . $type . ";" . $payload;
-    log::add('mySensors', 'debug', 'Gateway ' . $ip . ':' . $port . ' -> message = destination:' . $destination . ', sensor:' . $sensor . ', command:' . $command . ', acknowledge:' . $acknowledge . ', type:' . $type . ' (' . self::$_dico['N'][$type] . '), payload:' . $payload);
-    mySensors::sendToController($ip, $port, $msg);
+    $msg = $destination . ";" . $sensor . ";" . $command . ";" . $acknowledge . ";" .$type . ";" . $payload;
+	log::add('mySensors','debug','Gateway ' . $ip . ':' . $port . ' -> message = destination:'.$destination.', sensor:'.$sensor.', command:'.$command.', acknowledge:'.$acknowledge.', type:'.$type.' ('.self::$_dico['N'][$type].'), payload:'.$payload);
+    mySensors::sendToController($ip,$port,$msg);
   }
 
-  public static function sendToController($ip, $port, $msg) {
+  public static function sendToController( $ip, $port, $msg ) {
     log::add('mySensors', 'info', $msg);
     $fp = fsockopen($ip, $port, $errstr);
     if (!$fp) {
@@ -303,21 +303,21 @@ class mySensors extends eqLogic {
     config::save('netgate', $value,  'mySensors');
   }
 
-  public static function getValue($gateway, $nodeid, $sensor, $type) {
-    $cmdId = 'Sensor' . $sensor;
+  public static function getValue($gateway,$nodeid,$sensor,$type) {
+    $cmdId = 'Sensor'.$sensor;
     $elogic = self::byLogicalId($nodeid, 'mySensors');
     if (is_object($elogic)) {
       $elogic->setStatus('lastCommunication', date('Y-m-d H:i:s'));
       $elogic->save();
-      $cmdlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(), $cmdId);
+      $cmdlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(),$cmdId);
       if (is_object($cmdlogic)) {
         if ($cmdlogic->getConfiguration('sensorCategory') == "23" && $type == "28") {
-          $idvirt = str_replace("#", "", $cmdlogic->getConfiguration('value'));
+          $idvirt = str_replace("#","",$cmdlogic->getConfiguration('value'));
           $cmdvirt = cmd::byId($idvirt);
 
           if (is_object($cmdvirt)) {
             //echo $cmdvirt->execCmd();
-            mySensors::sendCommand($gateway, $nodeid, $sensor, '1', '0', $type, $cmdvirt->execCmd());
+            mySensors::sendCommand( $gateway, $nodeid, $sensor, '1', '0', $type, $cmdvirt->execCmd() );
             log::add('mySensors', 'debug', 'Valeur virtuelle transmise');
           } else {
             //echo "Virtuel KO";
@@ -326,24 +326,24 @@ class mySensors extends eqLogic {
           }
         } else {
           //echo $cmdlogic->execCmd();
-          mySensors::sendCommand($gateway, $nodeid, $sensor, '1', '0', $type, $cmdlogic->execCmd());
+          mySensors::sendCommand( $gateway, $nodeid, $sensor, '1', '0', $type, $cmdlogic->execCmd() );
           log::add('mySensors', 'debug', 'Valeur de capteur transmise');
         }
-      } else {
+      }else{
         //echo "Valeur KO";
         log::add('mySensors', 'error', 'Valeur non définie');
       }
-      $cmdlogic->event($value); // FIXME: $value is not defined, what is this supposed to be?
+      $cmdlogic->event($value); // FIXME: $value is not defined
     }
   }
 
   public static function getNextSensorId($gateway) {
-    if (config::byKey('include_mode', 'mySensors') == 1) {
+    if (config::byKey('include_mode','mySensors') == 1) {
       $id = 1;
       $limit = 254;
       while ($id < 255) {
         $exist = 0;
-        foreach (self::byType('mySensors') as $elogic) {
+        foreach( self::byType( 'mySensors' ) as $elogic) {
           if ($elogic->getConfiguration('nodeid') == $id) {
             $exist = 1;
           }
@@ -355,20 +355,20 @@ class mySensors extends eqLogic {
         }
       }
       //doit cibler seulement la bonne gateway avec sendToController
-      mySensors::sendCommand($gateway, '255', '255', '3', '0', '4', $id);
+      mySensors::sendCommand( $gateway, '255', '255', '3', '0', '4', $id );
     }
   }
 
-  public static function saveValue($gateway, $nodeid, $sensor, $type, $value) {
-    $cmdId = 'Sensor' . $sensor;
+  public static function saveValue($gateway, $nodeid,$sensor,$type, $value) {
+    $cmdId = 'Sensor'.$sensor;
     $elogic = self::byLogicalId($nodeid, 'mySensors');
     if (is_object($elogic)) {
       $elogic->setStatus('lastCommunication', date('Y-m-d H:i:s'));
-      if ($elogic->getConfiguration('gateway', '') != $gateway) {
-        $elogic->setConfiguration('gateway', $gateway);
+      if ( $elogic->getConfiguration('gateway', '') != $gateway ) {
+        $elogic->setConfiguration('gateway',$gateway);
       }
       $elogic->save();
-      $cmdlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(), $cmdId);
+      $cmdlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(),$cmdId);
       if (is_object($cmdlogic)) {
         $cmdlogic->setConfiguration('value', $value);
         $cmdlogic->setConfiguration('sensorType', $type);
@@ -383,25 +383,26 @@ class mySensors extends eqLogic {
   public static function saveBatteryLevel($gateway, $nodeid, $value) {
     $elogic = self::byLogicalId($nodeid, 'mySensors');
     if (is_object($elogic)) {
-      $elogic->setConfiguration('battery', $value);
+      $elogic->setConfiguration('battery',$value);
       $elogic->batteryStatus($value);
       $elogic->setStatus('lastCommunication', date('Y-m-d H:i:s'));
       $elogic->save();
     }
+
   }
 
   public static function saveSketchNameEvent($gateway, $nodeid, $value) {
-    if (config::byKey('include_mode', 'mySensors') == 1) {
+    if (config::byKey('include_mode','mySensors') == 1) {
       $elogic = self::byLogicalId($nodeid, 'mySensors');
       if (is_object($elogic)) {
         if ($elogic->getConfiguration('SketchName', '') != $value) {
-          $elogic->setConfiguration('SketchName', $value);
+          $elogic->setConfiguration('SketchName',$value);
           //si le sketch a changé sur le node, alors on set le nom avec le sketch
-          $elogic->setName($value . ' - ' . $nodeid);
+          $elogic->setName($value.' - '.$nodeid);
           $elogic->save();
         }
         if ($elogic->getConfiguration('gateway', '') != $gateway) {
-          $elogic->setConfiguration('gateway', $gateway);
+          $elogic->setConfiguration('gateway',$gateway);
           $elogic->save();
         }
       } else {
@@ -410,8 +411,8 @@ class mySensors extends eqLogic {
         $mys->setLogicalId($nodeid);
         $mys->setConfiguration('nodeid', $nodeid);
         $mys->setConfiguration('gateway', $gateway);
-        $mys->setConfiguration('SketchName', $value);
-        $mys->setName($value . ' - ' . $nodeid);
+        $mys->setConfiguration('SketchName',$value);
+        $mys->setName($value.' - '.$nodeid);
         $mys->setIsEnable(true);
         $mys->save();
         event::add('mySensors::includeDevice', $mys->getId());
@@ -427,8 +428,8 @@ class mySensors extends eqLogic {
     $elogic = self::byLogicalId($nodeid, 'mySensors');
     sleep(1);
     if (is_object($elogic)) {
-      if ($elogic->getConfiguration('SketchVersion', '') != $value) {
-        $elogic->setConfiguration('SketchVersion', $value);
+      if ( $elogic->getConfiguration('SketchVersion', '') != $value ) {
+        $elogic->setConfiguration('SketchVersion',$value);
         $elogic->save();
       }
     }
@@ -438,12 +439,12 @@ class mySensors extends eqLogic {
     sleep(1);
     if ($nodeid == '0') {
       config::save('gateLib', $value,  'mySensors');
-      log::add('mySensors', 'info', 'Gateway Lib ' . $value . config::byKey('gateLib', 'mySensors'));
+      log::add('mySensors', 'info', 'Gateway Lib ' . $value . config::byKey('gateLib','mySensors'));
     } else {
       $elogic = self::byLogicalId($nodeid, 'mySensors');
       if (is_object($elogic)) {
-        if ($elogic->getConfiguration('LibVersion', '') != $value) {
-          $elogic->setConfiguration('LibVersion', $value);
+        if ( $elogic->getConfiguration('LibVersion', '') != $value ) {
+          $elogic->setConfiguration('LibVersion',$value);
           $elogic->save();
         }
       }
@@ -451,11 +452,11 @@ class mySensors extends eqLogic {
   }
 
   public static function saveSensor($gateway, $nodeid, $sensor, $value) {
-    log::add('mySensors', 'debug', 'saveSensor(gateway : ' . $gateway . ', nodeid : ' . $nodeid . ', sensor : ' . $sensor . ', value : ' . $value . ' (' . self::$_dico['S'][$value][1] . '))');
+    log::add('mySensors','debug','saveSensor(gateway : '.$gateway.', nodeid : '.$nodeid.', sensor : '.$sensor.', value : '.$value.' ('.self::$_dico['S'][$value][1].'))');
     sleep(1);
     //exemple : 0 => array('S_DOOR','Ouverture','door','binary','','','1',),
     $name = self::$_dico['S'][$value][1];
-    if ($name == false) {
+    if ($name == false ) {
       $name = 'UNKNOWN';
     }
     $unite = self::$_dico['S'][$value][4];
@@ -465,18 +466,19 @@ class mySensors extends eqLogic {
     $history = self::$_dico['S'][$value][5];
     $visible = self::$_dico['S'][$value][6];
     $generictype = self::$_dico['S'][$value][7];
-    $cmdId = 'Sensor' . $sensor;
+    $cmdId = 'Sensor'.$sensor;
     $elogic = self::byLogicalId($nodeid, 'mySensors');
     if (is_object($elogic)) {
-      $cmdlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(), $cmdId);
+      $cmdlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(),$cmdId);
       if (is_object($cmdlogic)) {
-        log::add('mySensors', 'debug', 'La commande existe déjà, pas besoin de la créer');
-        if ($cmdlogic->getConfiguration('sensorCategory', '') != $sType) {
+	    log::add('mySensors','debug','La commande existe déjà, pas besoin de la créer');
+        if ( $cmdlogic->getConfiguration('sensorCategory', '') != $sType ) {
           $cmdlogic->setConfiguration('sensorCategory', $sType);
           $cmdlogic->save();
         }
-      } else {
-        log::add('mySensors', 'debug', 'La commande n\'existe pas, création');
+      }
+      else {
+	    log::add('mySensors','debug','La commande n\'existe pas, création');
         $mysCmd = new mySensorsCmd();
         $cmds = $elogic->getCmd();
         $order = count($cmds);
@@ -488,23 +490,23 @@ class mySensors extends eqLogic {
         $mysCmd->setLogicalId($cmdId);
         $mysCmd->setType('info');
         $mysCmd->setSubType($info);
-        $mysCmd->setName($name . " " . $sensor);
-        $mysCmd->setUnite($unite);
+        $mysCmd->setName( $name . " " . $sensor );
+        $mysCmd->setUnite( $unite );
         $mysCmd->setIsVisible($visible);
         if ($info != 'string') {
           $mysCmd->setIsHistorized($history);
         }
-        $mysCmd->setTemplate("mobile", $widget);
-        $mysCmd->setTemplate("dashboard", $widget);
-        $mysCmd->setDisplay('generic_type', $generictype);
+        $mysCmd->setTemplate("mobile",$widget );
+        $mysCmd->setTemplate("dashboard",$widget );
+        $mysCmd->setDisplay('generic_type',$generictype);
         $mysCmd->save();
       }
       if ($name == 'Relais') {
-        $relonId = 'Relais' . $sensor . 'On';
-        $reloffId = 'Relais' . $sensor . 'Off';
-        $onlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(), $relonId);
-        $offlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(), $reloffId);
-        $cmdlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(), $cmdId);
+        $relonId = 'Relais'.$sensor.'On';
+        $reloffId = 'Relais'.$sensor.'Off';
+        $onlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(),$relonId);
+        $offlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(),$reloffId);
+        $cmdlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(),$cmdId);
         $cmId = $cmdlogic->getId();
         if (!is_object($offlogic)) {
           $mysCmd = new mySensorsCmd();
@@ -521,11 +523,11 @@ class mySensors extends eqLogic {
           $mysCmd->setType('action');
           $mysCmd->setSubType('other');
           $mysCmd->setValue($cmId);
-          $mysCmd->setTemplate("dashboard", "light");
-          $mysCmd->setTemplate("mobile", "light");
-          $mysCmd->setDisplay('parameters', array('displayName' => 1));
-          $mysCmd->setName("Off " . $sensor);
-          $mysCmd->setDisplay('generic_type', 'ENERGY_OFF');
+          $mysCmd->setTemplate("dashboard","light" );
+          $mysCmd->setTemplate("mobile","light" );
+          $mysCmd->setDisplay('parameters',array('displayName' => 1));
+          $mysCmd->setName( "Off ". $sensor );
+          $mysCmd->setDisplay('generic_type','ENERGY_OFF');
           $mysCmd->save();
         }
         if (!is_object($onlogic)) {
@@ -543,20 +545,21 @@ class mySensors extends eqLogic {
           $mysCmd->setType('action');
           $mysCmd->setSubType('other');
           $mysCmd->setValue($cmId);
-          $mysCmd->setTemplate("dashboard", "light");
-          $mysCmd->setTemplate("mobile", "light");
-          $mysCmd->setDisplay('parameters', array('displayName' => 1));
-          $mysCmd->setName("On " . $sensor);
-          $mysCmd->setDisplay('generic_type', 'ENERGY_ON');
+          $mysCmd->setTemplate("dashboard","light" );
+          $mysCmd->setTemplate("mobile","light" );
+          $mysCmd->setDisplay('parameters',array('displayName' => 1));
+          $mysCmd->setName( "On " . $sensor );
+          $mysCmd->setDisplay('generic_type','ENERGY_ON');
           $mysCmd->save();
         }
+
       }
       if ($name == 'Verrou') {
-        $relonId = 'Verrou' . $sensor . 'On';
-        $reloffId = 'Verrou' . $sensor . 'Off';
-        $onlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(), $relonId);
-        $offlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(), $reloffId);
-        $cmdlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(), $cmdId);
+        $relonId = 'Verrou'.$sensor.'On';
+        $reloffId = 'Verrou'.$sensor.'Off';
+        $onlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(),$relonId);
+        $offlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(),$reloffId);
+        $cmdlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(),$cmdId);
         $cmId = $cmdlogic->getId();
         if (!is_object($offlogic)) {
           $mysCmd = new mySensorsCmd();
@@ -573,11 +576,11 @@ class mySensors extends eqLogic {
           $mysCmd->setType('action');
           $mysCmd->setSubType('other');
           $mysCmd->setValue($cmId);
-          $mysCmd->setTemplate("dashboard", "lock");
-          $mysCmd->setTemplate("mobile", "lock");
-          $mysCmd->setDisplay('parameters', array('displayName' => 1));
-          $mysCmd->setName("Off " . $sensor);
-          $mysCmd->setDisplay('generic_type', 'LOCK_CLOSE');
+          $mysCmd->setTemplate("dashboard","lock" );
+          $mysCmd->setTemplate("mobile","lock" );
+          $mysCmd->setDisplay('parameters',array('displayName' => 1));
+          $mysCmd->setName( "Off ". $sensor );
+          $mysCmd->setDisplay('generic_type','LOCK_CLOSE');
           $mysCmd->save();
         }
         if (!is_object($onlogic)) {
@@ -595,18 +598,19 @@ class mySensors extends eqLogic {
           $mysCmd->setType('action');
           $mysCmd->setSubType('other');
           $mysCmd->setValue($cmId);
-          $mysCmd->setTemplate("dashboard", "lock");
-          $mysCmd->setTemplate("mobile", "lock");
-          $mysCmd->setDisplay('parameters', array('displayName' => 1));
-          $mysCmd->setName("On " . $sensor);
-          $mysCmd->setDisplay('generic_type', 'LOCK_OPEN');
+          $mysCmd->setTemplate("dashboard","lock" );
+          $mysCmd->setTemplate("mobile","lock" );
+          $mysCmd->setDisplay('parameters',array('displayName' => 1));
+          $mysCmd->setName( "On " . $sensor );
+          $mysCmd->setDisplay('generic_type','LOCK_OPEN');
           $mysCmd->save();
         }
+
       }
       if ($name == 'Variateur') {
-        $dimmerId = 'Dimmer' . $sensor;
-        $dimlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(), $dimmerId);
-        $cmdlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(), $cmdId);
+        $dimmerId = 'Dimmer'.$sensor;
+        $dimlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(),$dimmerId);
+        $cmdlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(),$cmdId);
         $cmId = $cmdlogic->getId();
         if (!is_object($dimlogic)) {
           $mysCmd = new mySensorsCmd();
@@ -623,18 +627,18 @@ class mySensors extends eqLogic {
           $mysCmd->setType('action');
           $mysCmd->setSubType('slider');
           $mysCmd->setValue($cmId);
-          $mysCmd->setTemplate("dashboard", "light");
-          $mysCmd->setTemplate("mobile", "light");
-          $mysCmd->setDisplay('parameters', array('displayName' => 1));
-          $mysCmd->setName("Set " . $sensor);
-          $mysCmd->setDisplay('generic_type', 'ENERGY_SLIDER');
+          $mysCmd->setTemplate("dashboard","light" );
+          $mysCmd->setTemplate("mobile","light" );
+          $mysCmd->setDisplay('parameters',array('displayName' => 1));
+          $mysCmd->setName( "Set " . $sensor );
+          $mysCmd->setDisplay('generic_type','ENERGY_SLIDER');
           $mysCmd->save();
         }
-        $relonId = 'Dimmer' . $sensor . 'On';
-        $reloffId = 'Dimmer' . $sensor . 'Off';
-        $onlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(), $relonId);
-        $offlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(), $reloffId);
-        $cmdlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(), $cmdId);
+        $relonId = 'Dimmer'.$sensor.'On';
+        $reloffId = 'Dimmer'.$sensor.'Off';
+        $onlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(),$relonId);
+        $offlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(),$reloffId);
+        $cmdlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(),$cmdId);
         $cmId = $cmdlogic->getId();
         if (!is_object($offlogic)) {
           $mysCmd = new mySensorsCmd();
@@ -651,8 +655,8 @@ class mySensors extends eqLogic {
           $mysCmd->setType('action');
           $mysCmd->setSubType('other');
           $mysCmd->setValue($cmId);
-          $mysCmd->setName("Off Dimmer " . $sensor);
-          $mysCmd->setDisplay('generic_type', 'ENERGY_OFF');
+          $mysCmd->setName( "Off Dimmer ". $sensor );
+          $mysCmd->setDisplay('generic_type','ENERGY_OFF');
           $mysCmd->save();
         }
         if (!is_object($onlogic)) {
@@ -670,15 +674,15 @@ class mySensors extends eqLogic {
           $mysCmd->setType('action');
           $mysCmd->setSubType('other');
           $mysCmd->setValue($cmId);
-          $mysCmd->setName("On Dimmer " . $sensor);
-          $mysCmd->setDisplay('generic_type', 'ENERGY_ON');
+          $mysCmd->setName( "On Dimmer " . $sensor );
+          $mysCmd->setDisplay('generic_type','ENERGY_ON');
           $mysCmd->save();
         }
       }
       if ($name == 'Infrarouge') {
-        $dimmerId = 'EnvoiIR' . $sensor;
-        $dimlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(), $dimmerId);
-        $cmdlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(), $cmdId);
+        $dimmerId = 'EnvoiIR'.$sensor;
+        $dimlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(),$dimmerId);
+        $cmdlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(),$cmdId);
         $cmId = $cmdlogic->getId();
         if (!is_object($dimlogic)) {
           $mysCmd = new mySensorsCmd();
@@ -695,16 +699,16 @@ class mySensors extends eqLogic {
           $mysCmd->setType('action');
           $mysCmd->setSubType('message');
           $mysCmd->setValue($cmId);
-          $mysCmd->setName("Envoi IR " . $sensor);
+          $mysCmd->setName( "Envoi IR " . $sensor );
           $mysCmd->save();
         }
       }
       if ($name == 'Radiateur') {
-        $relonId = 'Radiateur' . $sensor . 'On';
-        $reloffId = 'Radiateur' . $sensor . 'Off';
-        $onlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(), $relonId);
-        $offlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(), $reloffId);
-        $cmdlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(), $cmdId);
+        $relonId = 'Radiateur'.$sensor.'On';
+        $reloffId = 'Radiateur'.$sensor.'Off';
+        $onlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(),$relonId);
+        $offlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(),$reloffId);
+        $cmdlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(),$cmdId);
         $cmId = $cmdlogic->getId();
         if (!is_object($offlogic)) {
           $mysCmd = new mySensorsCmd();
@@ -721,8 +725,8 @@ class mySensors extends eqLogic {
           $mysCmd->setType('action');
           $mysCmd->setSubType('other');
           $mysCmd->setValue($cmId);
-          $mysCmd->setName("Off Radiateur " . $sensor);
-          $mysCmd->setDisplay('generic_type', 'HEATING_OFF');
+          $mysCmd->setName( "Off Radiateur ". $sensor );
+          $mysCmd->setDisplay('generic_type','HEATING_OFF');
           $mysCmd->save();
         }
         if (!is_object($onlogic)) {
@@ -740,19 +744,19 @@ class mySensors extends eqLogic {
           $mysCmd->setType('action');
           $mysCmd->setSubType('other');
           $mysCmd->setValue($cmId);
-          $mysCmd->setName("On Radiateur " . $sensor);
-          $mysCmd->setDisplay('generic_type', 'HEATING_ON');
+          $mysCmd->setName( "On Radiateur " . $sensor );
+          $mysCmd->setDisplay('generic_type','HEATING_ON');
           $mysCmd->save();
         }
       }
       if ($name == 'Store') {
-        $relonId = 'Store' . $sensor . 'Up';
-        $reloffId = 'Store' . $sensor . 'Down';
-        $relstopId = 'Store' . $sensor . 'Stop';
-        $onlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(), $relonId);
-        $offlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(), $reloffId);
-        $stoplogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(), $relstopId);
-        $cmdlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(), $cmdId);
+        $relonId = 'Store'.$sensor.'Up';
+        $reloffId = 'Store'.$sensor.'Down';
+        $relstopId = 'Store'.$sensor.'Stop';
+        $onlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(),$relonId);
+        $offlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(),$reloffId);
+        $stoplogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(),$relstopId);
+        $cmdlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(),$cmdId);
         $cmId = $cmdlogic->getId();
         if (!is_object($offlogic)) {
           $mysCmd = new mySensorsCmd();
@@ -769,8 +773,8 @@ class mySensors extends eqLogic {
           $mysCmd->setType('action');
           $mysCmd->setSubType('other');
           $mysCmd->setValue($cmId);
-          $mysCmd->setName("Relever Store " . $sensor);
-          $mysCmd->setDisplay('generic_type', 'FLAP_UP');
+          $mysCmd->setName( "Relever Store ". $sensor );
+          $mysCmd->setDisplay('generic_type','FLAP_UP');
           $mysCmd->save();
         }
         if (!is_object($onlogic)) {
@@ -788,8 +792,8 @@ class mySensors extends eqLogic {
           $mysCmd->setType('action');
           $mysCmd->setSubType('other');
           $mysCmd->setValue($cmId);
-          $mysCmd->setName("Baisser Store " . $sensor);
-          $mysCmd->setDisplay('generic_type', 'FLAP_DOWN');
+          $mysCmd->setName( "Baisser Store " . $sensor );
+          $mysCmd->setDisplay('generic_type','FLAP_DOWN');
           $mysCmd->save();
         }
         if (!is_object($stoplogic)) {
@@ -807,8 +811,8 @@ class mySensors extends eqLogic {
           $mysCmd->setType('action');
           $mysCmd->setSubType('other');
           $mysCmd->setValue($cmId);
-          $mysCmd->setName("Arrêt Store " . $sensor);
-          $mysCmd->setDisplay('generic_type', 'FLAP_STOP');
+          $mysCmd->setName( "Arrêt Store " . $sensor );
+          $mysCmd->setDisplay('generic_type','FLAP_STOP');
           $mysCmd->save();
         }
       }
