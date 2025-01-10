@@ -205,7 +205,7 @@ class mySensors extends eqLogic {
       if (config::byKey('nodeGateway', 'mySensors') != 'network' && config::byKey('nodeGateway', 'mySensors') != 'networkServer') {
         $usbGateway = jeedom::getUsbMapping(config::byKey('nodeGateway', 'mySensors'));
         if ($usbGateway == '' ) {
-          throw new Exception(__('Le port : ', __FILE__) . $port . __(' n\'existe pas', __FILE__));
+          throw new Exception(__('Le port : ', __FILE__) . $usbGateway . __(' n\'existe pas', __FILE__));
         }
         log::add('mySensors','info','Lancement du démon mySensors : Gateway ' . $usbGateway);
 
@@ -220,9 +220,7 @@ class mySensors extends eqLogic {
         $gateway = $gate[0] . ' ' . config::byKey('network', 'mySensors') . ' ' . config::byKey('nodeGateway', 'mySensors');
         mySensors::launch_svc($url, $gateway);
       }
-
     }
-
   }
 
   public static function launch_svc($url, $gateway) {
@@ -335,7 +333,7 @@ class mySensors extends eqLogic {
         //echo "Valeur KO";
         log::add('mySensors', 'error', 'Valeur non définie');
       }
-      $cmdlogic->event($value);
+      $cmdlogic->event($value); // FIXME: $value is not defined
     }
   }
 
@@ -397,18 +395,17 @@ class mySensors extends eqLogic {
     if (config::byKey('include_mode','mySensors') == 1) {
       $elogic = self::byLogicalId($nodeid, 'mySensors');
       if (is_object($elogic)) {
-        if ( $elogic->getConfiguration('SketchName', '') != $value ) {
+        if ($elogic->getConfiguration('SketchName', '') != $value) {
           $elogic->setConfiguration('SketchName',$value);
           //si le sketch a changé sur le node, alors on set le nom avec le sketch
           $elogic->setName($value.' - '.$nodeid);
           $elogic->save();
         }
-        if ( $elogic->getConfiguration('gateway', '') != $gateway ) {
+        if ($elogic->getConfiguration('gateway', '') != $gateway) {
           $elogic->setConfiguration('gateway',$gateway);
           $elogic->save();
         }
-      }
-      else {
+      } else {
         $mys = new mySensors();
         $mys->setEqType_name('mySensors');
         $mys->setLogicalId($nodeid);
@@ -826,52 +823,52 @@ class mySensors extends eqLogic {
 class mySensorsCmd extends cmd {
   public function execute($_options = null) {
     switch ($this->getType()) {
-      case 'info' :
-      return $this->getConfiguration('value');
-      break;
-      case 'action' :
-      $request = $this->getConfiguration('request');
-      switch ($this->getSubType()) {
-        case 'slider':
-        $request = str_replace('#slider#', $_options['slider'], $request);
+      case 'info':
+        return $this->getConfiguration('value');
         break;
-        case 'color':
-        $request = str_replace('#color#', $_options['color'], $request);
-        break;
-        case 'message':
-        if ($_options != null)  {
-          $replace = array('#title#', '#message#');
-          $replaceBy = array($_options['title'], $_options['message']);
-          if ( $_options['title'] == '') {
-            throw new Exception(__('Le sujet ne peuvent être vide', __FILE__));
-          }
-          $request = str_replace($replace, $replaceBy, $request);
+      case 'action':
+        $request = $this->getConfiguration('request');
+        switch ($this->getSubType()) {
+          case 'slider':
+            $request = str_replace('#slider#', $_options['slider'], $request);
+            break;
+          case 'color':
+            $request = str_replace('#color#', $_options['color'], $request);
+            break;
+          case 'message':
+            if ($_options != null) {
+              $replace = array('#title#', '#message#');
+              $replaceBy = array($_options['title'], $_options['message']);
+              if ($_options['title'] == '') {
+                throw new Exception(__('Le sujet ne peuvent être vide', __FILE__));
+              }
+              $request = str_replace($replace, $replaceBy, $request);
+            } else
+              $request = 1;
+            break;
+          default:
+            $request == null ?  1 : $request;
         }
-        else
-        $request = 1;
-        break;
-        default : $request == null ?  1 : $request;
-      }
 
-      $eqLogic = $this->getEqLogic();
-      if ($eqLogic->getConfiguration('gateway', '') == '') {
-        log::add('mySensors', 'error', 'Gateway non définie, merci de relancer le noeud');
-        return true;
-      }
+        $eqLogic = $this->getEqLogic();
+        if ($eqLogic->getConfiguration('gateway', '') == '') {
+          log::add('mySensors', 'error', 'Gateway non définie, merci de relancer le noeud');
+          return true;
+        }
 
-      $result = mySensors::sendCommand(
-      $eqLogic->getConfiguration('gateway'),
-      $eqLogic->getConfiguration('nodeid'),
-      $this->getConfiguration('sensor'),
-      $this->getConfiguration('cmdCommande'),
-      1,
-      $this->getConfiguration('cmdtype'),
-      $request
-    );
+        $result = mySensors::sendCommand(
+          $eqLogic->getConfiguration('gateway'),
+          $eqLogic->getConfiguration('nodeid'),
+          $this->getConfiguration('sensor'),
+          $this->getConfiguration('cmdCommande'),
+          1,
+          $this->getConfiguration('cmdtype'),
+          $request
+        );
 
-    $result = $request;
-    return $result;
+        $result = $request;
+        return $result;
+    }
+    return true;
   }
-  return true;
-}
 }

@@ -25,7 +25,7 @@ try {
     }
 
     if (init('action') == 'restartEq') {
-        ajax::success(mySensors::sendCommand( init('gateway'), init('node'), '0', '3', '0', '13', '0' ));
+        ajax::success(mySensors::sendCommand(init('gateway'), init('node'), '0', '3', '0', '13', '0'));
     }
 
     if (init('action') == 'netgate') {
@@ -35,6 +35,5 @@ try {
     throw new Exception(__('{{Aucune methode correspondante à}} : ', __FILE__) . init('action'));
     /*     * *********Catch exeption*************** */
 } catch (Exception $e) {
-    ajax::error(displayExeption($e), $e->getCode());
+    ajax::error(displayException($e), $e->getCode());
 }
-?>
