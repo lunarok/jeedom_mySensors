@@ -3,7 +3,7 @@
         "Aucune gateway configurée": "No gateway set"
     },
     "plugins\/mySensors\/plugin_info\/configuration.php": {
-        "Gateway série maître": "Gateway série maître",
+        "Gateway série maître": "Master serial gateway",
         "Aucune": "None",
         "Réseau client": "Client network",
         "Réseau serveur": "Server network",
