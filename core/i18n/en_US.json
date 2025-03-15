@@ -8,7 +8,8 @@
         "Réseau client": "Client network",
         "Réseau serveur": "Server network",
         "Gateway réseau": "Gateway adress",
-        "Interface d'écoute": "Listen interface"
+        "Interface d'écoute": "Listen interface",
+        "Automatiquement créer les commandes": "Automatically create nodes commands"
     },
     "plugins\/mySensors\/desktop\/php\/mySensors.php": {
         "Ouverture": "Opening",

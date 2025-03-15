@@ -8,7 +8,8 @@
         "Réseau client": "Réseau client",
         "Réseau serveur": "Réseau serveur",
         "Gateway réseau": "Gateway réseau",
-        "Interface d'écoute": "Interface d'écoute"
+        "Interface d'écoute": "Interface d'écoute",
+        "Automatiquement créer les commandes": "Automatiquement créer les commandes des noeuds"
     },
     "plugins\/mySensors\/desktop\/php\/mySensors.php": {
         "Ouverture": "Ouverture",
