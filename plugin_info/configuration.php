@@ -29,7 +29,7 @@ if (!isConnect()) {
   <div class="form-group">
     <fieldset>
 
-      <div id="div_local" class="form-group">
+    <div id="div_local" class="form-group">
         <label class="col-lg-4 control-label">{{Gateway série maître}} :</label>
         <div class="col-lg-4">
           <select id="select_port" style="margin-top:5px" class="configKey form-control" data-l1key="nodeGateway">
@@ -43,6 +43,21 @@ if (!isConnect()) {
             ?>
           </select>
 
+        </div>
+      </div>
+
+      <?php
+        $value = config::byKey( 'autoCreateCommands', 'mySensors', '1', true );
+        $checked = '';
+        if( $value == '1' ){
+          $checked = 'checked';
+        }
+      ?>
+
+      <div id="div_local" class="form-group">
+        <label class="col-lg-4 control-label" for="auto_create">{{Automatiquement créer les commandes}} :</label>
+        <div class="col-lg-4">
+          <input type="checkbox" id="auto_create" class="configKey form-control" data-l1key="autoCreateCommands" <?php echo $checked; ?> />
         </div>
       </div>
 

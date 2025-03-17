@@ -110,19 +110,15 @@ $('.changeIncludeState').on('click', function () {
     success: function () {
       if (el.attr('data-state') == 1) {
         $.hideAlert();
-        $('.changeIncludeState:not(.card)').removeClass('btn-default').addClass('btn-success');
         $('.changeIncludeState').attr('data-state', 0);
-        $('.changeIncludeState.card').css('background-color', '#8000FF');
-        $('.changeIncludeState.card span center').text('{{Arrêter l\'inclusion}}');
-        $('.changeIncludeState:not(.card)').html('<i class="fas fa-sign-in fa-rotate-90"></i> {{Arreter inclusion}}');
+        $('.changeIncludeState.card').removeClass('logoSecondary').addClass('logoPrimary');
+        $('.changeIncludeState.card span').text('{{Arrêter l\'inclusion}}');
         $('#div_inclusionAlert').showAlert({ message: '{{Vous etes en mode inclusion. Recliquez sur le bouton d\'inclusion pour sortir de ce mode}}', level: 'warning' });
       } else {
         $.hideAlert();
-        $('.changeIncludeState:not(.card)').addClass('btn-default').removeClass('btn-success btn-danger');
         $('.changeIncludeState').attr('data-state', 1);
-        $('.changeIncludeState:not(.card)').html('<i class="fas fa-sign-in fa-rotate-90"></i> {{Mode inclusion}}');
-        $('.changeIncludeState.card span center').text('{{Mode inclusion}}');
-        $('.changeIncludeState.card').css('background-color', '#ffffff');
+        $('.changeIncludeState.card').removeClass('logoPrimary').addClass('logoSecondary');
+        $('.changeIncludeState.card span').text('{{Inclusion}}');
         $('#div_inclusionAlert').hideAlert();
       }
     }

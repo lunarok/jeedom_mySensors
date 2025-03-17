@@ -44,15 +44,22 @@ if ($state == 1) {
 
       <?php
       if ($state == 1) {
-        echo '<div class="cursor logoSecondary changeIncludeState card" data-state="0">';
+        ?>
+          <div class="cursor logoPrimary changeIncludeState card" data-state="0">';
+          <i class="fas fa-plus-circle"></i>
+          <br/>
+          <span>{{Arrêter l\'inclusion}}</span>
+        <?php
       } else {
-        echo '<div class="cursor logoSecondary changeIncludeState card" data-state="1">';
+        ?>
+          <div class="cursor logoSecondary changeIncludeState card" data-state="1">';
+          <i class="fas fa-plus-circle"></i>
+          <br/>
+          <span>{{Inclusion}}</span>
+        <?php
       }
       ?>
 
-          <i class="fas fa-plus-circle"></i>
-          <br/>
-        <span>{{Inclusion}}</span>
       </div>
       <div class="cursor eqLogicAction logoSecondary" data-action="gotoPluginConf">
         <i class="fas fa-wrench"></i>

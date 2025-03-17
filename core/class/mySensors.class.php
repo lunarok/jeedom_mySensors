@@ -459,6 +459,10 @@ class mySensors extends eqLogic {
     if ($name == false ) {
       $name = 'UNKNOWN';
     }
+    // only auto create commands if in inclusion mode or autoCreate is set (which is the default anyway)
+    $autoCreate = config::byKey('autoCreateCommands','mySensors','1');
+    $includeMode = config::byKey('include_mode','mySensors','0');
+    $hasCmdlogic = false;
     $unite = self::$_dico['S'][$value][4];
     $sType = $value;
     $info = self::$_dico['S'][$value][3];
@@ -471,14 +475,15 @@ class mySensors extends eqLogic {
     if (is_object($elogic)) {
       $cmdlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(),$cmdId);
       if (is_object($cmdlogic)) {
-	    log::add('mySensors','debug','La commande existe déjà, pas besoin de la créer');
+	      log::add('mySensors','debug','La commande existe déjà, pas besoin de la créer');
         if ( $cmdlogic->getConfiguration('sensorCategory', '') != $sType ) {
           $cmdlogic->setConfiguration('sensorCategory', $sType);
           $cmdlogic->save();
         }
+        $hasCmdlogic = true;
       }
-      else {
-	    log::add('mySensors','debug','La commande n\'existe pas, création');
+      else if ($autoCreate == '1' || $includeMode == '1') {
+	      log::add('mySensors','debug','La commande n\'existe pas, création');
         $mysCmd = new mySensorsCmd();
         $cmds = $elogic->getCmd();
         $order = count($cmds);
@@ -500,320 +505,323 @@ class mySensors extends eqLogic {
         $mysCmd->setTemplate("dashboard",$widget );
         $mysCmd->setDisplay('generic_type',$generictype);
         $mysCmd->save();
+        $hasCmdlogic = true;
+      } else {
+        log::add('mySensors','debug','La commande n\'existe pas, n\'est pas automatiquement créée (includeMode='.$includeMode.', autoCreate='.$autoCreate.')');
       }
-      if ($name == 'Relais') {
-        $relonId = 'Relais'.$sensor.'On';
-        $reloffId = 'Relais'.$sensor.'Off';
-        $onlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(),$relonId);
-        $offlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(),$reloffId);
-        $cmdlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(),$cmdId);
-        $cmId = $cmdlogic->getId();
-        if (!is_object($offlogic)) {
-          $mysCmd = new mySensorsCmd();
-          $cmds = $elogic->getCmd();
-          $order = count($cmds);
-          $mysCmd->setOrder($order);
-          $mysCmd->setConfiguration('cmdCommande', '1');
-          $mysCmd->setConfiguration('request', '0');
-          $mysCmd->setConfiguration('cmdtype', '2');
-          $mysCmd->setConfiguration('sensor', $sensor);
-          $mysCmd->setEqLogic_id($elogic->getId());
-          $mysCmd->setEqType('mySensors');
-          $mysCmd->setLogicalId($reloffId);
-          $mysCmd->setType('action');
-          $mysCmd->setSubType('other');
-          $mysCmd->setValue($cmId);
-          $mysCmd->setTemplate("dashboard","light" );
-          $mysCmd->setTemplate("mobile","light" );
-          $mysCmd->setDisplay('parameters',array('displayName' => 1));
-          $mysCmd->setName( "Off ". $sensor );
-          $mysCmd->setDisplay('generic_type','ENERGY_OFF');
-          $mysCmd->save();
+      if ($hasCmdlogic) {
+        if ($name == 'Relais') {
+          $relonId = 'Relais'.$sensor.'On';
+          $reloffId = 'Relais'.$sensor.'Off';
+          $onlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(),$relonId);
+          $offlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(),$reloffId);
+          $cmdlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(),$cmdId);
+          $cmId = $cmdlogic->getId();
+          if (!is_object($offlogic)) {
+            $mysCmd = new mySensorsCmd();
+            $cmds = $elogic->getCmd();
+            $order = count($cmds);
+            $mysCmd->setOrder($order);
+            $mysCmd->setConfiguration('cmdCommande', '1');
+            $mysCmd->setConfiguration('request', '0');
+            $mysCmd->setConfiguration('cmdtype', '2');
+            $mysCmd->setConfiguration('sensor', $sensor);
+            $mysCmd->setEqLogic_id($elogic->getId());
+            $mysCmd->setEqType('mySensors');
+            $mysCmd->setLogicalId($reloffId);
+            $mysCmd->setType('action');
+            $mysCmd->setSubType('other');
+            $mysCmd->setValue($cmId);
+            $mysCmd->setTemplate("dashboard","light" );
+            $mysCmd->setTemplate("mobile","light" );
+            $mysCmd->setDisplay('parameters',array('displayName' => 1));
+            $mysCmd->setName( "Off ". $sensor );
+            $mysCmd->setDisplay('generic_type','ENERGY_OFF');
+            $mysCmd->save();
+          }
+          if (!is_object($onlogic)) {
+            $mysCmd = new mySensorsCmd();
+            $cmds = $elogic->getCmd();
+            $order = count($cmds);
+            $mysCmd->setOrder($order);
+            $mysCmd->setConfiguration('cmdCommande', '1');
+            $mysCmd->setConfiguration('request', '1');
+            $mysCmd->setConfiguration('cmdtype', '2');
+            $mysCmd->setConfiguration('sensor', $sensor);
+            $mysCmd->setEqLogic_id($elogic->getId());
+            $mysCmd->setEqType('mySensors');
+            $mysCmd->setLogicalId($relonId);
+            $mysCmd->setType('action');
+            $mysCmd->setSubType('other');
+            $mysCmd->setValue($cmId);
+            $mysCmd->setTemplate("dashboard","light" );
+            $mysCmd->setTemplate("mobile","light" );
+            $mysCmd->setDisplay('parameters',array('displayName' => 1));
+            $mysCmd->setName( "On " . $sensor );
+            $mysCmd->setDisplay('generic_type','ENERGY_ON');
+            $mysCmd->save();
+          }
         }
-        if (!is_object($onlogic)) {
-          $mysCmd = new mySensorsCmd();
-          $cmds = $elogic->getCmd();
-          $order = count($cmds);
-          $mysCmd->setOrder($order);
-          $mysCmd->setConfiguration('cmdCommande', '1');
-          $mysCmd->setConfiguration('request', '1');
-          $mysCmd->setConfiguration('cmdtype', '2');
-          $mysCmd->setConfiguration('sensor', $sensor);
-          $mysCmd->setEqLogic_id($elogic->getId());
-          $mysCmd->setEqType('mySensors');
-          $mysCmd->setLogicalId($relonId);
-          $mysCmd->setType('action');
-          $mysCmd->setSubType('other');
-          $mysCmd->setValue($cmId);
-          $mysCmd->setTemplate("dashboard","light" );
-          $mysCmd->setTemplate("mobile","light" );
-          $mysCmd->setDisplay('parameters',array('displayName' => 1));
-          $mysCmd->setName( "On " . $sensor );
-          $mysCmd->setDisplay('generic_type','ENERGY_ON');
-          $mysCmd->save();
+        if ($name == 'Verrou') {
+          $relonId = 'Verrou'.$sensor.'On';
+          $reloffId = 'Verrou'.$sensor.'Off';
+          $onlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(),$relonId);
+          $offlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(),$reloffId);
+          $cmdlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(),$cmdId);
+          $cmId = $cmdlogic->getId();
+          if (!is_object($offlogic)) {
+            $mysCmd = new mySensorsCmd();
+            $cmds = $elogic->getCmd();
+            $order = count($cmds);
+            $mysCmd->setOrder($order);
+            $mysCmd->setConfiguration('cmdCommande', '1');
+            $mysCmd->setConfiguration('request', '1');
+            $mysCmd->setConfiguration('cmdtype', '36');
+            $mysCmd->setConfiguration('sensor', $sensor);
+            $mysCmd->setEqLogic_id($elogic->getId());
+            $mysCmd->setEqType('mySensors');
+            $mysCmd->setLogicalId($reloffId);
+            $mysCmd->setType('action');
+            $mysCmd->setSubType('other');
+            $mysCmd->setValue($cmId);
+            $mysCmd->setTemplate("dashboard","lock" );
+            $mysCmd->setTemplate("mobile","lock" );
+            $mysCmd->setDisplay('parameters',array('displayName' => 1));
+            $mysCmd->setName( "Off ". $sensor );
+            $mysCmd->setDisplay('generic_type','LOCK_CLOSE');
+            $mysCmd->save();
+          }
+          if (!is_object($onlogic)) {
+            $mysCmd = new mySensorsCmd();
+            $cmds = $elogic->getCmd();
+            $order = count($cmds);
+            $mysCmd->setOrder($order);
+            $mysCmd->setConfiguration('cmdCommande', '1');
+            $mysCmd->setConfiguration('request', '0');
+            $mysCmd->setConfiguration('cmdtype', '36');
+            $mysCmd->setConfiguration('sensor', $sensor);
+            $mysCmd->setEqLogic_id($elogic->getId());
+            $mysCmd->setEqType('mySensors');
+            $mysCmd->setLogicalId($relonId);
+            $mysCmd->setType('action');
+            $mysCmd->setSubType('other');
+            $mysCmd->setValue($cmId);
+            $mysCmd->setTemplate("dashboard","lock" );
+            $mysCmd->setTemplate("mobile","lock" );
+            $mysCmd->setDisplay('parameters',array('displayName' => 1));
+            $mysCmd->setName( "On " . $sensor );
+            $mysCmd->setDisplay('generic_type','LOCK_OPEN');
+            $mysCmd->save();
+          }
         }
-
-      }
-      if ($name == 'Verrou') {
-        $relonId = 'Verrou'.$sensor.'On';
-        $reloffId = 'Verrou'.$sensor.'Off';
-        $onlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(),$relonId);
-        $offlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(),$reloffId);
-        $cmdlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(),$cmdId);
-        $cmId = $cmdlogic->getId();
-        if (!is_object($offlogic)) {
-          $mysCmd = new mySensorsCmd();
-          $cmds = $elogic->getCmd();
-          $order = count($cmds);
-          $mysCmd->setOrder($order);
-          $mysCmd->setConfiguration('cmdCommande', '1');
-          $mysCmd->setConfiguration('request', '1');
-          $mysCmd->setConfiguration('cmdtype', '36');
-          $mysCmd->setConfiguration('sensor', $sensor);
-          $mysCmd->setEqLogic_id($elogic->getId());
-          $mysCmd->setEqType('mySensors');
-          $mysCmd->setLogicalId($reloffId);
-          $mysCmd->setType('action');
-          $mysCmd->setSubType('other');
-          $mysCmd->setValue($cmId);
-          $mysCmd->setTemplate("dashboard","lock" );
-          $mysCmd->setTemplate("mobile","lock" );
-          $mysCmd->setDisplay('parameters',array('displayName' => 1));
-          $mysCmd->setName( "Off ". $sensor );
-          $mysCmd->setDisplay('generic_type','LOCK_CLOSE');
-          $mysCmd->save();
+        if ($name == 'Variateur') {
+          $dimmerId = 'Dimmer'.$sensor;
+          $dimlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(),$dimmerId);
+          $cmdlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(),$cmdId);
+          $cmId = $cmdlogic->getId();
+          if (!is_object($dimlogic)) {
+            $mysCmd = new mySensorsCmd();
+            $cmds = $elogic->getCmd();
+            $order = count($cmds);
+            $mysCmd->setOrder($order);
+            $mysCmd->setConfiguration('cmdCommande', '1');
+            $mysCmd->setConfiguration('request', '#slider#');
+            $mysCmd->setConfiguration('cmdtype', '3');
+            $mysCmd->setConfiguration('sensor', $sensor);
+            $mysCmd->setEqLogic_id($elogic->getId());
+            $mysCmd->setEqType('mySensors');
+            $mysCmd->setLogicalId($dimmerId);
+            $mysCmd->setType('action');
+            $mysCmd->setSubType('slider');
+            $mysCmd->setValue($cmId);
+            $mysCmd->setTemplate("dashboard","light" );
+            $mysCmd->setTemplate("mobile","light" );
+            $mysCmd->setDisplay('parameters',array('displayName' => 1));
+            $mysCmd->setName( "Set " . $sensor );
+            $mysCmd->setDisplay('generic_type','ENERGY_SLIDER');
+            $mysCmd->save();
+          }
+          $relonId = 'Dimmer'.$sensor.'On';
+          $reloffId = 'Dimmer'.$sensor.'Off';
+          $onlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(),$relonId);
+          $offlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(),$reloffId);
+          $cmdlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(),$cmdId);
+          $cmId = $cmdlogic->getId();
+          if (!is_object($offlogic)) {
+            $mysCmd = new mySensorsCmd();
+            $cmds = $elogic->getCmd();
+            $order = count($cmds);
+            $mysCmd->setOrder($order);
+            $mysCmd->setConfiguration('cmdCommande', '1');
+            $mysCmd->setConfiguration('request', '0');
+            $mysCmd->setConfiguration('cmdtype', '3');
+            $mysCmd->setConfiguration('sensor', $sensor);
+            $mysCmd->setEqLogic_id($elogic->getId());
+            $mysCmd->setEqType('mySensors');
+            $mysCmd->setLogicalId($reloffId);
+            $mysCmd->setType('action');
+            $mysCmd->setSubType('other');
+            $mysCmd->setValue($cmId);
+            $mysCmd->setName( "Off Dimmer ". $sensor );
+            $mysCmd->setDisplay('generic_type','ENERGY_OFF');
+            $mysCmd->save();
+          }
+          if (!is_object($onlogic)) {
+            $mysCmd = new mySensorsCmd();
+            $cmds = $elogic->getCmd();
+            $order = count($cmds);
+            $mysCmd->setOrder($order);
+            $mysCmd->setConfiguration('cmdCommande', '1');
+            $mysCmd->setConfiguration('request', '100');
+            $mysCmd->setConfiguration('cmdtype', '3');
+            $mysCmd->setConfiguration('sensor', $sensor);
+            $mysCmd->setEqLogic_id($elogic->getId());
+            $mysCmd->setEqType('mySensors');
+            $mysCmd->setLogicalId($relonId);
+            $mysCmd->setType('action');
+            $mysCmd->setSubType('other');
+            $mysCmd->setValue($cmId);
+            $mysCmd->setName( "On Dimmer " . $sensor );
+            $mysCmd->setDisplay('generic_type','ENERGY_ON');
+            $mysCmd->save();
+          }
         }
-        if (!is_object($onlogic)) {
-          $mysCmd = new mySensorsCmd();
-          $cmds = $elogic->getCmd();
-          $order = count($cmds);
-          $mysCmd->setOrder($order);
-          $mysCmd->setConfiguration('cmdCommande', '1');
-          $mysCmd->setConfiguration('request', '0');
-          $mysCmd->setConfiguration('cmdtype', '36');
-          $mysCmd->setConfiguration('sensor', $sensor);
-          $mysCmd->setEqLogic_id($elogic->getId());
-          $mysCmd->setEqType('mySensors');
-          $mysCmd->setLogicalId($relonId);
-          $mysCmd->setType('action');
-          $mysCmd->setSubType('other');
-          $mysCmd->setValue($cmId);
-          $mysCmd->setTemplate("dashboard","lock" );
-          $mysCmd->setTemplate("mobile","lock" );
-          $mysCmd->setDisplay('parameters',array('displayName' => 1));
-          $mysCmd->setName( "On " . $sensor );
-          $mysCmd->setDisplay('generic_type','LOCK_OPEN');
-          $mysCmd->save();
+        if ($name == 'Infrarouge') {
+          $dimmerId = 'EnvoiIR'.$sensor;
+          $dimlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(),$dimmerId);
+          $cmdlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(),$cmdId);
+          $cmId = $cmdlogic->getId();
+          if (!is_object($dimlogic)) {
+            $mysCmd = new mySensorsCmd();
+            $cmds = $elogic->getCmd();
+            $order = count($cmds);
+            $mysCmd->setOrder($order);
+            $mysCmd->setConfiguration('cmdCommande', '1');
+            $mysCmd->setConfiguration('request', '');
+            $mysCmd->setConfiguration('cmdtype', '32');
+            $mysCmd->setConfiguration('sensor', $sensor);
+            $mysCmd->setEqLogic_id($elogic->getId());
+            $mysCmd->setEqType('mySensors');
+            $mysCmd->setLogicalId($dimmerId);
+            $mysCmd->setType('action');
+            $mysCmd->setSubType('message');
+            $mysCmd->setValue($cmId);
+            $mysCmd->setName( "Envoi IR " . $sensor );
+            $mysCmd->save();
+          }
         }
-
-      }
-      if ($name == 'Variateur') {
-        $dimmerId = 'Dimmer'.$sensor;
-        $dimlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(),$dimmerId);
-        $cmdlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(),$cmdId);
-        $cmId = $cmdlogic->getId();
-        if (!is_object($dimlogic)) {
-          $mysCmd = new mySensorsCmd();
-          $cmds = $elogic->getCmd();
-          $order = count($cmds);
-          $mysCmd->setOrder($order);
-          $mysCmd->setConfiguration('cmdCommande', '1');
-          $mysCmd->setConfiguration('request', '#slider#');
-          $mysCmd->setConfiguration('cmdtype', '3');
-          $mysCmd->setConfiguration('sensor', $sensor);
-          $mysCmd->setEqLogic_id($elogic->getId());
-          $mysCmd->setEqType('mySensors');
-          $mysCmd->setLogicalId($dimmerId);
-          $mysCmd->setType('action');
-          $mysCmd->setSubType('slider');
-          $mysCmd->setValue($cmId);
-          $mysCmd->setTemplate("dashboard","light" );
-          $mysCmd->setTemplate("mobile","light" );
-          $mysCmd->setDisplay('parameters',array('displayName' => 1));
-          $mysCmd->setName( "Set " . $sensor );
-          $mysCmd->setDisplay('generic_type','ENERGY_SLIDER');
-          $mysCmd->save();
+        if ($name == 'Radiateur') {
+          $relonId = 'Radiateur'.$sensor.'On';
+          $reloffId = 'Radiateur'.$sensor.'Off';
+          $onlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(),$relonId);
+          $offlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(),$reloffId);
+          $cmdlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(),$cmdId);
+          $cmId = $cmdlogic->getId();
+          if (!is_object($offlogic)) {
+            $mysCmd = new mySensorsCmd();
+            $cmds = $elogic->getCmd();
+            $order = count($cmds);
+            $mysCmd->setOrder($order);
+            $mysCmd->setConfiguration('cmdCommande', '1');
+            $mysCmd->setConfiguration('request', '0');
+            $mysCmd->setConfiguration('cmdtype', '22');
+            $mysCmd->setConfiguration('sensor', $sensor);
+            $mysCmd->setEqLogic_id($elogic->getId());
+            $mysCmd->setEqType('mySensors');
+            $mysCmd->setLogicalId($reloffId);
+            $mysCmd->setType('action');
+            $mysCmd->setSubType('other');
+            $mysCmd->setValue($cmId);
+            $mysCmd->setName( "Off Radiateur ". $sensor );
+            $mysCmd->setDisplay('generic_type','HEATING_OFF');
+            $mysCmd->save();
+          }
+          if (!is_object($onlogic)) {
+            $mysCmd = new mySensorsCmd();
+            $cmds = $elogic->getCmd();
+            $order = count($cmds);
+            $mysCmd->setOrder($order);
+            $mysCmd->setConfiguration('cmdCommande', '1');
+            $mysCmd->setConfiguration('request', '1');
+            $mysCmd->setConfiguration('cmdtype', '22');
+            $mysCmd->setConfiguration('sensor', $sensor);
+            $mysCmd->setEqLogic_id($elogic->getId());
+            $mysCmd->setEqType('mySensors');
+            $mysCmd->setLogicalId($relonId);
+            $mysCmd->setType('action');
+            $mysCmd->setSubType('other');
+            $mysCmd->setValue($cmId);
+            $mysCmd->setName( "On Radiateur " . $sensor );
+            $mysCmd->setDisplay('generic_type','HEATING_ON');
+            $mysCmd->save();
+          }
         }
-        $relonId = 'Dimmer'.$sensor.'On';
-        $reloffId = 'Dimmer'.$sensor.'Off';
-        $onlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(),$relonId);
-        $offlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(),$reloffId);
-        $cmdlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(),$cmdId);
-        $cmId = $cmdlogic->getId();
-        if (!is_object($offlogic)) {
-          $mysCmd = new mySensorsCmd();
-          $cmds = $elogic->getCmd();
-          $order = count($cmds);
-          $mysCmd->setOrder($order);
-          $mysCmd->setConfiguration('cmdCommande', '1');
-          $mysCmd->setConfiguration('request', '0');
-          $mysCmd->setConfiguration('cmdtype', '3');
-          $mysCmd->setConfiguration('sensor', $sensor);
-          $mysCmd->setEqLogic_id($elogic->getId());
-          $mysCmd->setEqType('mySensors');
-          $mysCmd->setLogicalId($reloffId);
-          $mysCmd->setType('action');
-          $mysCmd->setSubType('other');
-          $mysCmd->setValue($cmId);
-          $mysCmd->setName( "Off Dimmer ". $sensor );
-          $mysCmd->setDisplay('generic_type','ENERGY_OFF');
-          $mysCmd->save();
-        }
-        if (!is_object($onlogic)) {
-          $mysCmd = new mySensorsCmd();
-          $cmds = $elogic->getCmd();
-          $order = count($cmds);
-          $mysCmd->setOrder($order);
-          $mysCmd->setConfiguration('cmdCommande', '1');
-          $mysCmd->setConfiguration('request', '100');
-          $mysCmd->setConfiguration('cmdtype', '3');
-          $mysCmd->setConfiguration('sensor', $sensor);
-          $mysCmd->setEqLogic_id($elogic->getId());
-          $mysCmd->setEqType('mySensors');
-          $mysCmd->setLogicalId($relonId);
-          $mysCmd->setType('action');
-          $mysCmd->setSubType('other');
-          $mysCmd->setValue($cmId);
-          $mysCmd->setName( "On Dimmer " . $sensor );
-          $mysCmd->setDisplay('generic_type','ENERGY_ON');
-          $mysCmd->save();
-        }
-      }
-      if ($name == 'Infrarouge') {
-        $dimmerId = 'EnvoiIR'.$sensor;
-        $dimlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(),$dimmerId);
-        $cmdlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(),$cmdId);
-        $cmId = $cmdlogic->getId();
-        if (!is_object($dimlogic)) {
-          $mysCmd = new mySensorsCmd();
-          $cmds = $elogic->getCmd();
-          $order = count($cmds);
-          $mysCmd->setOrder($order);
-          $mysCmd->setConfiguration('cmdCommande', '1');
-          $mysCmd->setConfiguration('request', '');
-          $mysCmd->setConfiguration('cmdtype', '32');
-          $mysCmd->setConfiguration('sensor', $sensor);
-          $mysCmd->setEqLogic_id($elogic->getId());
-          $mysCmd->setEqType('mySensors');
-          $mysCmd->setLogicalId($dimmerId);
-          $mysCmd->setType('action');
-          $mysCmd->setSubType('message');
-          $mysCmd->setValue($cmId);
-          $mysCmd->setName( "Envoi IR " . $sensor );
-          $mysCmd->save();
-        }
-      }
-      if ($name == 'Radiateur') {
-        $relonId = 'Radiateur'.$sensor.'On';
-        $reloffId = 'Radiateur'.$sensor.'Off';
-        $onlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(),$relonId);
-        $offlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(),$reloffId);
-        $cmdlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(),$cmdId);
-        $cmId = $cmdlogic->getId();
-        if (!is_object($offlogic)) {
-          $mysCmd = new mySensorsCmd();
-          $cmds = $elogic->getCmd();
-          $order = count($cmds);
-          $mysCmd->setOrder($order);
-          $mysCmd->setConfiguration('cmdCommande', '1');
-          $mysCmd->setConfiguration('request', '0');
-          $mysCmd->setConfiguration('cmdtype', '22');
-          $mysCmd->setConfiguration('sensor', $sensor);
-          $mysCmd->setEqLogic_id($elogic->getId());
-          $mysCmd->setEqType('mySensors');
-          $mysCmd->setLogicalId($reloffId);
-          $mysCmd->setType('action');
-          $mysCmd->setSubType('other');
-          $mysCmd->setValue($cmId);
-          $mysCmd->setName( "Off Radiateur ". $sensor );
-          $mysCmd->setDisplay('generic_type','HEATING_OFF');
-          $mysCmd->save();
-        }
-        if (!is_object($onlogic)) {
-          $mysCmd = new mySensorsCmd();
-          $cmds = $elogic->getCmd();
-          $order = count($cmds);
-          $mysCmd->setOrder($order);
-          $mysCmd->setConfiguration('cmdCommande', '1');
-          $mysCmd->setConfiguration('request', '1');
-          $mysCmd->setConfiguration('cmdtype', '22');
-          $mysCmd->setConfiguration('sensor', $sensor);
-          $mysCmd->setEqLogic_id($elogic->getId());
-          $mysCmd->setEqType('mySensors');
-          $mysCmd->setLogicalId($relonId);
-          $mysCmd->setType('action');
-          $mysCmd->setSubType('other');
-          $mysCmd->setValue($cmId);
-          $mysCmd->setName( "On Radiateur " . $sensor );
-          $mysCmd->setDisplay('generic_type','HEATING_ON');
-          $mysCmd->save();
-        }
-      }
-      if ($name == 'Store') {
-        $relonId = 'Store'.$sensor.'Up';
-        $reloffId = 'Store'.$sensor.'Down';
-        $relstopId = 'Store'.$sensor.'Stop';
-        $onlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(),$relonId);
-        $offlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(),$reloffId);
-        $stoplogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(),$relstopId);
-        $cmdlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(),$cmdId);
-        $cmId = $cmdlogic->getId();
-        if (!is_object($offlogic)) {
-          $mysCmd = new mySensorsCmd();
-          $cmds = $elogic->getCmd();
-          $order = count($cmds);
-          $mysCmd->setOrder($order);
-          $mysCmd->setConfiguration('cmdCommande', '1');
-          $mysCmd->setConfiguration('request', '1');
-          $mysCmd->setConfiguration('cmdtype', '29');
-          $mysCmd->setConfiguration('sensor', $sensor);
-          $mysCmd->setEqLogic_id($elogic->getId());
-          $mysCmd->setEqType('mySensors');
-          $mysCmd->setLogicalId($reloffId);
-          $mysCmd->setType('action');
-          $mysCmd->setSubType('other');
-          $mysCmd->setValue($cmId);
-          $mysCmd->setName( "Relever Store ". $sensor );
-          $mysCmd->setDisplay('generic_type','FLAP_UP');
-          $mysCmd->save();
-        }
-        if (!is_object($onlogic)) {
-          $mysCmd = new mySensorsCmd();
-          $cmds = $elogic->getCmd();
-          $order = count($cmds);
-          $mysCmd->setOrder($order);
-          $mysCmd->setConfiguration('cmdCommande', '1');
-          $mysCmd->setConfiguration('request', '1');
-          $mysCmd->setConfiguration('cmdtype', '30');
-          $mysCmd->setConfiguration('sensor', $sensor);
-          $mysCmd->setEqLogic_id($elogic->getId());
-          $mysCmd->setEqType('mySensors');
-          $mysCmd->setLogicalId($relonId);
-          $mysCmd->setType('action');
-          $mysCmd->setSubType('other');
-          $mysCmd->setValue($cmId);
-          $mysCmd->setName( "Baisser Store " . $sensor );
-          $mysCmd->setDisplay('generic_type','FLAP_DOWN');
-          $mysCmd->save();
-        }
-        if (!is_object($stoplogic)) {
-          $mysCmd = new mySensorsCmd();
-          $cmds = $elogic->getCmd();
-          $order = count($cmds);
-          $mysCmd->setOrder($order);
-          $mysCmd->setConfiguration('cmdCommande', '1');
-          $mysCmd->setConfiguration('request', '1');
-          $mysCmd->setConfiguration('cmdtype', '31');
-          $mysCmd->setConfiguration('sensor', $sensor);
-          $mysCmd->setEqLogic_id($elogic->getId());
-          $mysCmd->setEqType('mySensors');
-          $mysCmd->setLogicalId($relstopId);
-          $mysCmd->setType('action');
-          $mysCmd->setSubType('other');
-          $mysCmd->setValue($cmId);
-          $mysCmd->setName( "Arrêt Store " . $sensor );
-          $mysCmd->setDisplay('generic_type','FLAP_STOP');
-          $mysCmd->save();
+        if ($name == 'Store') {
+          $relonId = 'Store'.$sensor.'Up';
+          $reloffId = 'Store'.$sensor.'Down';
+          $relstopId = 'Store'.$sensor.'Stop';
+          $onlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(),$relonId);
+          $offlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(),$reloffId);
+          $stoplogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(),$relstopId);
+          $cmdlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(),$cmdId);
+          $cmId = $cmdlogic->getId();
+          if (!is_object($offlogic)) {
+            $mysCmd = new mySensorsCmd();
+            $cmds = $elogic->getCmd();
+            $order = count($cmds);
+            $mysCmd->setOrder($order);
+            $mysCmd->setConfiguration('cmdCommande', '1');
+            $mysCmd->setConfiguration('request', '1');
+            $mysCmd->setConfiguration('cmdtype', '29');
+            $mysCmd->setConfiguration('sensor', $sensor);
+            $mysCmd->setEqLogic_id($elogic->getId());
+            $mysCmd->setEqType('mySensors');
+            $mysCmd->setLogicalId($reloffId);
+            $mysCmd->setType('action');
+            $mysCmd->setSubType('other');
+            $mysCmd->setValue($cmId);
+            $mysCmd->setName( "Relever Store ". $sensor );
+            $mysCmd->setDisplay('generic_type','FLAP_UP');
+            $mysCmd->save();
+          }
+          if (!is_object($onlogic)) {
+            $mysCmd = new mySensorsCmd();
+            $cmds = $elogic->getCmd();
+            $order = count($cmds);
+            $mysCmd->setOrder($order);
+            $mysCmd->setConfiguration('cmdCommande', '1');
+            $mysCmd->setConfiguration('request', '1');
+            $mysCmd->setConfiguration('cmdtype', '30');
+            $mysCmd->setConfiguration('sensor', $sensor);
+            $mysCmd->setEqLogic_id($elogic->getId());
+            $mysCmd->setEqType('mySensors');
+            $mysCmd->setLogicalId($relonId);
+            $mysCmd->setType('action');
+            $mysCmd->setSubType('other');
+            $mysCmd->setValue($cmId);
+            $mysCmd->setName( "Baisser Store " . $sensor );
+            $mysCmd->setDisplay('generic_type','FLAP_DOWN');
+            $mysCmd->save();
+          }
+          if (!is_object($stoplogic)) {
+            $mysCmd = new mySensorsCmd();
+            $cmds = $elogic->getCmd();
+            $order = count($cmds);
+            $mysCmd->setOrder($order);
+            $mysCmd->setConfiguration('cmdCommande', '1');
+            $mysCmd->setConfiguration('request', '1');
+            $mysCmd->setConfiguration('cmdtype', '31');
+            $mysCmd->setConfiguration('sensor', $sensor);
+            $mysCmd->setEqLogic_id($elogic->getId());
+            $mysCmd->setEqType('mySensors');
+            $mysCmd->setLogicalId($relstopId);
+            $mysCmd->setType('action');
+            $mysCmd->setSubType('other');
+            $mysCmd->setValue($cmId);
+            $mysCmd->setName( "Arrêt Store " . $sensor );
+            $mysCmd->setDisplay('generic_type','FLAP_STOP');
+            $mysCmd->save();
+          }
         }
       }
     }
