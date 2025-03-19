@@ -306,6 +306,7 @@ class mySensors extends eqLogic {
   public static function getValue($gateway,$nodeid,$sensor,$type) {
     $cmdId = 'Sensor'.$sensor;
     $elogic = self::byLogicalId($nodeid, 'mySensors');
+    log::add('mySensors', 'debug', 'gateway='.$gateway.' nodeid='.$nodeid.' sensor='.$sensor.' type='.$type);
     if (is_object($elogic)) {
       $elogic->setStatus('lastCommunication', date('Y-m-d H:i:s'));
       $elogic->save();
@@ -331,9 +332,11 @@ class mySensors extends eqLogic {
         }
       }else{
         //echo "Valeur KO";
-        log::add('mySensors', 'error', 'Valeur non définie');
+        log::add('mySensors', 'error', 'getValue() cmdLogic is not defined: eqLogicId='.$elogic->getId().' cmdId='.$cmdId);
       }
-      $cmdlogic->event($value); // FIXME: $value is not defined
+      if (isset ($value)) {
+        $cmdlogic->event($value); // FIXME: $value is not defined
+      }
     }
   }
 

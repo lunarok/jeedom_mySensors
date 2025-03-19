@@ -91,7 +91,7 @@ function connectJeedom(messagetype, sender, sensor, type, payload) {
 		if (!error && response.statusCode == 200) {
 			logDebug("Return OK from Jeedom");
 		} else{
-			logError("connectJeedom error: "+error+", statusCode: "+response.statusCode);
+			logError("connectJeedom jeeApi: \'" + jeeApi + "\', error: " + error + ", statusCode: " + response.statusCode);
 		}
 	});
 }
