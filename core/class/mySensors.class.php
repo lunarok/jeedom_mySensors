@@ -306,6 +306,7 @@ class mySensors extends eqLogic {
   public static function getValue($gateway,$nodeid,$sensor,$type) {
     $cmdId = 'Sensor'.$sensor;
     $elogic = self::byLogicalId($nodeid, 'mySensors');
+    log::add('mySensors', 'debug', 'gateway='.$gateway.' nodeid='.$nodeid.' sensor='.$sensor.' type='.$type);
     if (is_object($elogic)) {
       $elogic->setStatus('lastCommunication', date('Y-m-d H:i:s'));
       $elogic->save();
@@ -331,9 +332,11 @@ class mySensors extends eqLogic {
         }
       }else{
         //echo "Valeur KO";
-        log::add('mySensors', 'error', 'Valeur non définie');
+        log::add('mySensors', 'error', 'getValue() cmdLogic is not defined: eqLogicId='.$elogic->getId().' cmdId='.$cmdId);
       }
-      $cmdlogic->event($value); // FIXME: $value is not defined
+      if (isset ($value)) {
+        $cmdlogic->event($value); // FIXME: $value is not defined
+      }
     }
   }
 
@@ -431,22 +434,25 @@ class mySensors extends eqLogic {
       if ( $elogic->getConfiguration('SketchVersion', '') != $value ) {
         $elogic->setConfiguration('SketchVersion',$value);
         $elogic->save();
+        $elogic->setStatus('lastCommunication', date('Y-m-d H:i:s'));
       }
     }
   }
 
   public static function saveLibVersion($gateway, $nodeid, $value) {
     sleep(1);
+    // setup the gateway version
     if ($nodeid == '0') {
       config::save('gateLib', $value,  'mySensors');
-      log::add('mySensors', 'info', 'Gateway Lib ' . $value . config::byKey('gateLib','mySensors'));
-    } else {
-      $elogic = self::byLogicalId($nodeid, 'mySensors');
-      if (is_object($elogic)) {
-        if ( $elogic->getConfiguration('LibVersion', '') != $value ) {
-          $elogic->setConfiguration('LibVersion',$value);
-          $elogic->save();
-        }
+      log::add('mySensors', 'info', 'Gateway Lib ' . $value);
+    }
+    // setup the node library version
+    $elogic = self::byLogicalId($nodeid, 'mySensors');
+    if (is_object($elogic)) {
+      if ( $elogic->getConfiguration('LibVersion', '') != $value ) {
+        $elogic->setConfiguration('LibVersion',$value);
+        $elogic->save();
+        $elogic->setStatus('lastCommunication', date('Y-m-d H:i:s'));
       }
     }
   }
@@ -473,6 +479,7 @@ class mySensors extends eqLogic {
     $cmdId = 'Sensor'.$sensor;
     $elogic = self::byLogicalId($nodeid, 'mySensors');
     if (is_object($elogic)) {
+      $elogic->setStatus('lastCommunication', date('Y-m-d H:i:s'));
       $cmdlogic = mySensorsCmd::byEqLogicIdAndLogicalId($elogic->getId(),$cmdId);
       if (is_object($cmdlogic)) {
 	      log::add('mySensors','debug','La commande existe déjà, pas besoin de la créer');
